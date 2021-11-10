@@ -1,0 +1,10 @@
+{
+	"prefix": ">",
+	"colors": {
+		"default": "#BFFF00",
+		"error": "FF4500"
+	},
+  "norme": {
+    "footer": "Lightning Craft©"
+  }
+}
