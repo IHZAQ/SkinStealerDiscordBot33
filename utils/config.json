@@ -1,5 +1,5 @@
 {
-	"prefix": ">",
+	"prefix": "st!",
 	"colors": {
 		"default": "#BFFF00",
 		"error": "FF4500"

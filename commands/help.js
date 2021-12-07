@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
-const { prefix, colors } = require('./../utils/config.json');
-const embedColor = colors.default;
+const prefixModel = require("./../events/prefix")
 
 module.exports = {
 	name: 'help',
@@ -9,7 +8,9 @@ module.exports = {
 	usage: '[command name]',
 	guildOnly: false,
 	args: false,
-	execute: async (message, args, client) => {
+	execute: async (message, args, client, prefix) => {
+    let { colors, norme } = require('./../utils/config.json');
+    const embedColor = colors.default;
     if(message.author.bot) return;
 		const { commands } = message.client;
 
@@ -23,8 +24,9 @@ module.exports = {
 							' | '
 						)}\`\nYou can use \`${prefix}help {command name}\` to get more info about a specific command!`
 				)
-				.setColor(embedColor);
-			return message.channel.send(cmdHelpEmbed);
+				.setColor(embedColor)
+        .setFooter(norme.footer)
+			return message.channel.send({ embeds: [cmdHelpEmbed]});
 		}
 
 		const name = args[0].toLowerCase();
@@ -33,13 +35,14 @@ module.exports = {
 			commands.find((cmd) => cmd.aliases && cmd.aliases.includes(name));
 
 		if (!command) {
-			return message.reply('This command does not exist!');
+			return message.reply({ content: 'This command does not exist!'});
 		}
 		const cmdHelpEmbed = new Discord.MessageEmbed()
 			.setTitle(`${command.name} | Command info`)
 			.setDescription(command.description)
 			.addField('Usage', `\`${prefix + command.name} ${command.usage}\``, true)
-			.setColor(embedColor);
+			.setColor(embedColor)
+      .setFooter(norme.footer)
 
 		if (command.aliases) {
 			cmdHelpEmbed.addField(
@@ -49,6 +52,6 @@ module.exports = {
 			);
 		}
 
-		return message.channel.send(cmdHelpEmbed);
+		return message.channel.send({ embeds: [cmdHelpEmbed]});
 	},
 };

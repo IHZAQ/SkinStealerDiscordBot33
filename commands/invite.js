@@ -12,9 +12,9 @@ module.exports = {
     if(message.author.bot) return;
 		const embed = new Discord.MessageEmbed()
       .setTitle("Invite")
-      .setDescription("Click **[here](https://discord.com/api/oauth2/authorize?client_id=803524726219079690&permissions=490560&scope=bot)** to add me to your discord server")
+      .setDescription("Click **[here](https://discord.com/api/oauth2/authorize?client_id=803524726219079690&permissions=311385618496&scope=bot)** to add me to your discord server")
       .setFooter(norme.footer)
       .setColor(colors.default)
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed]})
 	},
 };

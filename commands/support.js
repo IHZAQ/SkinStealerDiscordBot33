@@ -15,6 +15,6 @@ module.exports = {
       .setDescription("Report bug? problems? Suggestion? Click **[here](https://discord.gg/3d3HBTvfaT)** to report bug")
       .setFooter(norme.footer)
       .setColor(colors.default)
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed]})
 	},
 };

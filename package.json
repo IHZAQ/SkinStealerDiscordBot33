@@ -1,17 +1,24 @@
 {
   "name": "SkinStealerDiscordBot",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.5.0",
+  "description": "This is source code for Skin Stealer Bot",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ascii-table": "0.0.9",
-    "discord.js": "^12.5.3",
-    "express": "^4.17.1"
+    "canvas": "^2.8.0",
+    "discord.js": "^13.3.1",
+    "express": "^4.17.1",
+    "minecraft-api": "0.0.3",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "node": "^16.13.1"
   }
 }

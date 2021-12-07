@@ -19,6 +19,6 @@ module.exports = {
 	)
       .setFooter(norme.footer)
       .setColor(colors.default)
-    message.channel.send(embed)
+    message.channel.send({ embeds: [embed]})
 	},
 };
