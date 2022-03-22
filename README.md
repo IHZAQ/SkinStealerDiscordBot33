@@ -1,10 +1,1 @@
-## Intruduction 
-This source code for educational purposes only.  
-Don't copy the entire code that I have wrote.  
-You can do `git clone` but at least credit me :)
-
-## Support
-If my code have problems, you can report it in [My Discord Server](http://discord.gg/ndEftjM) or just pull request or report bugs
-
-
-**`License to Lightning Craft©`**
+do `npm install` to install every package that this bot needed, then do `npm start` to start the bot. also, put your bot token in .env and your id. 
