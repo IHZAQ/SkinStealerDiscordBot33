@@ -1,0 +1,12 @@
+const { norme, colors } = require("../utils/config")
+const { MessageEmbed } = require("discord.js")
+const { SlashCommandBuilder } = require("@discordjs/builders")
+
+module.exports = {
+  data: new SlashCommandBuilder()
+    .setName("name")
+    .setDescription("desc"),
+  async execute(interact){
+    interact.reply("test")
+  }
+}
