@@ -23,9 +23,9 @@ module.exports = {
     let random = usernamelist[Math.floor(Math.random() * usernamelist.length)]
     const uuid = await uuidForName(random)
     const download = `https://minotar.net/download/${random}`
-    const avatar = `https://crafatar.com/avatars/${uuid}?overlay=true`
-    const body = `https://crafatar.com/renders/body/${uuid}?overlay=true`
-    const head = `https://crafatar.com/renders/head/${uuid}?overlay=true`
+    const avatar = `https://crafatar.com/avatars/${uuid.id}?overlay=true`
+    const body = `https://crafatar.com/renders/body/${uuid.id}?overlay=true`
+    const head = `https://crafatar.com/renders/head/${uuid.id}?overlay=true`
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -40,7 +40,10 @@ module.exports = {
       .setFooter({ text: norme.footer })
       .setImage(body)
       .setThumbnail(head)
-      .setAuthor({ name: `${random}'s skin`, iconURL: avatar })
-    await interact.editReply({ embeds: [embed], components: [row] })
+      .setAuthor({ name: `${uuid.name}'s skin`, iconURL: avatar })
+    await interact.editReply({
+      embeds: [embed],
+      components: [row]
+    })
   }
 }
