@@ -14,6 +14,9 @@ How to host your own [Skin Stealer](https://top.gg/bot/803524726219079690)
 6. Run `npm install` in terminal or shell to install all the depencies that are needed for bot to run
 7. Boom, you got yourself some skin stealer bot
 
+# Configuration Files
+You need to fill in the information inside the configuration files, which is located in `/utils/config.js`. Here few things need to be filled
+- 
 After that, run `npm start` to start your bot
 # IMPORTANT
 You can't submit this bot to bot list website like top.gg or dbl

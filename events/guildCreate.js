@@ -1,7 +1,8 @@
 const { EmbedBuilder, Events } = require("discord.js")
 const {
   colors,
-  norme
+  norme, 
+  channels: { guildjoin }
 } = require("../utils/config")
 module.exports = {
   event: Events.GuildCreate,
@@ -19,7 +20,8 @@ module.exports = {
     if (guild.systemChannel) {
       guild.systemChannel.send({ embeds: [embed] }).catch(err => {})
     }
-    const welcome = client.channels.cache.get("944546002956857394")
+    if(!guildjoin) return;
+    const welcome = client.channels.cache.get(guildjoin)
     const owner = await client.users.fetch(guild.ownerId)
     const embedW = new EmbedBuilder()
       .setColor(colors.default)

@@ -1,4 +1,8 @@
-const { norme, colors } = require("../utils/config")
+const { 
+  norme,
+  colors, 
+  channels: { reportlogs }
+} = require("../utils/config")
 const { 
   EmbedBuilder,
   SlashCommandBuilder, 
@@ -24,8 +28,8 @@ module.exports = {
       ),
   async execute(interact, client) {
     let bugs = interact.options.getString("bugs")
-    if(bugs){
-      let channel = await client.channels.fetch("945961739688763433")
+    if(bugs && reportlogs){
+      let channel = await client.channels.fetch(reportlogs)
       let member = interact.user
       const report = new EmbedBuilder()
         .setTitle(`${member.username} Reported:`)
@@ -38,7 +42,7 @@ module.exports = {
         .setFooter({text:norme.footer})
       const embed = new EmbedBuilder()
         .setTitle("Report Bug")
-        .setDescription("Bugs sent to the developer!\nWe'll try to fix it as soon as possible. :D")
+        .setDescription("Bugs sent to the developer!\nWe'll try to fix it as soon as possible. :D\nYou might get a friend request from IHZAQ#0485(The Owner) so he could get a more information about it")
         .setColor(colors.default)
         .setFooter({text:norme.footer})
       interact.reply({ embeds: [embed], ephemeral: true })

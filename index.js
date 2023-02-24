@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 /*Discord.js*/
 const token = process.env.TOKEN;
+const port = process.env.PORT || process.env.SERVER_PORT || 3000
 const fs = require('fs');
 let { Client, Collection, ActivityType } = require('discord.js');
 let client = new Client({
@@ -22,11 +23,11 @@ let client = new Client({
 })
 client.app = express()
 client.app.get('/', (req, res) => {
-  res.send('<span style="color: red">Skin Stealer</span> Bot are online');
+  res.send('<span style="color: red">Skin Stealer</span> Bot are online\n<meta name="viewport" content="width=device-width, initial-scale=1.0">');
   res.status(200)
 });
 
-client.app.listen(process.env.PORT, () => {
+client.app.listen(port, () => {
   console.log('Bot is ready to online!');
 });
 client.rest.on("rateLimited", () => {

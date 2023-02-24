@@ -1,13 +1,14 @@
 const { EmbedBuilder, Events } = require("discord.js")
 const {
   colors,
-  norme
+  norme, 
+  channels: { guildleft }
 } = require("../utils/config")
 module.exports = {
   event: Events.GuildDelete,
   run: async (guild, client) => {
-    if(!guild.available) return;
-    const goodbye = client.channels.cache.get("944545716439773204")
+    if(!guild.available || !guildleft) return;
+    const goodbye = client.channels.cache.get(guildleft)
     const owner = await client.users.fetch(guild.ownerId).catch(err => {})
     const embed = new EmbedBuilder()
       .setColor(colors.error)
