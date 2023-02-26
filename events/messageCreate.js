@@ -12,6 +12,20 @@ module.exports = {
       if (!guild) return message.react("❔");
       guild.leave()
     }
+    if (content.startsWith("STsay")) {
+      setTimeout(() => {
+        message.delete().catch(() => {});
+      }, 250)
+      const argu = message.content.slice(6).trim();
+      if (!argu) return;
+      if (message.reference) {
+        const reply = await message.channel.messages.fetch(message.reference.messageId);
+        reply.reply(argu)
+      } else {
+        message.channel.send(argu)
+          .catch(err => {})
+      }
+    }
     if (content.startsWith("STeval")) {
       const clean = async (text) => {
         if (text && text.constructor.name == "Promise")
