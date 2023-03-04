@@ -1,4 +1,3 @@
-const { norme, colors } = require("../utils/config")
 const {
   EmbedBuilder,
   SlashCommandBuilder
@@ -19,7 +18,8 @@ module.exports = {
       option.setName('username')
         .setDescription('Put invalid Minecraft username')
         .setRequired(true)),
-  async execute(interact) {
+  async execute(interact, client) {
+    const { norme, colors } = client.config
     const username = interact.options.getString("username")
     function isASCII(str) {
       return /^[\x00-\x7F]*$/.test(str);
@@ -47,4 +47,4 @@ module.exports = {
       await interact.editReply({ embeds: [notAscii], ephemeral: true })
     }
   }
-}
+}}

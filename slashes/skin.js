@@ -1,7 +1,3 @@
-const { colors, norme } = require('../utils/config');
-const embedColor = colors.default;
-const errorColor = colors.error;
-const footer = norme.footer
 const uuidForName = require("../api/mcuuid")
 const {
   EmbedBuilder,
@@ -23,7 +19,11 @@ module.exports = {
       option.setName('username')
         .setDescription('Put invalid Minecraft Username')
         .setRequired(true)),
-  async execute(interaction) {
+  async execute(interaction, client) {
+    const { colors, norme } = client.config
+    const embedColor = colors.default;
+    const errorColor = colors.error;
+    const footer = norme.footer
     const username = interaction.options.getString("username")
     let errorMessage = new EmbedBuilder()
       .setTitle("Username Error")

@@ -1,6 +1,5 @@
 const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js")
-const { norme, colors } = require("./../../utils/config")
-module.exports = async (interact, noblox, EmbedBuilder) => {
+module.exports = async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }) => {
   const usern = interact.options.getString("username")
   if (!usern) return;
   const id = await noblox.getIdFromUsername(usern).catch((e) => { });
@@ -51,4 +50,6 @@ module.exports = async (interact, noblox, EmbedBuilder) => {
     content.components = [row]
   }
   await interact.editReply(content)
+}
+it interact.editReply(content)
 }

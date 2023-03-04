@@ -1,4 +1,3 @@
-const { norme, colors } = require("../utils/config")
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
 
 module.exports = {
@@ -17,13 +16,16 @@ module.exports = {
         .setAutocomplete(true)
     ),
   async execute(interact, client) {
-    const { names, slashes } = client
+    const { 
+      names,
+      config: { norme, colors }
+    } = client
     let command = interact.options.getString('commands')
     if (!command) {
       await interact.deferReply()
       const slash = names.map(e => {
         const name = e.split(" ")[0]
-        const id = slashes.get(name).usage.id
+        const id = client.slash.get(name).usage.id
         return `</${e}:${id}>`
       }).join(", ")
 
@@ -37,7 +39,7 @@ module.exports = {
       await interact.editReply({ embeds: [embed], ephemeral: true })
     } else {
       await interact.deferReply({ ephemeral: true })
-      const slash = slashes.get(command.split(" ")[0])
+      const slash = client.slash.get(command.split(" ")[0])
       const error = new EmbedBuilder()
         .setTitle("Error")
         .setDescription(`The command you put was not valid`)
@@ -61,5 +63,8 @@ module.exports = {
         value: e
       }))
     )
+  }
+}
+)
   }
 }

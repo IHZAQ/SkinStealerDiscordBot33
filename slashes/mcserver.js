@@ -1,16 +1,10 @@
 const {
-  norme,
-  colors
-} = require("../utils/config")
-
-const {
   EmbedBuilder,
   AttachmentBuilder,
   ButtonBuilder,
   ActionRowBuilder,
   SlashCommandBuilder,
-  ButtonStyle,
-  ChannelType
+  ButtonStyle
 } = require("discord.js")
 const axios = require("axios")
 module.exports = {
@@ -56,7 +50,8 @@ module.exports = {
 
     ),
 
-  async execute(interact) {
+  async execute(interact, client) {
+    const { norme, colors } = client.config
     await interact.deferReply({
       ephemeral: true
     })
@@ -243,6 +238,10 @@ module.exports = {
       components: [],
       embeds: [],
       files: []
+    })
+  }
+}
+les: []
     })
   }
 }

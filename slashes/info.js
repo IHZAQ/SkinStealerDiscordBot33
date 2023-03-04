@@ -3,7 +3,6 @@ function s(num) {
   while (s.length < 2) s = "0" + s;
   return s;
 }
-const { norme, colors } = require("../utils/config")
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
 module.exports = {
   cooldown: 5,
@@ -15,6 +14,7 @@ module.exports = {
     .setName("info")
     .setDescription("Shows info of the bot like latency, Server count and more."),
   async execute(interact, client) {
+    const { norme, colors } = client.config
     await interact.deferReply({ ephemeral: true });
     let days = Math.floor(client.uptime / 86400000);
     let hours = Math.floor(client.uptime / 3600000) % 24;
@@ -41,5 +41,7 @@ module.exports = {
       .setColor(colors.default)
       .setThumbnail('https://cdn.discordapp.com/avatars/803524726219079690/b69a2f277cbf43b9025ee10842a39b78.png?size=512&ignore=true')
     await interact.editReply({ embeds: [embed], ephemeral: true })
+  }
+} })
   }
 }

@@ -1,13 +1,13 @@
 const { EmbedBuilder, Events } = require("discord.js")
-const {
-  colors,
-  norme, 
-  channels: { guildjoin }
-} = require("../utils/config")
 module.exports = {
   event: Events.GuildCreate,
   run: async (guild, client) => {
     if(!guild.available) return;
+    const {
+      colors,
+      norme, 
+      channels: { guildjoin }
+    } = client.config
     let embed = new EmbedBuilder()
       .setTitle("Hi")
       .setDescription(`Thank you for inviting me!\nDo \`/help\` for commands list`)
@@ -22,6 +22,7 @@ module.exports = {
     }
     if(!guildjoin) return;
     const welcome = client.channels.cache.get(guildjoin)
+    if(!welcome) return;
     const owner = await client.users.fetch(guild.ownerId)
     const embedW = new EmbedBuilder()
       .setColor(colors.default)

@@ -4,7 +4,7 @@ module.exports = {
 		error: "#FF4500"
 	},
 	norme: {
-		footer: "Lightning Craft©"
+		footer: "Lightning Craft © 2023"
 	}, 
 	developers: [
     "Your user id"
@@ -13,5 +13,6 @@ module.exports = {
     guildjoin: "channel id",
     guildleft: "channel id",
     reportlogs: "channel id"
-  }
+  }, 
+  guild_id: "guild id" //for dev commands
 }

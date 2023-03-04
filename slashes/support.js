@@ -1,9 +1,4 @@
 const { 
-  norme,
-  colors, 
-  channels: { reportlogs }
-} = require("../utils/config")
-const { 
   EmbedBuilder,
   SlashCommandBuilder, 
   ActionRowBuilder, 
@@ -27,6 +22,11 @@ module.exports = {
         .setDescription("Found any bugs? Tell us.")
       ),
   async execute(interact, client) {
+    const { 
+      norme,
+      colors, 
+      channels: { reportlogs }
+    } = client.config
     let bugs = interact.options.getString("bugs")
     if(bugs && reportlogs){
       let channel = await client.channels.fetch(reportlogs)

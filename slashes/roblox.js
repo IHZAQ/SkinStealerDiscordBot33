@@ -1,17 +1,7 @@
-const { norme, colors } = require("../utils/config")
 const noblox = require("noblox.js")
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
 const wait = require("util").promisify(setTimeout);
 const search = require("./../api/search.js");
-function f(num) {
-  if (num > 999 && num < 1000000) {
-    return (num / 1000).toFixed(1) + 'K+';
-  } else if (num > 1000000) {
-    return (num / 1000000).toFixed(1) + 'M+';
-  } else if (num < 900) {
-    return num;
-  }
-}
 module.exports = {
   cooldown: 18,
   usage: {
@@ -56,18 +46,26 @@ module.exports = {
             .setAutocomplete(true)
         )
     ),
-  async execute(interact) {
+  async execute(interact, { config }) {
     if (interact.options.getSubcommand() === 'player') {
       const player = require("./roblox/player")
-      player(interact, noblox, EmbedBuilder, wait, f)
+      player(interact, noblox, EmbedBuilder, wait, config)
     }
     if (interact.options.getSubcommand() === 'favgame') {
       const favgame = require("./roblox/favgame")
-      favgame(interact, noblox, EmbedBuilder, wait)
+      favgame(interact, noblox, EmbedBuilder, wait, config)
     }
     if (interact.options.getSubcommand() === 'oldnames') {
       const oldnames = require("./roblox/oldnames")
-      oldnames(interact, noblox, EmbedBuilder, wait)
+      oldnames(interact, noblox, EmbedBuilder, wait, config)
+    }
+  },
+  async autocomplete(interaction) {
+    const focusedValue = interaction.options.getFocused();
+    let result = await search(focusedValue)
+    await interaction.respond(result);
+  },
+}ldnames(interact, noblox, EmbedBuilder, wait)
     }
   },
   async autocomplete(interaction) {

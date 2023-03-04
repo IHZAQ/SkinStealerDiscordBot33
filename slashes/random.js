@@ -1,4 +1,3 @@
-const { norme, colors } = require("../utils/config")
 const { 
   EmbedBuilder,
   ActionRowBuilder,
@@ -6,8 +5,8 @@ const {
   ButtonStyle,
   SlashCommandBuilder
 } = require("discord.js")
-const { usernamelist } = require('./../data/usernamer')
-const uuidForName = require("./../api/mcuuid")
+const { usernamelist } = require('../data/usernamer')
+const uuidForName = require("../api/mcuuid")
 
 module.exports = {
   cooldown: 5,
@@ -18,7 +17,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("random")
     .setDescription("No idea for Minecraft username? try this commands!"),
-  async execute(interact) {
+  async execute(interact, client) {
+    const { norme, colors } = client.config
     await interact.deferReply();
     let random = usernamelist[Math.floor(Math.random() * usernamelist.length)]
     const uuid = await uuidForName(random)
@@ -46,4 +46,5 @@ module.exports = {
       components: [row]
     })
   }
+}  }
 }

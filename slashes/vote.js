@@ -1,4 +1,3 @@
-const { norme, colors } = require("../utils/config")
 const {
   EmbedBuilder,
   SlashCommandBuilder,
@@ -18,7 +17,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("vote")
     .setDescription("Vote and Upvote this bot. May support the development"),
-  async execute(interact) {
+  async execute(interact, client) {
+    const { norme, colors } = client.config
     await interact.deferReply({ ephemeral: true })
     const embed = new EmbedBuilder()
       .setTitle("Vote")
@@ -57,4 +57,4 @@ module.exports = {
       ephemeral: true
     })
   }
-}
+}}

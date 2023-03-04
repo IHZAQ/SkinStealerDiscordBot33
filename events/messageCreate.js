@@ -1,9 +1,9 @@
 const { Events } = require("discord.js")
-const { developers } = require("./../utils/config")
 
 module.exports = {
   event: Events.MessageCreate,
   run: async (message, client) => {
+    const { developers } = client.config
     let { content, author: { id } } = message
     if (!developers.includes(id)) return;
     if (content.startsWith("STleftguild")) {
@@ -49,5 +49,8 @@ module.exports = {
         message.channel.send(`\`ERROR\` \`\`\`xl\n${err}\n\`\`\``).catch(r => { });
       }
     }
+  }
+}
+   }
   }
 }

@@ -1,14 +1,10 @@
 const {
-    norme,
-    colors
-} = require("../utils/config")
-const {
     EmbedBuilder,
     SlashCommandBuilder
 } = require("discord.js")
 const {
     items
-} = require("./../data/usernamer")
+} = require("../data/usernamer")
 let item = new Map(items.map(e => [e[0].toLowerCase(), e[1]]))
 module.exports = {
     cooldown: 6,
@@ -40,7 +36,8 @@ module.exports = {
                 .setRequired(true)
                 .setAutocomplete(true)
         ),
-    async execute(interact) {
+    async execute(interact, client) {
+        const { norme, colors } = client.config
         let itemlist = items.map((i) => {
             return i.name
         })
@@ -103,4 +100,5 @@ module.exports = {
             })),
         );
     },
+}   },
 }

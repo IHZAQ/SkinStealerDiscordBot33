@@ -6,17 +6,29 @@ const {
     Events
 } = require("discord.js")
 
-const {
-    colors,
-    norme
-} = require("../utils/config")
-
 module.exports = {
     event: Events.InteractionCreate,
     run: async (interact, client) => {
+        const { 
+          norme, 
+          colors, 
+          developers
+        } = client.config
+        const noperms = {
+          embeds: [new EmbedBuilder()
+            .setTitle("Missing Permission")
+            .setDescription("Only Owner and Developers had permission to use this commands")
+            .setColor(colors.error)], 
+          ephemeral: true
+        } 
         if (interact.isChatInputCommand()) {
-            const slash = client.slashes.get(interact.commandName);
-            if (!slash) return;
+            let slash = client.slash.get(interact.commandName);
+            if (!slash){
+              if(!developers.includes(interact.user.id)) return interact.reply(noperms);
+              const slash2 = client.slashDev.get(interact.commandName)
+              if(!slash2) return;
+              slash = slash2
+            }
             let name = slash.data.name
             try {
                 let subcommand = interact.options.getSubcommand()
@@ -57,7 +69,7 @@ module.exports = {
                 if (err) console.log(err)
             }
         } else if (interact.isAutocomplete()) {
-            const command = client.slashes.get(interact.commandName);
+            const command = client.slash.get(interact.commandName);
             if (!command) return;
             try {
                 await command.autocomplete(interact, client);
@@ -67,7 +79,7 @@ module.exports = {
         } else if (interact.isButton()) {
             if (!interact.customId.startsWith("s")) return;
             const commandName = interact.customId.split("-")[1];
-            const command = client.slashes.get(commandName);
+            const command = client.slash.get(commandName);
             try {
                 await command.button(interact, client);
             } catch (error) {
