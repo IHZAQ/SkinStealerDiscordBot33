@@ -34,23 +34,21 @@ module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors })
         .setEmoji("👤")
         .setLabel('User Profile')
         .setStyle(ButtonStyle.Link)
-        .setURL(`https://roblox.com/users/${id}/profile`)
+        .setURL(`https://roblox.com/users/${id}/profile`), 
+      new ButtonBuilder()
+        .setEmoji("<:skinstealer:1082319626769289308>")
+        .setLabel("More Games")
+        .setStyle(ButtonStyle.Link)
+        .setURL(`https://sc.ihzaq.revo.gay/favgame/${id}`)
     )
   await wait(300)
   const embed = new EmbedBuilder()
     .setAuthor({ name: "Roblox Users Favourite Games" })
     .setTitle(`${info.displayName} (@${username.toLowerCase()})`)
-    .setDescription(`${games.string}`)
+    .setDescription(`${games}`)
     .setThumbnail(thumbnail[0].imageUrl)
     .setColor(colors.default)
     .setFooter({ text: norme.footer })
-  if(games.string.length > games.originlength){
-    embed.addFields({
-      name: 'Characters Limit Reached:',
-      value: `Go to **[this website](https://sc.ihzaq.revo.gay/favgame/${id})** to see all ${username}'s games` +
-      `All games cannot be shown here because characters limit was reached`
-    })
-  }
   let content = {
     embeds: [embed]
   }
@@ -58,5 +56,4 @@ module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors })
     content.components = [row]
   }
   await interact.editReply(content)
-}await interact.editReply(content)
 }

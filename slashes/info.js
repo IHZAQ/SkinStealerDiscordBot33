@@ -6,9 +6,9 @@ function s(num) {
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
 module.exports = {
   cooldown: 5,
+  category: "General",
   usage: {
-    desc: "Shows info of the bot like latency, Server count and more.",
-    id: "939668435959423067"
+    desc: "Shows info of the bot like latency, Server count and more."
   },
   data: new SlashCommandBuilder()
     .setName("info")
@@ -41,7 +41,5 @@ module.exports = {
       .setColor(colors.default)
       .setThumbnail('https://cdn.discordapp.com/avatars/803524726219079690/b69a2f277cbf43b9025ee10842a39b78.png?size=512&ignore=true')
     await interact.editReply({ embeds: [embed], ephemeral: true })
-  }
-} })
   }
 }

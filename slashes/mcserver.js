@@ -9,9 +9,10 @@ const {
 const axios = require("axios")
 module.exports = {
   cooldown: 8,
+  category: "Minecraft Utilities",
   usage: {
-    desc: "Fetch an information from Minecraft Server Bedrock/Java",
-    id: "1008396845518688307"
+    java: "Fetch an information from Minecraft Server Java",
+    bedrock: "Fetch an information from Minecraft Server Bedrock"
   },
   data: new SlashCommandBuilder()
     .setName("mcserver")
@@ -238,10 +239,6 @@ module.exports = {
       components: [],
       embeds: [],
       files: []
-    })
-  }
-}
-les: []
     })
   }
 }

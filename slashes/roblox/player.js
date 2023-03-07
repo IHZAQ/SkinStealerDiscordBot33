@@ -114,6 +114,4 @@ module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors })
   }
   // Ends of Embed
   await interact.editReply(content);
-}ed
-  await interact.editReply(content);
 }

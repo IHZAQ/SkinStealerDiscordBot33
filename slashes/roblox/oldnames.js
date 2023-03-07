@@ -51,5 +51,3 @@ module.exports = async (interact, noblox, EmbedBuilder, wait ,{ norme, colors })
   }
   await interact.editReply(content)
 }
-it interact.editReply(content)
-}

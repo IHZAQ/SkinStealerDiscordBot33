@@ -6,9 +6,9 @@ const {
 } = require("discord.js")
 module.exports = {
   cooldown: 3,
+  category: "General",
   usage: {
-    desc: "Show invite links for this bot",
-    id: "939411396439990374"
+    desc: "Show invite links for this bot"
   },
   data: new SlashCommandBuilder()
     .setName("invite")
@@ -24,8 +24,5 @@ module.exports = {
           .setURL(`https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=274878118976&scope=bot%20applications.commands`)
       )
     await interact.reply({ components: [row], ephemeral: true })
-  }
-}
-})
   }
 }

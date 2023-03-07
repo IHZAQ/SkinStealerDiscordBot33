@@ -7,11 +7,9 @@ const {
 } = require("discord.js")
 module.exports = {
   cooldown: 3,
+  category: "General",
   usage: {
-    desc: `This command will give you link for our support server\n` +
-          `Also, you can report bugs/suggestion directly to us by\n` +
-          `Using bugs option which is optional\n`,
-    id: "939411396439990376"
+    desc: `This command will give you link for our support server, Also you can report bugs/suggestion directly to us by using bugs option which is optional`
   },
   data: new SlashCommandBuilder()
     .setName("support")

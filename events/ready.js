@@ -18,9 +18,10 @@ module.exports = {
     }).setToken(process.env.TOKEN);
     (async () => {
       try {
-        await rest.put(Routes.applicationCommands(CLIENT_ID), {
+        const data = await rest.put(Routes.applicationCommands(CLIENT_ID), {
           body: client.slashArray
         })
+        client.slashId = new Map(data.map((e) => [e.name, e.id]))
         if(client.config.guild_id && client.slashDevArray.length){
           await rest.put(Routes.applicationGuildCommands(CLIENT_ID,client.config.guild_id), {
             body: client.slashDevArray

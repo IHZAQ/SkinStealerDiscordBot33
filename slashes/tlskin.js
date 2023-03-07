@@ -5,11 +5,9 @@ const {
 
 module.exports = {
   cooldown: 3,
+  category: "Minecraft Utilities",
   usage: {
-    desc: "Don't have Minecraft Java? sad\n" +
-      "Use this command to grab skin from tlauncher.com\n" +
-      "[TLauncher](https://tlauncher.org/en/catalog/skins/nickname/) is free platform to upload your skin",
-    id: "939673392733380678"
+    desc: "Use this command to grab skin from [TLauncher](https://tlauncher.org/en/catalog/skins/nickname/) which is free platform to upload your skin"
   },
   data: new SlashCommandBuilder()
     .setName("tlskin")
@@ -47,4 +45,4 @@ module.exports = {
       await interact.editReply({ embeds: [notAscii], ephemeral: true })
     }
   }
-}}
+}

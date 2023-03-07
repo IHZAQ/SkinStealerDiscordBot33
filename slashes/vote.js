@@ -8,11 +8,9 @@ const {
 
 module.exports = {
   cooldown: 3,
+  category: "General", 
   usage: {
-    desc: "This command will provided a link\n" +
-          "For you to Vote Skin Stealer" +
-          "Which really show you supported us",
-    id: "939668435959423068"
+    desc: "List of Links to vote our bot on bot list providers"
   },
   data: new SlashCommandBuilder()
     .setName("vote")
@@ -57,4 +55,4 @@ module.exports = {
       ephemeral: true
     })
   }
-}}
+}

@@ -8,9 +8,9 @@ const {
 } = require("discord.js")
 module.exports = {
   cooldown: 6,
+  category: "Minecraft Utilities", 
   usage: {
-    desc: "**Main Features in Skin Stealer**\nGrab Minecraft Player skin using Minecraft API",
-    id: "939378004575010826"
+    desc: "Grab Minecraft Player skin using Minecraft API"
   },
   data: new SlashCommandBuilder()
     .setName("skin")

@@ -10,9 +10,9 @@ const uuidForName = require("../api/mcuuid")
 
 module.exports = {
   cooldown: 5,
+  category: "Minecraft Utilities",
   usage: {
-    desc: "This command is same with </skin:939378004575010826> but\nthe username was randomized",
-    id: "939411396439990375"
+    desc: "This command is same with </skin:0> but the username was randomized"
   },
   data: new SlashCommandBuilder()
     .setName("random")
@@ -46,5 +46,4 @@ module.exports = {
       components: [row]
     })
   }
-}  }
 }

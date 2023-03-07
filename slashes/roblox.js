@@ -1,14 +1,14 @@
 const noblox = require("noblox.js")
 const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
 const wait = require("util").promisify(setTimeout);
-const search = require("./../api/search.js");
+const search = require("../api/search.js");
 module.exports = {
   cooldown: 18,
+  category: "Roblox Tools",
   usage: {
-    id: "941593557490335744",
-    desc: `</roblox player:941593557490335744> - Fetch Roblox User Information\n` +
-      `</roblox oldnames:941593557490335744> - Fetch Roblox User Old Names\n` +
-      `</roblox favgame:941593557490335744> - Fetch Roblox User Favorite Games (including name and links)`
+    player: `Fetch Roblox User Information`,
+    oldnames: `Fetch Roblox User Old Names`,
+    favgame: `Fetch Roblox User Favorite Games (including name and links)`
   },
   data: new SlashCommandBuilder()
     .setName("roblox")
@@ -58,14 +58,6 @@ module.exports = {
     if (interact.options.getSubcommand() === 'oldnames') {
       const oldnames = require("./roblox/oldnames")
       oldnames(interact, noblox, EmbedBuilder, wait, config)
-    }
-  },
-  async autocomplete(interaction) {
-    const focusedValue = interaction.options.getFocused();
-    let result = await search(focusedValue)
-    await interaction.respond(result);
-  },
-}ldnames(interact, noblox, EmbedBuilder, wait)
     }
   },
   async autocomplete(interaction) {
