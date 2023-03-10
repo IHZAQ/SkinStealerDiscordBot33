@@ -5,7 +5,11 @@ const express = require('express');
 const port = process.env.PORT || process.env.SERVER_PORT || 3000
 const token = process.env.TOKEN
 const fs = require('fs');
-let { Client, Collection, ActivityType } = require('discord.js');
+let { 
+  Client,
+  Collection,
+  ActivityType
+} = require('discord.js');
 let client = new Client({
   intents: [
     "Guilds",
@@ -16,7 +20,7 @@ let client = new Client({
     status: "online",
     activities: [{
       type: ActivityType.Playing,
-      name: "/help | /support for help"
+      name: "/skin | /help for guide"
     }]
   }
 })

@@ -8,15 +8,18 @@ How to host your own [Skin Stealer](https://top.gg/bot/803524726219079690)
 ### Steps
 1. Clone or Download this repository and extract them
 2. Get the bot token from [Developer Portal](https://discord.com/developers/applications) 
-3. Paste the token inside .env file
-4. Update the owner id inside .env file
+3. Put your bot token inside .env file
+4. Fill some information in [Configuration Files](#Configuration-Files)
 5. Feel free to edit the code to suit yourself
 6. Run `npm install` in terminal or shell to install all the depencies that are needed for bot to run
 7. Boom, you got yourself some skin stealer bot
 
 # Configuration Files
-You need to fill in the information inside the configuration files, which is located in `/utils/config.js`. Here few things need to be filled
-- 
+You need to fill in the information inside the configuration files, which is located in `/utils/config.js` and `.env`. Here few things need to be filled
+- Logs Channel (Bot Join/Left Server Channel, Report Bugs Channel)
+- Your user id (no need to fill in if you already put it in .env)
+- [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user    
+
 After that, run `npm start` to start your bot
 # IMPORTANT
 You can't submit this bot to bot list website like top.gg or dbl

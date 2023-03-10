@@ -1,6 +1,9 @@
 const {
   EmbedBuilder,
-  SlashCommandBuilder
+  SlashCommandBuilder, 
+  ActionRowBuilder, 
+  ButtonBuilder, 
+  ButtonStyle
 } = require("discord.js")
 
 module.exports = {
@@ -27,11 +30,18 @@ module.exports = {
     const body = `https://tlauncher.org/skin.php?username_catalog=nickname&username_file=tlauncher_${fullArgs}.png&`
     const skin = `https://tlauncher.org/upload/all/nickname/tlauncher_${fullArgs}.png`
     let embed = new EmbedBuilder()
-      .setTitle(`TLauncher ${username}'s skin`)
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
       .setImage(body)
-      .setAuthor({ name: 'Download Skin', iconURL: "https://tlauncher.org/apple-touch-icon.png", url: skin })
+      .setAuthor({ name: `TLauncher ${username}'s skin`, iconURL: "https://tlauncher.org/apple-touch-icon.png", })
+    const row = new ActionRowBuilder()
+      .addComponents(
+        new ButtonBuilder()
+          .setEmoji("⬇️")
+          .setLabel('Download Skin')
+          .setStyle(ButtonStyle.Link)
+          .setURL(skin),
+      );
     let notAscii = new EmbedBuilder()
       .setTitle("That's not a real character")
       .setDescription("You can only do 0-9 and uppercase/lowercase letter as username. lol")
@@ -39,7 +49,10 @@ module.exports = {
       .setColor(colors.error)
     if (ascii) {
       await interact.deferReply()
-      await interact.editReply({ embeds: [embed] })
+      await interact.editReply({
+        embeds: [embed],
+        components: [row]
+      })
     } else {
       await interact.deferReply({ ephemeral: true })
       await interact.editReply({ embeds: [notAscii], ephemeral: true })

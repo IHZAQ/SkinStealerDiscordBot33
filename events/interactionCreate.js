@@ -1,5 +1,4 @@
 const cooldowns = new Map()
-const helpCache = new Map() 
 
 const {
   Collection,
@@ -49,7 +48,7 @@ module.exports = {
             const time_left = (expiration_time - current_time) / 1000;
             const embed = new EmbedBuilder()
               .setTitle("Cooldowns")
-              .setDescription(`Dude you are going too fast\nPlease wait ${time_left.toFixed(1)} more seconds before using </${name}:${client.slashId.get(commandName)}>`)
+              .setDescription(`Dude you are going too fast\nPlease wait ${time_left.toFixed(1)} more seconds before using </${name}:${client.slashId.get(interact.commandName)}>`)
               .setFooter({
                 text: norme.footer
               })
@@ -96,7 +95,7 @@ module.exports = {
       const commandName = interact.customId.split("-")[0]
       const command = client.slash.get(commandName)
       try {
-        await command.selectmenu(interact, client, helpCache)
+        await command.selectmenu(interact, client)
       } catch (error) {
         if (error) console.log(error)
       }

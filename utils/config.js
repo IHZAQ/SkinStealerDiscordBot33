@@ -7,12 +7,12 @@ module.exports = {
 		footer: "Lightning Craft © 2023"
 	}, 
 	developers: [
-    "Your user id"
+    process.env.FOUNDER_ID
   ], 
   channels: {
-    guildjoin: "channel id",
-    guildleft: "channel id",
-    reportlogs: "channel id"
+    guildjoin: "", //Join Server Logs Channel Id
+    guildleft: "", //Left Server Logs Channel Id
+    reportlogs: "" //Report Bugs Logs Channel Id
   }, 
-  guild_id: "guild id" //for dev commands
+  guild_id: process.env.GUILD_ID
 }
