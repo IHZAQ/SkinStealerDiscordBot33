@@ -1,12 +1,11 @@
-const {
+import {
   EmbedBuilder,
   SlashCommandBuilder
-} = require("discord.js")
-const {
-  items
-} = require("../data/usernamer")
+} from "discord.js"
+import{ items } from "../data/usernamer.js"
+
 let item = new Map(items.map(e => [e[0].toLowerCase(), e[1]]))
-module.exports = {
+export default {
   cooldown: 6,
   category: "Minecraft Utilities",
   usage: {

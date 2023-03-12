@@ -1,6 +1,6 @@
-const axios = require("axios")
-const noblox = require("noblox.js")
-async function search(username) {
+import axios from "axios"
+import noblox from "noblox.js"
+export default async (username) => {
   let array = []
   if(!username) return [];
   const api = await axios.get(`https://users.roblox.com/v1/users/search?keyword=${encodeURI(username)}&limit=25`).catch(err =>{})
@@ -19,4 +19,3 @@ async function search(username) {
     value: e.name
   }))
 }
-module.exports = search

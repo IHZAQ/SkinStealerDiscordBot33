@@ -1,11 +1,11 @@
-const { 
+import { 
   EmbedBuilder,
   SlashCommandBuilder, 
   ActionRowBuilder, 
   ButtonBuilder, 
   ButtonStyle
-} = require("discord.js")
-module.exports = {
+} from "discord.js"
+export default {
   cooldown: 3,
   category: "General",
   usage: {

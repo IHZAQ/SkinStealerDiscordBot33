@@ -1,9 +1,7 @@
-module.exports = (err, files, client) => {
-	if (err) return console.error(err);
-	files.forEach((file) => {
-		const eventFunction = require(`./../events/${file}`);
+export default async (files, client) => {
+	for ( const file of files) {
+		const eventFunction = (await import(`../events/${file}`)).default
 		if (eventFunction.disabled) return;
-
 		const event = eventFunction.event || file.split('.')[0];
 		const emitter =
 			(typeof eventFunction.emitter === 'string'
@@ -19,5 +17,5 @@ module.exports = (err, files, client) => {
 		catch (error) {
 			console.error(error.stack);
 		}
-	});
+	}
 };

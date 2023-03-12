@@ -1,12 +1,12 @@
-const {
+import {
   EmbedBuilder,
   SlashCommandBuilder, 
   ActionRowBuilder, 
   ButtonBuilder, 
   ButtonStyle
-} = require("discord.js")
-
-module.exports = {
+} from "discord.js"
+const isASCII = (str) => /^[\x00-\x7F]*$/.test(str);
+export default {
   cooldown: 3,
   category: "Minecraft Utilities",
   usage: {
@@ -22,9 +22,6 @@ module.exports = {
   async execute(interact, client) {
     const { norme, colors } = client.config
     const username = interact.options.getString("username")
-    function isASCII(str) {
-      return /^[\x00-\x7F]*$/.test(str);
-    }
     let fullArgs = encodeURI(username);
     const ascii = isASCII(fullArgs);
     const body = `https://tlauncher.org/skin.php?username_catalog=nickname&username_file=tlauncher_${fullArgs}.png&`

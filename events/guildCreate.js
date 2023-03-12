@@ -1,5 +1,9 @@
-const { EmbedBuilder, Events } = require("discord.js")
-module.exports = {
+import {
+  EmbedBuilder,
+  Events
+} from "discord.js"
+
+export default {
   event: Events.GuildCreate,
   run: async (guild, client) => {
     if(!guild.available) return;

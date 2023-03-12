@@ -1,16 +1,16 @@
-const {
+import {
   EmbedBuilder,
   SlashCommandBuilder,
   ActionRowBuilder,
   StringSelectMenuBuilder
-} = require("discord.js")
+} from "discord.js"
 const helpCache = new Map()
-const {
+import {
   emoji, 
   description
-} = require("../data/category")
+} from "../data/category.js"
 
-module.exports = {
+export default {
   cooldown: 5,
   category: "General",
   usage: {
@@ -25,7 +25,7 @@ module.exports = {
       slashId
     } = client
     await interact.deferReply({ ephemeral: true })
-    let commands = Array.from(client.slash.values())
+    let commands = [...client.slash.values()]
     let categories = commands.reduce((acc, command) => {
       if (!acc[command.category]) {
         acc[command.category] = [];

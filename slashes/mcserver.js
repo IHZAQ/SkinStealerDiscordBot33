@@ -1,13 +1,14 @@
-const {
+import {
   EmbedBuilder,
   AttachmentBuilder,
   ButtonBuilder,
   ActionRowBuilder,
   SlashCommandBuilder,
   ButtonStyle
-} = require("discord.js")
-const axios = require("axios")
-module.exports = {
+} from "discord.js"
+import axios from "axios"
+
+export default {
   cooldown: 8,
   category: "Minecraft Utilities",
   usage: {

@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	colors: {
 		default: "#BFFF00",
 		error: "#FF4500"

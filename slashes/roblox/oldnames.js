@@ -1,5 +1,9 @@
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js")
-module.exports = async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }) => {
+import {
+  ButtonBuilder,
+  ActionRowBuilder,
+  ButtonStyle
+} from "discord.js"
+export default async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }) => {
   const usern = interact.options.getString("username")
   if (!usern) return;
   const id = await noblox.getIdFromUsername(usern).catch((e) => { });

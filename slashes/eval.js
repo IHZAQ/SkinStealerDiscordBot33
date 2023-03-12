@@ -1,5 +1,9 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js")
-module.exports = {
+import { 
+  SlashCommandBuilder,
+  EmbedBuilder
+} from "discord.js"
+import { inspect } from "util"
+export default {
   dev: true,
   data: new SlashCommandBuilder()
     .setName("eval")
@@ -25,7 +29,7 @@ module.exports = {
       if (text && text.constructor.name == "Promise")
         text = await text;
       if (typeof text !== "string")
-        text = require("util").inspect(text, { depth: 1 });
+        text = inspect(text, { depth: 1 });
       text = text
         .replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203));

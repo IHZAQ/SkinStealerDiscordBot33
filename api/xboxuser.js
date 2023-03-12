@@ -1,5 +1,5 @@
-const axios = require("axios")
-module.exports = async (username) => {
+import axios from "axios"
+export default async (username) => {
   const config = {
     "headers": {
       "x-authorization": process.env.XBOX_TOKEN

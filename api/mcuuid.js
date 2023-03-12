@@ -1,5 +1,5 @@
-const axios = require("axios")
-async function getuuid(username){
+import axios from "axios"
+export default async (username) => {
     const api = await axios.get(`https://api.mojang.com/users/profiles/minecraft/${username}`).catch((err) => {})
     if(!api) return undefined;
     if(api.status == 200 && api.data){
@@ -10,4 +10,3 @@ async function getuuid(username){
       return null
     }
 }
-module.exports = getuuid

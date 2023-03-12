@@ -3,8 +3,12 @@ function s(num) {
   while (s.length < 2) s = "0" + s;
   return s;
 }
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
-module.exports = {
+import {
+  EmbedBuilder,
+  SlashCommandBuilder
+} from "discord.js"
+
+export default {
   cooldown: 5,
   category: "General",
   usage: {
@@ -40,6 +44,9 @@ module.exports = {
       .setFooter({ text: norme.footer })
       .setColor(colors.default)
       .setThumbnail('https://cdn.discordapp.com/avatars/803524726219079690/b69a2f277cbf43b9025ee10842a39b78.png?size=512&ignore=true')
-    await interact.editReply({ embeds: [embed], ephemeral: true })
+    await interact.editReply({
+      embeds: [embed],
+      ephemeral: true
+    })
   }
 }

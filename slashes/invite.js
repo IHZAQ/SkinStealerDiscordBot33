@@ -1,10 +1,10 @@
-const { 
+import { 
   ButtonBuilder,
   ActionRowBuilder, 
   ButtonStyle,
   SlashCommandBuilder
-} = require("discord.js")
-module.exports = {
+} from "discord.js"
+export default {
   cooldown: 3,
   category: "General",
   usage: {
@@ -23,6 +23,9 @@ module.exports = {
           .setStyle(ButtonStyle.Link)
           .setURL(`https://discord.com/oauth2/authorize?client_id=${client.user.id}&permissions=274878118976&scope=bot%20applications.commands`)
       )
-    await interact.reply({ components: [row], ephemeral: true })
+    await interact.reply({
+      components: [row], 
+      ephemeral: true
+    })
   }
 }

@@ -1,12 +1,12 @@
-const uuidForName = require("../api/mcuuid")
-const {
+import uuidForName from "../api/mcuuid.js"
+import {
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   SlashCommandBuilder
-} = require("discord.js")
-module.exports = {
+} from "discord.js"
+export default {
   cooldown: 6,
   category: "Minecraft Utilities", 
   usage: {

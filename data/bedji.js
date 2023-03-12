@@ -1,4 +1,4 @@
-module.exports = new Map([
+export default new Map([
   [1, "<:admin:943456600499306527>"],
   [2, "<:friendship:943445783942934528>"],
   [3, "<:combat:943447667185451018>"],

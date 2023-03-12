@@ -1,8 +1,15 @@
-const noblox = require("noblox.js")
-const { EmbedBuilder, SlashCommandBuilder } = require("discord.js")
-const wait = require("util").promisify(setTimeout);
-const search = require("../api/search.js");
-module.exports = {
+import noblox from "noblox.js"
+import search from "../api/search.js"
+import {
+  EmbedBuilder,
+  SlashCommandBuilder
+} from "discord.js"
+import { promisify } from "util"
+import player from "./roblox/player.js"
+import favgame from "./roblox/favgame.js"
+import oldnames from "./roblox/oldnames.js"
+const wait = promisify(setTimeout)
+export default {
   cooldown: 18,
   category: "Roblox Tools",
   usage: {
@@ -47,16 +54,14 @@ module.exports = {
         )
     ),
   async execute(interact, { config }) {
-    if (interact.options.getSubcommand() === 'player') {
-      const player = require("./roblox/player")
+    const command = interact.options.getSubcommand()
+    if (command === 'player') {
       player(interact, noblox, EmbedBuilder, wait, config)
     }
-    if (interact.options.getSubcommand() === 'favgame') {
-      const favgame = require("./roblox/favgame")
+    if (command === 'favgame') {
       favgame(interact, noblox, EmbedBuilder, wait, config)
     }
-    if (interact.options.getSubcommand() === 'oldnames') {
-      const oldnames = require("./roblox/oldnames")
+    if (command === 'oldnames') {
       oldnames(interact, noblox, EmbedBuilder, wait, config)
     }
   },

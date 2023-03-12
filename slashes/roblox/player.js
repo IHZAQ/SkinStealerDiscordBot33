@@ -1,6 +1,11 @@
-const { ButtonBuilder, ActionRowBuilder, ButtonStyle } = require("discord.js")
-module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
-  const emoji = require("../../api/badges")
+import {
+  ButtonBuilder,
+  ActionRowBuilder,
+  ButtonStyle
+} from "discord.js"
+import emoji from "../../api/badges.js"
+
+export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
   const username = interact.options.getString("username")
   if (!username) return;
   let id = await noblox.getIdFromUsername(username).catch((e) => { });

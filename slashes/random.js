@@ -1,14 +1,14 @@
-const { 
+import { 
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   SlashCommandBuilder
-} = require("discord.js")
-const { usernamelist } = require('../data/usernamer')
-const uuidForName = require("../api/mcuuid")
+} from "discord.js"
+import { usernamelist } from '../data/usernamer.js'
+import uuidForName from "../api/mcuuid.js"
 
-module.exports = {
+export default {
   cooldown: 5,
   category: "Minecraft Utilities",
   usage: {

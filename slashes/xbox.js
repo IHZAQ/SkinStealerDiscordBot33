@@ -1,12 +1,12 @@
-const {
+import {
   SlashCommandBuilder, 
   EmbedBuilder, 
   ActionRowBuilder, 
   ButtonBuilder, 
   ButtonStyle
-} = require("discord.js")
-const getUser = require("../api/xboxuser")
-module.exports = {
+} from "discord.js"
+import getUser from "../api/xboxuser.js"
+export default {
   cooldown: 12,
   usage: {
     player: "Fetch Xbox Live Player Information"

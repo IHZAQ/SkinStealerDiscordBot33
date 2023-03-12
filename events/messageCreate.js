@@ -1,6 +1,7 @@
-const { Events } = require("discord.js")
+import { Events } from "discord.js"
+import { inspect } from "util"
 
-module.exports = {
+export default {
   event: Events.MessageCreate,
   run: async (message, client) => {
     const { developers } = client.config
@@ -31,7 +32,7 @@ module.exports = {
         if (text && text.constructor.name == "Promise")
           text = await text;
         if (typeof text !== "string")
-          text = require("util").inspect(text, { depth: 1 });
+          text = inspect(text, { depth: 1 });
         text = text
           .replace(/`/g, "`" + String.fromCharCode(8203))
           .replace(/@/g, "@" + String.fromCharCode(8203));

@@ -1,10 +1,11 @@
-const {
+import {
   ButtonBuilder,
   ActionRowBuilder,
   ButtonStyle
-} = require("discord.js")
-const favgame = require("../../api/favgame")
-module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
+} from "discord.js"
+import favgame from "../../api/favgame.js"
+
+export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
   const username = interact.options.getString("username")
   if (!username) return;
   const id = await noblox.getIdFromUsername(username).catch((e) => { });
@@ -41,7 +42,6 @@ module.exports = async (interact, noblox, EmbedBuilder, wait, { norme, colors })
         .setStyle(ButtonStyle.Link)
         .setURL(`https://sc.ihzaq.revo.gay/favgame/${id}`)
     )
-  await wait(300)
   const embed = new EmbedBuilder()
     .setAuthor({ name: "Roblox Users Favourite Games" })
     .setTitle(`${info.displayName} (@${username.toLowerCase()})`)

@@ -1,5 +1,9 @@
-const { REST, Events, Routes } = require("discord.js")
-module.exports = {
+import {
+  REST,
+  Events,
+  Routes
+} from "discord.js"
+export default {
   event: Events.ClientReady,
   once: true,
   run: async (client) => {

@@ -1,12 +1,13 @@
 {
   "name": "SkinStealerDiscordBot33",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "This is source code for Skin Stealer Bot",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ."
   },
+  "type": "module",
   "keywords": [],
   "author": "IHZAQSTORM33",
   "license": "ISC",
