@@ -2,13 +2,14 @@ import uuidForName from "../api/mcuuid.js"
 import {
   EmbedBuilder,
   ActionRowBuilder,
+  StringSelectMenuBuilder,
   ButtonBuilder,
   ButtonStyle,
   SlashCommandBuilder
 } from "discord.js"
 export default {
   cooldown: 6,
-  category: "Minecraft Utilities", 
+  category: "Minecraft Utilities",
   usage: {
     desc: "Grab Minecraft Player skin using Minecraft API"
   },
@@ -51,6 +52,38 @@ export default {
           .setStyle(ButtonStyle.Link)
           .setURL(download),
       );
+    const sel = new ActionRowBuilder()
+      .addComponents(
+        new StringSelectMenuBuilder()
+          .setCustomId(`skin-${interaction.user.id}-${uuid.id}`)
+          .setPlaceholder("Choose Part To Preview")
+          .addOptions([
+            {
+              label: "Body",
+              description: "Full 3D Representation of the Minecraft Skin",
+              emoji: "<:body:1086303052170002432>",
+              value: "skin_body"
+            },
+            {
+              label: "Head",
+              description: "3D Head of the Minecraft Skin",
+              emoji: "<:head:1086303156805308466>",
+              value: "skin_head"
+            },
+            {
+              label: "Avatar",
+              description: "2D Face of Minecraft Skin",
+              emoji: "<:avatar:1086303238883651584>",
+              value: "skin_avatar"
+            },
+            {
+              label: "Skin",
+              description: "Raw Minecraft Skin Image",
+              emoji: "<:skin:1086303320362196992>",
+              value: "skin_skin"
+            }
+          ]),
+      );
     let embed = new EmbedBuilder()
       .setColor(embedColor)
       .setFooter({ text: footer })
@@ -60,9 +93,44 @@ export default {
         name: `${uuid.name}'s skin`,
         iconURL: avatar
       })
+      .setDescription(`**UUID**: \`${uuid.id}\``)
     await interaction.editReply({
       embeds: [embed],
-      components: [row]
+      components: [sel, row]
+    })
+  },
+  async selectmenu (interaction, client) {
+    const { norme, colors } = client.config
+    const [, userid, uuid] = interaction.customId.split("-")
+    if (interaction.user.id !== userid) {
+      return await interaction.reply({
+        embeds: [new EmbedBuilder()
+          .setTitle("This is not your skin menu")
+          .setDescription(`Create your own using </skin:${client.slashId.get("skin")}>`)
+          .setColor(colors.error)
+          .setFooter({ text: norme.footer })
+        ],
+        ephemeral: true
+      })
+    }
+
+    const embed = EmbedBuilder.from(interaction.message.embeds[0])
+    const part = interaction.values[0].split("_")[1]
+    switch (part) {
+      case "body":
+        embed.setImage(`https://crafatar.com/renders/body/${uuid}?overlay=true`)
+        break;
+      case "head":
+        embed.setImage(`https://crafatar.com/renders/head/${uuid}?overlay=true`)
+        break;
+      case "avatar":
+        embed.setImage(`https://crafatar.com/avatars/${uuid}?overlay=true`)
+        break;
+      case "skin":
+        embed.setImage(`https://crafatar.com/skins/${uuid}`)
+    }
+    interaction.update({
+      embeds: [embed]
     })
   }
 }
