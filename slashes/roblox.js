@@ -55,14 +55,15 @@ export default {
     ),
   async execute(interact, { config }) {
     const command = interact.options.getSubcommand()
-    if (command === 'player') {
-      player(interact, noblox, EmbedBuilder, wait, config)
-    }
-    if (command === 'favgame') {
-      favgame(interact, noblox, EmbedBuilder, wait, config)
-    }
-    if (command === 'oldnames') {
-      oldnames(interact, noblox, EmbedBuilder, wait, config)
+    switch (command) {
+      case "player":
+        await player(interact, noblox, EmbedBuilder, wait, config)
+        break;
+      case "favgame":
+        await favgame(interact, noblox, EmbedBuilder, wait, config)
+        break;
+      case "oldnames":
+        await oldnames(interact, noblox, EmbedBuilder, wait, config)
     }
   },
   async autocomplete(interaction) {

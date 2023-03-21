@@ -1,7 +1,7 @@
 import {
   Client,
-  Collection,
   ActivityType,
+  Collection,
   GatewayIntentBits
 } from "discord.js"
 import { readdirSync } from 'fs'
@@ -29,7 +29,7 @@ let client = new Client({
     }]
   }
 })
-client.login(token)
+
 client.config = fig
 client.app = express()
 const __filename = fileURLToPath(import.meta.url);
@@ -45,18 +45,21 @@ client.rest.on("rateLimited", () => {
   console.log("helo u got ratelimit haha")
 })
 
-client.slash = new Collection();
-client.slashArray = []  
-
-client.slashDev = new Collection()
-client.slashDevArray = []
-
-client.names = []
 const filter = file => file.endsWith(".js");
 
+client.slash = new Collection();
+client.slashArray = [];
+
+client.slashDev = new Collection();
+client.slashDevArray = [];
+
+client.names = [];
+
 (async () => {
-  const command = readdirSync("./slashes/").filter(filter)
-  const event = readdirSync('./events/').filter(filter)
+  const command = readdirSync("./slashes/").filter(filter);
+  const event = readdirSync('./events/').filter(filter);
   await commandHandler(command, client)
   await eventHandler(event, client)
 })() 
+
+client.login(token)
