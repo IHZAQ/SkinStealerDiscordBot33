@@ -88,7 +88,7 @@ export default {
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused().toLowerCase();
     const filtered = items.filter(choice => choice[0].toLowerCase().startsWith(focusedValue) || choice[0].toLowerCase().includes(focusedValue));
-    while (filtered.length > 25) filtered.pop()
+    while (filtered.length > 25) filtered.pop();
     await interaction.respond(
       filtered.map(choice => ({
         name: choice[0],

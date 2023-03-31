@@ -38,12 +38,12 @@ export default {
           { name: "User Id:", value: `\`${member.id}\``, inline: true }
         )
         .setColor(colors.default)
-        .setFooter({text:norme.footer})
+        .setFooter({ text: norme.footer })
       const embed = new EmbedBuilder()
         .setTitle("Report Bug")
         .setDescription("Bugs sent to the developer!\nWe'll try to fix it as soon as possible. :D\nYou might get a friend request from IHZAQ#0485(The Owner) so he could get a more information about it")
         .setColor(colors.default)
-        .setFooter({text:norme.footer})
+        .setFooter({ text: norme.footer })
       const button = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()

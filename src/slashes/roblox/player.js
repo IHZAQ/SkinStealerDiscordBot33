@@ -9,12 +9,14 @@ export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }) =
   const username = interact.options.getString("username")
   if (!username) return;
   let id = await noblox.getIdFromUsername(username).catch((e) => { });
-  const error = new EmbedBuilder()
+  if (!id) return await interact.reply({
+    embeds: [new EmbedBuilder()
     .setTitle("Error")
     .setDescription("The users you looking for does not exist. Try others")
     .setColor(colors.error)
-    .setFooter({ text: norme.footer })
-  if (!id) return await interact.reply({ embeds: [error], ephemeral: true });
+    .setFooter({ text: norme.footer })],
+    ephemeral: true
+  });
   await interact.deferReply();
   await wait(300);
   const info = await noblox.getPlayerInfo({ userId: id }).catch((e) => { })
