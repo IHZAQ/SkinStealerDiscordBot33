@@ -22,7 +22,7 @@ You need to fill in the information inside the configuration files, which is loc
 - Your user id (no need to fill in if you already put it in .env)
 - [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user    
 
-After that, run `sh start.sh` in your terminal to start your bot
+After that, run `npm start` in your terminal to start your bot
 # IMPORTANT
 You can't submit this bot to bot list website like top.gg or dbl
 If I found one, I will take it down immediately

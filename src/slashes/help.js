@@ -95,7 +95,7 @@ export default {
       })
       return;
     }
-    let commandArray = Array.from(client.slash.values());
+    let commandArray = [...client.slash.values()]
 		let commands = commandArray.filter(command => {
 			return command.category === category;
 		});
