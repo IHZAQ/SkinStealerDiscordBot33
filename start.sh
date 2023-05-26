@@ -1,5 +1,5 @@
 if [ ! -f package-lock.json ]
 then
-    node .
+    npm install
 fi
-npm start
+node .

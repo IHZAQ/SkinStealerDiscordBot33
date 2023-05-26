@@ -14,7 +14,7 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("tlskin")
-    .setDescription("Just like skin command but this take a skin from TLauncher. If your skin not showing, stfu")
+    .setDescription("Just like skin command but this take a skin from TLauncher.")
     .addStringOption(option =>
       option.setName('username')
         .setDescription('Put invalid Minecraft username')
