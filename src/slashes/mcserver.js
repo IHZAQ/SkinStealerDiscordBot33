@@ -218,8 +218,10 @@ export default {
   },
   async button(interact) {
     let embed = EmbedBuilder.from(interact.message.embeds[0])
+    const guild = interact.inGuild()
+    const authorname = guild ? `/mcserver by ${interact.user.tag}` : "/mcserver by you";
     embed.setAuthor({
-      name: `from ${interact.user.tag}`,
+      name: authorname,
       iconURL: interact.user.avatarURL()
     })
     let content = {
@@ -230,7 +232,7 @@ export default {
         .addComponents(interact.message.components[0].components[0])
       content.components = [component]
     }
-    if (interact.inGuild()) {
+    if (guild) {
       await interact.channel.send(content)
     } else {
       await interact.user.send(content)
