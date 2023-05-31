@@ -39,12 +39,22 @@
         animation-duration: 3s;
       }
     </style>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const api = await axios.get("/apidata")
+        const int = api.data.serverCount
+        const number = document.getElementById("number")
+        number.textContent = int.toString()
+      })
+    </script>
   </head>
   <body>
     <h2>
       <span style="color: #BFFF00">Skin Stealer</span> Bot are online
-    </h2><br />
-    <div id="links">
+    </h2>
+    <p>Currently in <span id="number">0</span> servers</p><br />
+    <div class="links">
       <a href="https://discord.com/oauth2/authorize?client_id=803524726219079690&permissions=274878118976&scope=bot%20applications.commands">Invite Bot</a>
       <a href="https://ihz.carrd.co">Developer</a> 
       <a href="/apidata">API</a>

@@ -1,4 +1,5 @@
 import axios from "axios"
+const f = int => parseInt(int).toLocaleString("en-US");
 export default async (username) => {
   const config = {
     "headers": {
@@ -14,9 +15,9 @@ export default async (username) => {
     name: data.gamertag,
     xuid: data.xuid,
     avatarURL: data.displayPicRaw,
-    gamerscore: parseInt(data.gamerScore).toLocaleString("en-US"),
-    followerCount: parseInt(data.detail.followerCount).toLocaleString("en-US"),
-    followingCount: parseInt(data.detail.followingCount).toLocaleString("en-US"),
+    gamerscore: f(data.gamerScore),
+    followerCount: f(data.detail.followerCount), 
+    followingCount: f(data.detail.followingCount),
     realname: data.realName,
     color: data.preferredColor.primaryColor
   }
