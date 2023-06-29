@@ -38,12 +38,41 @@
         animation-name: clicked;
         animation-duration: 3s;
       }
+      #days, #hours, #minutes, #seconds {
+        font-family: 'Courier New', monospace;
+      }
     </style>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
+        const days = document.getElementById("days")
+        const hours = document.getElementById("hours")
+        const minutes = document.getElementById("minutes")
+        const seconds = document.getElementById("seconds")
+        function s(num) {
+          var s = num + "";
+          while (s.length < 2) s = "0" + s;
+          return s;
+        }
+        function format(e) {
+          let day = Math.floor(e / 86400000);
+          let hour = Math.floor(e / 3600000) % 24;
+          let minute = Math.floor(e / 60000) % 60;
+          let second = Math.floor(e / 1000) % 60;
+          days.textContent = s(day);
+          hours.textContent = s(hour);
+          minutes.textContent = s(minute);
+          seconds.textContent = s(second);
+          console.log(second)
+        }
         const api = await axios.get("/apidata")
         const int = api.data.serverCount
+        const uptime = api.data.uptime
+        let sec = 0
+        setInterval(() => {
+          format(uptime + (sec*1000))
+          sec++
+        }, 1000)
         const number = document.getElementById("number")
         number.textContent = int.toString()
       })
@@ -52,6 +81,9 @@
   <body>
     <h2>
       <span style="color: #BFFF00">Skin Stealer</span> Bot are online
+    </h2>
+    <h2>
+      <span style="color: #BFFF00">Uptime: </span><span id="days">00</span>s:<span id="hours">00</span>h:<span id="minutes">00</span>m:<span id="seconds">00</span>s
     </h2>
     <p>Currently in <span id="number">0</span> servers</p><br />
     <div class="links">

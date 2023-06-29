@@ -10,7 +10,7 @@ export default {
     client.app.get('/apidata', async (req, res) => {
       let data = {
         serverCount: client.guilds.cache.size,
-        userCount: client.users.cache.size
+        uptime: client.uptime
       }
       res.json(data)
     })
