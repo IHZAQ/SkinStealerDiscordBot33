@@ -1,6 +1,6 @@
 {
   "name": "SkinStealerDiscordBot33",
-  "version": "2.8.1",
+  "version": "2.9.0",
   "description": "This is source code for Skin Stealer Bot",
   "main": "src/index.js",
   "scripts": {
@@ -9,21 +9,21 @@
   },
   "type": "module",
   "keywords": [],
-  "author": "IHZAQSTORM33",
+  "author": "IHZAQ",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.26.0",
-    "discord.js": "^14.8.0",
-    "dotenv": "^16.0.0",
-    "express": "^4.17.1",
-    "noblox.js": "^4.13.1"
+    "axios": "^1.6.1",
+    "discord.js": "^14.13.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "noblox.js": "^4.15.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/IHZAQSTORM33/SkinStealerDiscordBot33.git"
+    "url": "git+https://github.com/IHZAQ/SkinStealerDiscordBot33.git"
   },
   "bugs": {
-    "url": "https://github.com/IHZAQSTORM33/SkinStealerDiscordBot33/issues"
+    "url": "https://github.com/IHZAQ/SkinStealerDiscordBot33/issues"
   },
-  "homepage": "https://github.com/IHZAQSTORM33/SkinStealerDiscordBot33#readme"
+  "homepage": "https://github.com/IHZAQ/SkinStealerDiscordBot33#readme"
 }
