@@ -31,4 +31,4 @@ If I found one, I will take it down immediately
 Check out my [Carrd](https://ihz.carrd.co) for more detailed information about myself and join my [My Discord Server](http://discord.gg/ndEftjM) if you want to ask me any questions
 
 
-**`© 2023 Lightning Craft`**
+**`© 2024 IHZAQ`**

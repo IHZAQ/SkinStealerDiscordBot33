@@ -33,15 +33,7 @@ export default {
     await interaction.deferReply()
     const gamertag = interaction.options.getString("gamertag")
     const info = await getUser(gamertag.toLowerCase())
-    const errorEmbed = new EmbedBuilder()
-      .setTitle("Player did not found")
-      .setDescription("The player you are trying to find did not exist, try another gamertag")
-      .setAuthor({
-        name: "Xbox Live Gamers"
-      })
-      .setColor(colors.error)
-      .setFooter({ text: norme.footer })
-    
+    const errorEmbed = client.embErr("The player you are trying to find did not exist, try another gamertag")
     if(!info) return interaction.editReply({ embeds: [errorEmbed] });
     let color = info.color ? info.color : colors.default;
     if(color === "107c10") color = colors.default;

@@ -23,10 +23,7 @@ export default {
     }
     const embed = new EmbedBuilder
     if (!guild) return interaction.reply({
-      embeds: [new EmbedBuilder() 
-      .setTitle("Error")
-      .setDescription("There could be two reason\n1. ID is not valid\n2. Server not found")
-      .setColor(colors.error)], 
+      embeds: [client.embErr("There could be two reason\n1. ID is not valid\n2. Server not found")], 
       ephemeral: true
     });
     guild.leave().then(() => {

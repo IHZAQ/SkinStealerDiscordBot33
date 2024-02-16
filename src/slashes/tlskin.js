@@ -39,11 +39,7 @@ export default {
           .setStyle(ButtonStyle.Link)
           .setURL(skin),
       );
-    let notAscii = new EmbedBuilder()
-      .setTitle("That's not a real character")
-      .setDescription("You can only do 0-9 and uppercase/lowercase letter as username. lol")
-      .setFooter({ text: norme.footer })
-      .setColor(colors.error)
+    let notAscii = client.embErr("You can only do 0-9 and uppercase/lowercase letter as username.")
     if (ascii) {
       await interact.deferReply()
       await interact.editReply({

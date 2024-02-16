@@ -5,20 +5,12 @@ import {
 } from "discord.js"
 import favgame from "../../api/favgame.js"
 
-export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
+export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }, embErr) => {
   const username = interact.options.getString("username")
   if (!username) return;
   const id = await noblox.getIdFromUsername(username).catch((e) => { });
-  const error = new EmbedBuilder()
-    .setTitle("Error")
-    .setDescription("The users you looking for does not exist. Try others")
-    .setColor(colors.error)
-    .setFooter({ text: norme.footer })
-  const nofavgame = new EmbedBuilder()
-    .setTitle("Error")
-    .setDescription("This user doesn't have a favourite games")
-    .setColor(colors.error)
-    .setFooter({ text: norme.footer })
+  const error = embErr("The users you looking for does not exist. Try others")
+  const nofavgame = embErr("This user doesn't have a favourite games" )
   if (!id) return await interact.reply({ embeds: [error], ephemeral: true });
   await interact.deferReply()
   const games = await favgame(id).catch(err => { })

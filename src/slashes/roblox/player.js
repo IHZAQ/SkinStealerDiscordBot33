@@ -5,16 +5,12 @@ import {
 } from "discord.js"
 import emoji from "../../api/badges.js"
 
-export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }) => {
+export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }, embErr) => {
   const username = interact.options.getString("username")
   if (!username) return;
   let id = await noblox.getIdFromUsername(username).catch((e) => { });
   if (!id) return await interact.reply({
-    embeds: [new EmbedBuilder()
-    .setTitle("Error")
-    .setDescription("The users you looking for does not exist. Try others")
-    .setColor(colors.error)
-    .setFooter({ text: norme.footer })],
+    embeds: [embErr("The users you looking for does not exist. Try others")],
     ephemeral: true
   });
   await interact.deferReply();

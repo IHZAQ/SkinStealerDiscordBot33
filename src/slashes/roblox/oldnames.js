@@ -3,20 +3,12 @@ import {
   ActionRowBuilder,
   ButtonStyle
 } from "discord.js"
-export default async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }) => {
+export default async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }, embErr) => {
   const usern = interact.options.getString("username")
   if (!usern) return;
   const id = await noblox.getIdFromUsername(usern).catch((e) => { });
-  const error = new EmbedBuilder()
-    .setTitle("Error")
-    .setDescription("The users you looking for does not exist. Try others")
-    .setColor(colors.error)
-    .setFooter({ text: norme.footer })
-  const noname = new EmbedBuilder()
-    .setTitle("Error")
-    .setDescription("This users doesn't have a history of names")
-    .setColor(colors.error)
-    .setFooter({ text: norme.footer })
+  const error = embErr("The users you looking for does not exist. Try others")
+  const noname = embErr("This users doesn't have a history of names")
   if (!id) return await interact.reply({ embeds: [error], ephemeral: true });
   const { oldNames, username, displayName, isBanned } = await noblox.getPlayerInfo({ userId: id }).catch((e) => { })
   if (!oldNames || !oldNames.length) return await interact.reply({ embeds: [noname], ephemeral: true });

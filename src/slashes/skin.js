@@ -40,10 +40,10 @@ export default {
     if (uuid === null) return await interaction.reply({ ephemeral: true, content: "Hi, At this point, Mojang API maybe down. Please try again later\n-ur mom" });
     if (!uuid) return await interaction.reply({ embeds: [errorMessage], ephemeral: true });
     await interaction.deferReply()
-    const download = `https://minotar.net/download/${username}`
-    const avatar = `https://crafatar.com/avatars/${uuid.id}?overlay=true`
-    const body = `https://crafatar.com/renders/body/${uuid.id}?overlay=true`
-    const head = `https://crafatar.com/renders/head/${uuid.id}?overlay=true`
+    const download = `https://mc-heads.net/download/${username}`
+    const avatar = `https://mc-heads.net/avatar/${uuid.id}`
+    const body = `https://mc-heads.net/body/${uuid.id}`
+    const head = `https://mc-heads.net/head/${uuid.id}`
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -118,16 +118,16 @@ export default {
     const part = interaction.values[0].split("_")[1]
     switch (part) {
       case "body":
-        embed.setImage(`https://crafatar.com/renders/body/${uuid}?overlay=true`)
+        embed.setImage(`https://mc-heads.net/body/${uuid}`)
         break;
       case "head":
-        embed.setImage(`https://crafatar.com/renders/head/${uuid}?overlay=true`)
+        embed.setImage(`https://mc-heads.net/head/${uuid}`)
         break;
       case "avatar":
-        embed.setImage(`https://crafatar.com/avatars/${uuid}?overlay=true`)
+        embed.setImage(`https://mc-heads.net/avatar/${uuid}`)
         break;
       case "skin":
-        embed.setImage(`https://crafatar.com/skins/${uuid}`)
+        embed.setImage(`https://mc-heads.net/skin/${uuid}`)
     }
     interaction.update({
       embeds: [embed]

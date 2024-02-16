@@ -53,22 +53,26 @@ export default {
             .setAutocomplete(true)
         )
     ),
-  async execute(interact, { config }) {
+  async execute(interact, { config, embErr }) {
     const command = interact.options.getSubcommand()
     switch (command) {
       case "player":
-        await player(interact, noblox, EmbedBuilder, wait, config)
+        await player(interact, noblox, EmbedBuilder, wait, config, embErr)
         break;
       case "favgame":
-        await favgame(interact, noblox, EmbedBuilder, wait, config)
+        await favgame(interact, noblox, EmbedBuilder, wait, config, embErr)
         break;
       case "oldnames":
-        await oldnames(interact, noblox, EmbedBuilder, wait, config)
+        await oldnames(interact, noblox, EmbedBuilder, wait, config, embErr)
     }
   },
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused();
     let result = await search(focusedValue)
-    await interaction.respond(result);
+    try {
+     await interaction.respond(result);
+    } catch (err) {
+      console.log(`Cannot send the username list to ${interaction.user.username}`)
+    }
   },
 }
