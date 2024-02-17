@@ -141,7 +141,7 @@ export default {
             return await interaction.reply({
                 embeds: [new EmbedBuilder()
                     .setTitle("This is not your HiveMC menu")
-                    .setDescription(`Create your own using </skin:${client.slashId.get("hivemc")}>`)
+                    .setDescription(`Create your own using </hivemc:${client.slashId.get("hivemc")}>`)
                     .setColor(colors.error)
                     .setFooter({
                         text: norme.footer
@@ -159,7 +159,7 @@ export default {
                     desc += data.hub_title_unlocked.map((e, i) => `${i+1}. ${y(e)}`).join(`\n`)
                     break;
                 case "avatar_unlocked":
-                    desc += data.avatar_unlocked.map((e, i) => `${i+1}. [${e.name}](${e.url})`).join(`\n`)
+                    desc += data.avatar_unlocked.map((e, i) => `${i+1}. ${e.name}`).join(`\n`)
                     break;
                 default:
                     desc += data[item].map((e, i) => `${i+1}. ${e}`).join(`\n`)
