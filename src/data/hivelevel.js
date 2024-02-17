@@ -19,6 +19,7 @@ function findPosition(array, number) {
     return index === -1 ? array.length : index;
 }
 export default (g, xp) => {
+    if (!xp) return 0;
     let arr = game[g]
     let level = findPosition(arr, xp)
     switch (level) {

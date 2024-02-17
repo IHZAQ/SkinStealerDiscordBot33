@@ -182,8 +182,8 @@ export default {
         let arr = Object.keys(data).filter(e => !fil.includes(e));
         let desc = `
 ## ${gameName.get(game)} ${gameEmoji.get(game)}
-**Level**: \`${gameLevel(game, data.xp)}\`
-**XP**: \`${data.xp}\`
+**Level**: \`${gameLevel(game, (data.xp || 0))}\`
+**XP**: \`${data.xp || 0}\`
 **Played**:
 \`${data.played} Times\`
 **First Played**:
