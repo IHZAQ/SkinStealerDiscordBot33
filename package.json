@@ -1,6 +1,6 @@
 {
   "name": "SkinStealerDiscordBot33",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "description": "This is source code for Skin Stealer Bot",
   "main": "src/index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "discord.js": "^14.13.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "noblox.js": "^4.15.0"
+    "noblox.js": "^4.15.0",
+    "qrcode": "^1.5.3"
   },
   "repository": {
     "type": "git",
