@@ -28,8 +28,8 @@ export default {
         .setMaxValue(36)
         .setRequired(true)),
   execute: async (interaction, {embErr, config: {norme, colors}}) => {
-    const num1 = interaction.options.getString("num1")
-    if(!(/^[a-zA-Z0-9]+$/.test(num1))) {
+    const num1 = interaction.options.getString("num1").toUpperCase()
+    if(!(/^[A-Z0-9]+$/.test(num1))) {
       interaction.reply({
         embeds: [embErr("You can only put numbers and letters")],
         ephemeral: true
@@ -37,20 +37,23 @@ export default {
       return;
     }
     const base1 = interaction.options.getInteger("base1")
-    const base2 = interaction.options.getInteger("base2")
-    const changed = parseInt(num1, base1).toString(base2).toUpperCase()
-    if((!changed) && (changed !== 0)) {
+    let arr = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    arr.splice(0, base1)
+    const check = (str) => !arr.some(char => str.includes(char));
+    if (!check(num1)) {
       interaction.reply({
-        embeds: [embErr(`The Number ${num1} is not in the Base ${base1}`)],
+        embeds: [embErr(`The Number ${num1} is not in Base ${base1}`)],
         ephemeral: true
       })
       return;
     }
+    const base2 = interaction.options.getInteger("base2")
+    const changed = parseInt(num1, base1).toString(base2).toUpperCase();
     const embed = new EmbedBuilder()
       .setTitle("Base Converter")
       .addFields({
         name: "Given Number",
-        value: `${num1.toUpperCase()} (Base ${base1})`
+        value: `${num1} (Base ${base1})`
       },
       {
         name: "Converted Number",
