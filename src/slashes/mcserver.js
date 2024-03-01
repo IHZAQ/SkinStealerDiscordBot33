@@ -27,7 +27,7 @@ export default {
             .setDescription("Ip of the server")
             .setRequired(true)
         )
-        .addNumberOption(option =>
+        .addIntegerOption(option =>
           option.setName("port")
             .setDescription("Port (default: 25565)")
             .setMinValue(1)
@@ -43,7 +43,7 @@ export default {
             .setDescription("Ip of the server")
             .setRequired(true)
         )
-        .addNumberOption(option =>
+        .addIntegerOption(option =>
           option.setName("port")
             .setDescription("Port (default: 19132)")
             .setMinValue(1)

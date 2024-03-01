@@ -8,7 +8,7 @@ import {
 } from "discord.js"
 export default {
 	cooldown: 10,
-	category: "General",
+	category: "Fun / Utilities",
 	usage: {
 		desc: "Turn URL/Text into QR Code"
 	},
