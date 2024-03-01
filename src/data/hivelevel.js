@@ -23,19 +23,19 @@ export default (g, xp) => {
     let arr = game[g]
     let level = findPosition(arr, xp)
     switch (level) {
-        case "100":
+        case 100:
             return "Level 100/Prestige I"
             break;
-        case "101":
+        case 101:
             return "Prestige II"
             break;
-        case "102":
+        case 102:
             return "Prestige III"
             break;
-        case "103":
+        case 103:
             return "Prestige IV"
             break;
-        case "104":
+        case 104:
             return "Prestige V"
             break;
         default:
