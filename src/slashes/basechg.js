@@ -39,7 +39,7 @@ export default {
     const base1 = interaction.options.getInteger("base1")
     const base2 = interaction.options.getInteger("base2")
     const changed = parseInt(num1, base1).toString(base2).toUpperCase()
-    if(isNaN(changed)) {
+    if((!changed) && (changed !== 0)) {
       interaction.reply({
         embeds: [embErr(`The Number ${num1} is not in the Base ${base1}`)],
         ephemeral: true
