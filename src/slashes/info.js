@@ -39,11 +39,15 @@ export default {
         {
           name: 'Thanks to:', value: "> **[MCHeads](https://mc-heads.net) for providing an amazing API for us to use**\n" +
             "> **[SkinMC](https://skinmc.net) for providing Minecraft Achievements API**"
+        },
+        {
+          name: "Useful Links",
+          value: "[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Top.gg](https://top.gg/bot/803524726219079690) | [Developer](https://ihz.carrd.co) | [Invite Bot](https://discord.com/api/oauth2/authorize?client_id=803524726219079690&permissions=313344&scope=bot%20applications.commands)"
         }
       )
       .setFooter({ text: norme.footer })
       .setColor(colors.default)
-      .setThumbnail('https://cdn.discordapp.com/avatars/803524726219079690/b69a2f277cbf43b9025ee10842a39b78.png?size=512&ignore=true')
+      .setThumbnail(client.user.displayAvatarURL())
     await interact.editReply({
       embeds: [embed],
       ephemeral: true
