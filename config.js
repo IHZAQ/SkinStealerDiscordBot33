@@ -4,10 +4,11 @@ export default {
 		error: "#FF4500"
 	},
 	norme: {
-		footer: "Lightning Craft © 2023"
+		footer: "IHZAQ © 2024" //Don't Change This (Read TOS)
 	},
 	developers: [
-		process.env.FOUNDER_ID
+		process.env.FOUNDER_ID,
+		//Feel free to add more developer id in here
 	],
 	channels: {
 		reportlogs: "" //Report Bugs Logs Channel Id

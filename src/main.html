@@ -41,6 +41,12 @@
       #days, #hours, #minutes, #seconds {
         font-family: 'Courier New', monospace;
       }
+      .footer { 
+        position: absolute; 
+        bottom: 0; 
+        left: 0; 
+        z-index: 10;
+      }
     </style>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
@@ -65,13 +71,14 @@
           seconds.textContent = s(second);
           console.log(second)
         }
-        const api = await axios.get("/apidata")
-        const int = api.data.serverCount
-        const uptime = api.data.uptime
+        const { data } = await axios.get("/apidata")
+        const uptime = data.uptime
+        const int = data.serverCount
+        format(uptime)
         let sec = 0
         setInterval(() => {
-          format(uptime + (sec*1000))
           sec++
+          format(uptime + (sec*1000))
         }, 1000)
         const number = document.getElementById("number")
         number.textContent = int.toString()
@@ -91,5 +98,6 @@
       <a href="https://ihz.carrd.co">Developer</a> 
       <a href="/apidata">API</a>
     </div>
+    <div class="footer"><code>IHZAQ © 2024</code></div>
   </body>
 </html>
