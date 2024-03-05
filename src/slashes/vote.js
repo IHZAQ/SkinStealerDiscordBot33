@@ -7,7 +7,6 @@ import {
 } from "discord.js"
 
 export default {
-  cooldown: 3,
   category: "General", 
   usage: {
     desc: "List of Links to vote our bot on bot list providers"

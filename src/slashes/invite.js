@@ -5,7 +5,6 @@ import {
   SlashCommandBuilder
 } from "discord.js"
 export default {
-  cooldown: 3,
   category: "General",
   usage: {
     desc: "Show invite links for this bot"

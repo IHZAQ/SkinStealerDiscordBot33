@@ -1,4 +1,4 @@
-import morse from "../data/morse.js"
+import { ttm, mtt } from "../data/morse.js"
 import {
   SlashCommandBuilder,
   EmbedBuilder
@@ -37,11 +37,11 @@ export default {
     let ans;
     switch (decision) {
       case "ttm":
-        if(!(/^[a-z0-9\s]+$/).test(prompt)) return interaction.reply({
+        if(!(/^[a-z0-9\s.?!]+$/).test(prompt)) return interaction.reply({
           embeds: [embErr("For Text to Morse\nPlease use **Text** with only all letters and numbers")],
           ephemeral: true
         });
-        ans = prompt.split("").map(e => morse[e]).join(" ");
+        ans = prompt.split("").map(e => ttm[e]).join(" ");
         embed.addFields({
           name: "Text",
           value: `\`${prompt}\``
@@ -55,7 +55,7 @@ export default {
           embeds: [embErr("For Morse to Text\nPlease use **Dots(.)** and **Dash(-)/Underscore(_)** for Morse Code\n**Slash(/)**is for Space")],
           ephemeral: true
         });
-        ans = prompt.replaceAll("_", "-").split(" ").map(e => morse[e]).join("");
+        ans = prompt.replaceAll("_", "-").split(" ").map(e => (mtt[e] || "×")).join("");
         embed.addFields({
           name: "Morse",
           value: `\`\`\`${prompt. replaceAll("_", "-")}\`\`\``
