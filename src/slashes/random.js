@@ -46,6 +46,7 @@ export default {
       .setImage(body)
       .setThumbnail(head)
       .setAuthor({ name: `${uuid.name}'s skin`, iconURL: avatar })
+      .setDescription(`**UUID**: \`${uuid.id}\``)
     const sel = new ActionRowBuilder()
       .addComponents(
         new StringSelectMenuBuilder()
