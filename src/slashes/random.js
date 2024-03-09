@@ -56,7 +56,7 @@ export default {
             {
               label: "Body",
               description: "Full 3D Representation of the Minecraft Skin",
-              emoji: "<:body:1086303052170002432>",
+              emoji: "<:body:1215904407301001216>",
               value: "skin_body"
             },
             {
