@@ -20,7 +20,7 @@ export default {
           .setEmoji("❤")
           .setLabel("Add me to your server")
           .setStyle(ButtonStyle.Link)
-          .setURL(`https://discord.com/api/oauth2/authorize?client_id=803524726219079690&permissions=313344&scope=bot%20applications.commands`)
+          .setURL(`https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=313344&scope=bot%20applications.commands`)
       )
     await interact.reply({
       components: [row], 

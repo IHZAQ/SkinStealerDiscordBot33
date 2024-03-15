@@ -42,7 +42,7 @@ export default {
         },
         {
           name: "Useful Links",
-          value: "[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Top.gg](https://top.gg/bot/803524726219079690) | [Developer](https://ihz.carrd.co) | [Invite Bot](https://discord.com/api/oauth2/authorize?client_id=803524726219079690&permissions=313344&scope=bot%20applications.commands)"
+          value: `[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Top.gg](https://top.gg/bot/803524726219079690) | [Developer](https://ihz.carrd.co) | [Invite Bot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=313344&scope=bot%20applications.commands)`
         }
       )
       .setFooter({ text: norme.footer })

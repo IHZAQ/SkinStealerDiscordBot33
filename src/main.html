@@ -18,7 +18,7 @@
         color: #FFFFFF;
         font-family: 'Kumbh Sans', sans-serif
       }
-      #links {
+      .links {
         display: flex;
       }
       @keyframes clicked {
@@ -55,6 +55,7 @@
         const hours = document.getElementById("hours")
         const minutes = document.getElementById("minutes")
         const seconds = document.getElementById("seconds")
+        const invite = document.getElementById("inv")
         function s(num) {
           var s = num + "";
           while (s.length < 2) s = "0" + s;
@@ -74,6 +75,7 @@
         const { data } = await axios.get("/apidata")
         const uptime = data.uptime
         const int = data.serverCount
+        invite.href = `https://discord.com/oauth2/authorize?client_id=${data.id}&permissions=274878118976&scope=bot%20applications.commands`
         format(uptime)
         let sec = 0
         setInterval(() => {
@@ -94,7 +96,7 @@
     </h2>
     <p>Currently in <span id="number">0</span> servers</p><br />
     <div class="links">
-      <a href="https://discord.com/oauth2/authorize?client_id=803524726219079690&permissions=274878118976&scope=bot%20applications.commands">Invite Bot</a>
+      <a id = "inv">Invite Bot</a>
       <a href="https://ihz.carrd.co">Developer</a> 
       <a href="/apidata">API</a>
     </div>

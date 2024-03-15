@@ -9,19 +9,13 @@ export default {
   once: true,
   run: async (client) => {
     client.app.get("/icon", async (req, res) => {
-      const { data } = await axios.get(client.user.displayAvatarURL(), {
-        responseType: "arraybuffer"
-      });
-      res.writeHead(200, {
-        'Content-Type': 'image/gif',
-        'Content-Length': data.length
-      });
-      res.end(data)
+      res.redirect(client.user.displayAvatarURL());
     })
     client.app.get('/apidata', async (req, res) => {
       let data = {
         serverCount: client.guilds.cache.size,
-        uptime: client.uptime
+        uptime: client.uptime,
+        id: client.user.id
       }
       res.json(data)
     })
