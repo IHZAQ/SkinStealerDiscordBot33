@@ -3,7 +3,6 @@ import {
   Events,
   Routes
 } from "discord.js"
-import axios from "axios"
 export default {
   event: Events.ClientReady,
   once: true,
@@ -39,6 +38,7 @@ export default {
         console.log("Succesfully registered command globaly")
       } catch (err) {
         if (err) console.log(err);
+        console.log("The provided server id is not valid, please invite the bot to the server")
       }
     })()
   },
