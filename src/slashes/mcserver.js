@@ -77,7 +77,7 @@ export default {
       }
     }
     const ip = interact.options.getString("ip")
-    const port = parseInt(interact.options.getNumber("port"))
+    const port = parseInt(interact.options.getInteger("port"))
     if (interact.options.getSubcommand() === "java") {
       const por = p(port, 25565)
       const mc = async () => {
