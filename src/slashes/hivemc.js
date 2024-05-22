@@ -182,7 +182,7 @@ export default {
 **Level**: \`${gameLevel(game, (data.xp || 0))}\`
 **XP**: \`${data.xp || 0}\`
 **Played**:
-\`${data.played} Times\`
+\`${data.played || 0} Times\`
 **First Played**:
 <t:${data.first_played}:f>, <t:${data.first_played}:R>
 `
