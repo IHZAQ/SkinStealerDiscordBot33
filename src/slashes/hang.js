@@ -14,7 +14,7 @@ export default {
   category: "Fun / Utilities",
   cooldown: 10,
   usage: {
-    man: "Play Hangman directly in Discord",
+    desc: "Play Hangman directly in Discord",
   },
   data: new SlashCommandBuilder()
     .setName("hang")
@@ -29,9 +29,13 @@ export default {
     } = client;
     const button = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
-        .setCustomId(`s-hang-${interact.user.id}`)
+        .setCustomId(`s-hang-${interact.user.id}-answer`)
         .setLabel("Save This Man")
         .setStyle(ButtonStyle.Primary),
+      new ButtonBuilder()
+        .setCustomId(`s-hang-${interact.user.id}-stop`)
+        .setLabel("Hang")
+        .setStyle(ButtonStyle.Danger)
     );
     if (!game.has(interact.user.id)) {
       const { word, category } = random();
@@ -81,17 +85,35 @@ Use the button to save the man
       components: [button],
     });
   },
-  async button(interact, client) {
-    const [, , id] = interact.customId.split("-");
+  async button(interact, { embErr, config: { colors, norme } }) {
+    const [, , id,type] = interact.customId.split("-");
+    const { timeout, category, word } = game.get(interact.user.id)
     if (id !== interact.user.id) {
       return interact.reply({
         embeds: [
-          client.embErr(
+          embErr(
             `This is not your game!\nCreate a new game using </hang man:${client.slashId.get("hang")}>`,
           ),
         ],
         ephemeral: true,
       });
+    }
+    if(type === "stop"){
+      clearTimeout(timeout)
+      game.delete(interact.user.id)
+      return interact.update({
+        embeds: [new EmbedBuilder()
+          .setTitle("You Hanged The Man")
+          .setDescription(`
+Category: ${category}
+\`${word.split("").join(" ")}\`
+`)
+          .setImage(pic[8])
+          .setColor(colors.error)
+          .setFooter({ text: norme.footer })
+        ],
+        components: []
+      })
     }
     const modal = new ModalBuilder()
       .setCustomId("hang-save")
