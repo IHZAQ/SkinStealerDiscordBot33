@@ -14,7 +14,7 @@ export default {
   category: "Fun / Utilities",
   cooldown: 10,
   usage: {
-    desc: "Play Hangman directly in Discord",
+    man: "Play Hangman directly in Discord",
   },
   data: new SlashCommandBuilder()
     .setName("hang")
