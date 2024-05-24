@@ -101,5 +101,15 @@ export default {
       }
       return;
     }
+    if (interact.isModalSubmit()) {
+      const commandName = interact.customId.split("-")[0]
+      const command = client.slash.get(commandName)
+      try {
+        await command.modal(interact, client)
+      } catch (error) {
+        if (error) console.log(error)
+      }
+      return;
+    }
   }
 }

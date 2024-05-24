@@ -35,7 +35,7 @@ export default {
             body: client.slashDevArray
           })
         }
-        console.log("Succesfully registered command globaly")
+        console.log("Succesfully registered command globally")
       } catch (err) {
         if (err) console.log(err);
         console.log("The provided server id is not valid, please invite the bot to the server")
