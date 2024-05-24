@@ -14,7 +14,7 @@ export default {
   category: "Fun / Utilities",
   cooldown: 10,
   usage: {
-    man: "Play Hangman directly in Discord",
+    desc: "Play Hangman directly in Discord",
   },
   data: new SlashCommandBuilder()
     .setName("hang")
@@ -60,6 +60,7 @@ export default {
         category,
         cencored,
         letterList: [],
+        time: Math.floor((Date.now()/1000) + 120)
       });
     } else {
       return interact.reply({
@@ -67,13 +68,14 @@ export default {
         ephemeral: true,
       });
     }
-    const { category, cencored } = game.get(interact.user.id);
+    const { category, cencored, time } = game.get(interact.user.id);
     const embed = new EmbedBuilder()
       .setTitle("Hangman")
       .setDescription(
         `
 Category: ${category}
 \`${cencored.join(" ")}\`
+The man need your help <t:${time}:R>
 Use the button to save the man
 `,
       )
@@ -131,6 +133,7 @@ Category: ${category}
     await interact.showModal(modal);
   },
   async modal(interact, { config: { colors, norme }, embErr }) {
+    if (!interact.message.components[0]) return;
     const letter = interact.fields.getTextInputValue("letter").toUpperCase();
     if (/[^a-zA-Z]/.test(letter)) {
       return interact.reply({
@@ -138,7 +141,7 @@ Category: ${category}
         ephemeral: true,
       });
     }
-    let { timeout, word, category, cencored, letterList } = game.get(
+    let { timeout, word, category, cencored, letterList, time } = game.get(
       interact.user.id,
     );
     if (letterList.includes(letter)) {
@@ -173,7 +176,11 @@ Category: ${category}
         });
       }
       letterList.push(letter);
-      embed.setDescription(`Category: ${category}\n\`${cencored.join(" ")}\`\nUse the button to save the man
+      embed.setDescription(`
+Category: ${category}
+\`${cencored.join(" ")}\`
+The man need your help <t:${time}:R>
+Use the button to save the man
 `);
       embed.setFields({ name: "Guessed Letters", value: letterList.join(",") });
       game.set(interact.user.id, {
@@ -182,6 +189,7 @@ Category: ${category}
         category,
         cencored,
         letterList,
+        time
       });
       await interact.update({
         embeds: [embed],
@@ -203,6 +211,7 @@ Category: ${category}
           category,
           cencored,
           letterList,
+          time
         });
         await interact.update({
           embeds: [embed],
