@@ -12,7 +12,7 @@ export default {
   cooldown: 3,
   category: "General",
   usage: {
-    desc: `You can report bugs/suggestion directly to us`
+    man: `You can report bugs/suggestion directly to us`
   },
   data: new SlashCommandBuilder()
     .setName("reportbug")
@@ -69,7 +69,13 @@ export default {
       .setFooter({ text: norme.footer })
     const embed = new EmbedBuilder()
       .setTitle("Report Bug")
-      .setDescription("Bugs sent to the developer!\nWe'll try to fix it as soon as possible. :D\nYou might get a friend request from IHZAQ#0485(The Owner) so he could get a more information about it")
+      .setDescription(`Bugs sent to the developer!
+We'll try to fix it as soon as possible. :D
+
+In mean while please join our server or wait friend request from ihzaq
+In this way he can contact you to get more information
+
+Please acknowledge that misused of this commands may result in ban`)
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
     const button = new ActionRowBuilder()

@@ -14,7 +14,7 @@ export default {
   category: "Fun / Utilities",
   cooldown: 10,
   usage: {
-    man: "Play Hangman directly in Discord",
+    desc: "Play Hangman directly in Discord",
   },
   data: new SlashCommandBuilder()
     .setName("hang")
@@ -31,11 +31,13 @@ export default {
       new ButtonBuilder()
         .setCustomId(`s-hang-${interact.user.id}-answer`)
         .setLabel("Save This Man")
-        .setStyle(ButtonStyle.Primary),
+        .setStyle(ButtonStyle.Primary)
+        .setEmoji("🛟"),
       new ButtonBuilder()
         .setCustomId(`s-hang-${interact.user.id}-stop`)
         .setLabel("Hang")
         .setStyle(ButtonStyle.Danger)
+        .setEmoji("<:rope:1243723395913355345>")
     );
     if (!game.has(interact.user.id)) {
       const { word, category } = random();

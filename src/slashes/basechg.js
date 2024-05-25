@@ -31,7 +31,7 @@ export default {
     const num1 = interaction.options.getString("num1").toUpperCase()
     if(!(/^[A-Z0-9]+$/.test(num1))) {
       interaction.reply({
-        embeds: [embErr("You can only put numbers and letters")],
+        embeds: [embErr("You can only put numbers and letters\nAlso please refrain from using decimals")],
         ephemeral: true
       })
       return;
