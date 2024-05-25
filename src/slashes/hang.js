@@ -18,7 +18,7 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("hang")
-    .setDescription("Hanging Someone")
+    .setDescription("Hanging someone")
     .addSubcommand((command) =>
       command.setName("man").setDescription("Play Hangman directly in Discord"),
     ),
@@ -62,7 +62,7 @@ export default {
         category,
         cencored,
         letterList: [],
-        time: Math.floor((Date.now()/1000) + 120)
+        time: Math.floor((Date.now()/1000) + 90)
       });
     } else {
       return interact.reply({
@@ -90,6 +90,7 @@ Use the button to save the man
     });
   },
   async button(interact, { embErr, config: { colors, norme } }) {
+    if (!game.has(interact.user.id)) return;
     const [, , id,type] = interact.customId.split("-");
     const { timeout, category, word } = game.get(interact.user.id)
     if (id !== interact.user.id) {
