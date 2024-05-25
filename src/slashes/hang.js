@@ -14,13 +14,12 @@ export default {
   category: "Fun / Utilities",
   cooldown: 10,
   usage: {
-    desc: "Play Hangman directly in Discord",
+    man: "Play Hangman directly in Discord",
   },
   data: new SlashCommandBuilder()
     .setName("hang")
-    .setDescription("Play Hangman directly in Discord")
     .addSubcommand((command) =>
-      command.setName("man").setDescription("Start Game"),
+      command.setName("man").setDescription("Play Hangman directly in Discord"),
     ),
   async execute(interact, client) {
     const {

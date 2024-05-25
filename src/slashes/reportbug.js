@@ -12,7 +12,7 @@ export default {
   cooldown: 3,
   category: "General",
   usage: {
-    man: `You can report bugs/suggestion directly to us`
+    desc: `You can report bugs/suggestion directly to us`
   },
   data: new SlashCommandBuilder()
     .setName("reportbug")
