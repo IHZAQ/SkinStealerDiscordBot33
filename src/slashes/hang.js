@@ -18,6 +18,7 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("hang")
+    .setDescription("Hanging Someone")
     .addSubcommand((command) =>
       command.setName("man").setDescription("Play Hangman directly in Discord"),
     ),
