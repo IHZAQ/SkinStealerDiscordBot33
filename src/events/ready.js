@@ -3,6 +3,7 @@ import {
   Events,
   Routes
 } from "discord.js"
+import mongoose from "mongoose"
 export default {
   event: Events.ClientReady,
   once: true,
@@ -41,5 +42,7 @@ export default {
         console.log("The provided server id is not valid, please invite the bot to the server")
       }
     })()
-  },
+    await mongoose.connect(process.env.MONGO)
+    console.log("MongoDB Successfully Connected")
+  }
 };

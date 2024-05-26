@@ -1,4 +1,5 @@
 const cooldowns = new Map()
+import model from "../schema.js"
 
 import {
   Collection,
@@ -34,6 +35,11 @@ export default {
         let subcommand = interact.options.getSubcommand()
         name += ` ${subcommand}`
       } catch (err) { }
+      const data = await model.findOne({ userid: interact.user.id });
+      if(data && data.ban) return interact.reply({
+        embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
+        ephemeral: true
+      })
       //Cooldown system
       if (slash.cooldown) {
         if (!cooldowns.has(slash.data.name)) {
@@ -58,6 +64,13 @@ export default {
               ephemeral: true
             });
           }
+        }
+        const newName = name.replace(" ", "-")
+        if(!data) {
+          let newData = new model({ userid: interact.user.id, [newName]: 1 })
+          await newData.save()
+        } else {
+          await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { [newName]: (data[newName] + 1) } }, { new: true } )
         }
         time_stamps.set(interact.user.id, current_time);
         setTimeout(() => time_stamps.delete(interact.user.id), cooldown_amount);

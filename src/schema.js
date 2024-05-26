@@ -1,0 +1,31 @@
+import { Schema, model } from "mongoose"
+let obj = {
+    userid: { type: String },
+    private: { type: Boolean, default: false },
+    ban: { type: Boolean, default: false },
+    hangwin: { type: Number, default: 0 },
+    basechg: { type: Number, default: 0 },
+    "hang-man": { type: Number, default: 0 },
+    help: { type: Number, default: 0 },
+    hivemc: { type: Number, default: 0 },
+    info: { type: Number, default: 0 },
+    invite: { type: Number, default: 0 },
+    "mcserver-bedrock": { type: Number, default: 0 },
+    "mcserver-java": { type: Number, default: 0 },
+    morse: { type: Number, default: 0 },
+    qr: { type: Number, default: 0 },
+    random: { type: Number, default: 0 },
+    reportbug: { type: Number, default: 0 },
+    "roblox-player": { type: Number, default: 0 },
+    "roblox-favgame": { type: Number, default: 0 },
+    "roblox-oldnames": { type: Number, default: 0 },
+    skin: { type: Number, default: 0 },
+    "text-achievement": { type: Number, default: 0 },
+    "text-toemoji": { type: Number, default: 0 },
+    tlskin: { type: Number, default: 0 },
+    vote: { type: Number, default: 0 },
+    "xbox-player": { type: Number, default: 0 },
+    "stats-user": { type: Number, default: 0 },
+    "stats-privacy": { type: Number, default: 0 }
+}
+export default model("stats", new Schema(obj))

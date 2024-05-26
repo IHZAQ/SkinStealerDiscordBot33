@@ -9,6 +9,7 @@ import {
   TextInputStyle,
 } from "discord.js";
 import { pic, random } from "../data/hang.js";
+import model from "../schema.js"
 let game = new Map();
 export default {
   category: "Fun / Utilities",
@@ -23,6 +24,7 @@ export default {
       command.setName("man").setDescription("Play Hangman directly in Discord"),
     ),
   async execute(interact, client) {
+    const { hangwin } = await model.findOne({ userid: interact.user.id })
     const {
       config: { norme, colors },
       embErr,
@@ -51,7 +53,8 @@ export default {
               .setColor(colors.error)
               .setDescription(`The word is \`${word}\``)
               .setImage(pic[8])
-              .setFooter({ text: norme.footer }),
+              .setFooter({ text: norme.footer })
+              .setAuthor({ name: `How many times you save the man: ${hangwin}`}),
           ],
           components: [],
         });
@@ -83,7 +86,8 @@ Use the button to save the man
       )
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
-      .setImage(pic[0]);
+      .setImage(pic[0])
+      .setAuthor({ name: `How many times you save the man: ${hangwin}`});
     interact.reply({
       embeds: [embed],
       components: [button],
@@ -104,6 +108,7 @@ Use the button to save the man
       });
     }
     if(type === "stop"){
+      let { hangwin } = await model.findOne({ userid: interact.user.id })
       clearTimeout(timeout)
       game.delete(interact.user.id)
       return interact.update({
@@ -116,6 +121,7 @@ Category: ${category}
           .setImage(pic[8])
           .setColor(colors.error)
           .setFooter({ text: norme.footer })
+          .setAuthor({ name: `How many times you save the man: ${hangwin}`})
         ],
         components: []
       })
@@ -160,10 +166,11 @@ Category: ${category}
           cencored[i] = letter;
         }
       }
-
+      const data = await model.findOne({ userid: interact.user.id })
       if (!cencored.includes("_")) {
         clearTimeout(timeout);
         game.delete(interact.user.id);
+        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { new: true } )
         return interact.update({
           embeds: [
             new EmbedBuilder()
@@ -173,19 +180,22 @@ Category: ${category}
               )
               .setColor(colors.default)
               .setFooter({ text: norme.footer })
-              .setImage(pic[7]),
+              .setImage(pic[7])
+              .setAuthor({ name: `How many times you save the man: ${data.hangwin + 1}`}),
           ],
           components: [],
         });
       }
       letterList.push(letter);
-      embed.setDescription(`
+      embed
+        .setDescription(`
 Category: ${category}
 \`${cencored.join(" ")}\`
 The man need your help <t:${time}:R>
 Use the button to save the man
-`);
-      embed.setFields({ name: "Guessed Letters", value: letterList.join(",") });
+`)
+        .setFields({ name: "Guessed Letters", value: letterList.join(",") })
+        .setAuthor({ name: `How many times you save the man: ${data.hangwin}`});
       game.set(interact.user.id, {
         timeout,
         word,
@@ -198,10 +208,13 @@ Use the button to save the man
         embeds: [embed],
       });
     } else {
+      let { hangwin } = await model.findOne({ userid: interact.user.id })
       letterList.push(letter);
       let mistake = pic.indexOf(embed.toJSON().image.url);
       if (mistake < 6) {
-        embed.setImage(pic[mistake + 1]);
+        embed
+          .setImage(pic[mistake + 1])
+          .setAuthor({ name: `How many times you save the man: ${hangwin}`});
         if (letterList[0]) {
           embed.setFields({
             name: "Guessed Letters",
@@ -232,7 +245,8 @@ Category: ${category}
           )
           .setImage(pic[8])
           .setTitle("Hanged The Man")
-          .setColor(colors.error);
+          .setColor(colors.error)
+          .setAuthor({ name: `How many times you save the man: ${hangwin}`});
         await interact.update({
           embeds: [embed],
           components: [],
