@@ -38,9 +38,14 @@ export default {
     async execute(interact, { slashId, embErr, config: { colors, norme } }) {
         const subcommand = interact.options.getSubcommand()
         if (subcommand === "user") {
-            const { id, username } = interact.options.getUser("target") || interact.user;
+            const { id, username, bot } = interact.options.getUser("target") || interact.user;
+            if (bot) return interact.reply({
+                embeds: [embErr("The user you picked cannot be a bot")],
+                ephemeral: true
+            });
             const hide = interact.options.getBoolean("hide") || false;
             const data = await model.findOne({ userid: id })
+            await interact.deferReply({ ephemeral: hide })
             if ((id !== interact.user.id) && data.private) return interact.reply({
                 embeds: [embErr("Data cannot be shown because the user toggle on the privacy")],
                 ephemeral: true
@@ -62,21 +67,20 @@ Hangman: ${data.hangwin} wins
 `)
                 .setColor(colors.default)
                 .setFooter({ text: norme.footer })
-            interact.reply({
-                embeds: [embed],
-                ephemeral: hide
+            interact.editReply({
+                embeds: [embed]
             })
         } else {
+            await interact.deferReply({ ephemeral: true })
             const boolean = interact.options.getBoolean("toggle")
             await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { new: true } )
-            interact.reply({
+            interact.editReply({
                 embeds: [new EmbedBuilder()
                     .setTitle("Data Privacy")
                     .setDescription(boolean ? "Your stats data has been protected.\nWhich means people cannot see your stats" : "Your stats now can been seen by other user")
                     .setColor(colors.default)
                     .setFooter({ text: norme.footer })
                 ],
-                ephemeral: true
             })
         }
     }

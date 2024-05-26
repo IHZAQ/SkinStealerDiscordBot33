@@ -2,6 +2,7 @@ import {
     SlashCommandBuilder,
     EmbedBuilder
 } from "discord.js"
+import model from "../schema.js"
 export default {
     dev: true,
     data: new SlashCommandBuilder()
@@ -34,15 +35,16 @@ export default {
                 embeds: [embErr("This user did not exist/Your id may wrong")],
                 ephemeral: true
             });
-            const data = await data.findOne({ userid: interact.user.id })
-            if (!data) {
+            await interact.deferReply()
+            const data = await model.findOne({ userid: id })
+            if (data === null) {
                 const newData = new model({ userid: id, ban: true })
                 await newData.save()
                 return;
             }
             await model.findOneAndUpdate({ userid: id }, { $set: { ban: !data.ban } }, { new: true })
             const fullName = `${user.username}(${id})`
-            interact.reply({
+            interact.editReply({
                 embeds: [new EmbedBuilder()
                     .setTitle("Ban Menu")
                     .setDescription(!data.ban ? `You banned ${fullName}` : `You unbanned ${fullName}`)
