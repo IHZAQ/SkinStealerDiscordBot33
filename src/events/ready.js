@@ -30,12 +30,10 @@ export default {
         const data = await rest.put(Routes.applicationCommands(CLIENT_ID), {
           body: client.slashArray
         })
-        client.slashId = new Map(data.map((e) => [e.name, e.id]))
-        if(client.config.guild_id && client.slashDevArray.length){
-          await rest.put(Routes.applicationGuildCommands(CLIENT_ID,client.config.guild_id), {
-            body: client.slashDevArray
-          })
-        }
+        client.slashId = new Map(data.map(e => [e.name, e.id]))
+        rest.put(Routes.applicationGuildCommands(CLIENT_ID, process.env.GUILD_ID), { body: client.slashDevArray }).then(() => {
+          console.log("Successfully registered command locally")
+        })
         console.log("Succesfully registered command globally")
       } catch (err) {
         if (err) console.log(err);

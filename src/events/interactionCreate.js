@@ -148,7 +148,7 @@ export default {
     }
     if (interact.isModalSubmit()) {
       const commandName = interact.customId.split("-")[0]
-      const command = client.slash.get(commandName)
+      const command = client.slash.get(commandName) || client.slashDev.get(commandName);
       try {
         await command.modal(interact, client)
       } catch (error) {

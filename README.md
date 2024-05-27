@@ -26,6 +26,7 @@ You need to fill in the information inside the configuration files, which is loc
 - Your user id (no need to fill in if you already put it in .env)
 - [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user
 - [MongoDB](https://mongodb.com/) String, where you can get after registering and creating a cluster (Your Database)
+- Server ID to install dev commands
 
 After that, run `npm start` in your terminal to start your bot
 

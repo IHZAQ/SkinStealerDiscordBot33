@@ -1,21 +1,48 @@
-import { 
+import {
   SlashCommandBuilder,
-  EmbedBuilder
+  EmbedBuilder,
+  ModalBuilder,
+  TextInputBuilder,
+  TextInputStyle,
+  ActionRowBuilder
 } from "discord.js"
 import { inspect } from "util"
 export default {
   dev: true,
   data: new SlashCommandBuilder()
     .setName("eval")
-    .setDescription("Evaluate your code here")
-    .addStringOption(option =>
-      option.setName("code")
-        .setDescription("Your evaluation code here")
-        .setRequired(true)),
-  execute: async (interaction, client) => {
+    .setDescription("Evaluate your code here"),
+  execute: async (interaction) => {
+    const modal = new ModalBuilder()
+      .setCustomId("eval")
+      .setTitle("Evaluation Mode")
+    modal.addComponents(
+      new ActionRowBuilder()
+        .addComponents(
+          new TextInputBuilder()
+            .setCustomId("option")
+            .setLabel("Normal / Async")
+            .setPlaceholder("N or A")
+            .setStyle(TextInputStyle.Short)
+            .setMinLength(1)
+            .setMaxLength(1)),
+      new ActionRowBuilder()
+        .addComponents(
+          new TextInputBuilder()
+            .setCustomId("code")
+            .setLabel("Code")
+            .setPlaceholder("Your code here")
+            .setStyle(TextInputStyle.Paragraph)
+        ))
+    await interaction.showModal(modal)
+  },
+  modal: async (interaction, client) => {
     const { norme, colors } = client.config
     await interaction.deferReply()
-    const args = interaction.options.getString("code")
+    const option = interaction.fields.getTextInputValue("option").toUpperCase()
+    if (!["N", "A"].includes(option)) return interaction.editReply({ content: "wtf men" });
+    let args = interaction.fields.getTextInputValue("code")
+    if (option === "A") args = `(async () => {\n${args}\n})()`
     const embed = (text, error) => {
       const color = error ? colors.error : colors.default;
       const title = error ? "Evaluation Error" : "Evaluation";

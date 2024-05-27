@@ -181,7 +181,7 @@ export default {
             .setEmoji("🌱")
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
-            .setURL(`https://sc.ihzaq.revo.gay/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`),
+            .setURL(`https://ss.nexcord.com/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`),
           new ButtonBuilder()
             .setCustomId(`s-mcserver-bedrock`)
             .setLabel("Publish")

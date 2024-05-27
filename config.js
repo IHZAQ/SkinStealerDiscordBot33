@@ -12,6 +12,5 @@ export default {
 	],
 	channels: {
 		reportlogs: "" //Report Bugs Logs Channel Id
-	},
-	guild_id: process.env.GUILD_ID
+	}
 }
