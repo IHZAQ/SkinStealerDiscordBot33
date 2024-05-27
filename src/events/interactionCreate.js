@@ -5,7 +5,10 @@ import {
   Collection,
   EmbedBuilder,
   Events,
-  PermissionsBitField
+  PermissionsBitField,
+  ButtonBuilder,
+  ButtonStyle,
+  ActionRowBuilder
 } from "discord.js"
 
 export default {
@@ -37,10 +40,35 @@ export default {
         name += ` ${subcommand}`
       } catch (err) { }
       const data = await model.findOne({ userid: interact.user.id });
-      if(data && data.ban) return interact.reply({
+      if (!data) {
+        const newData = new model({ userid: interact.user.id })
+        newData.save()
+      }
+      if (data && data.ban) return interact.reply({
         embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
         ephemeral: true
-      })
+      });
+      if (!data.access) {
+        const embed = new EmbedBuilder()
+          .setTitle("Welcome to Skin Stealer!")
+          .setDescription(`To get started, please review and accept our [Privacy Policy](https://github.com/IHZAQ/SkinStealerDiscordBot33/blob/main/PRIVACY-POLICY.md) and [Terms of Service](https://github.com/IHZAQ/SkinStealerDiscordBot33/blob/main/TOS.md) to continue.`)
+          .setColor(colors.default)
+          .setFooter({ text: norme.footer });
+        const button = new ActionRowBuilder()
+          .addComponents(
+            new ButtonBuilder()
+              .setCustomId(`access-${interact.user.id}`)
+              .setLabel("Reviewed and Accepted")
+              .setEmoji("✅")
+              .setStyle(ButtonStyle.Primary)
+          );
+        await interact.reply({
+          embeds: [embed],
+          components: [button],
+          ephemeral: true
+        })
+        return;
+      }
       //Cooldown system
       if (slash.cooldown) {
         if (!cooldowns.has(slash.data.name)) {
@@ -67,12 +95,7 @@ export default {
           }
         }
         const newName = name.replace(" ", "-")
-        if(!data) {
-          let newData = new model({ userid: interact.user.id, [newName]: 1 })
-          await newData.save()
-        } else {
-          await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { [newName]: (data[newName] + 1) } }, { new: true } )
-        }
+        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { [newName]: (data[newName] + 1) } }, { new: true })
         time_stamps.set(interact.user.id, current_time);
         setTimeout(() => time_stamps.delete(interact.user.id), cooldown_amount);
       }
@@ -90,18 +113,26 @@ export default {
       try {
         await command.autocomplete(interact, client);
       } catch (error) {
-        if(error) console.error(error);
+        if (error) console.error(error);
       }
       return;
     }
     if (interact.isButton()) {
       const main = interact.customId.split("-")
+      if (main[0] === "access") {
+        await model.findOneAndUpdate({ userid: main[1] }, { $set: { access: true } }, { new: true })
+        await interact.update({
+          embeds: [EmbedBuilder.from(interact.message.embeds[0]).setDescription("Thank you for accepting the Privacy Policy and Terms of Service! You’re all set to start using Skin Stealer. Enjoy your experience!")],
+          components: []
+        })
+        return;
+      }
       if (main[0] !== "s") return;
       const command = client.slash.get(main[1]);
       try {
         await command.button(interact, client);
       } catch (error) {
-        if(error) console.log(error)
+        if (error) console.log(error)
       }
       return;
     }

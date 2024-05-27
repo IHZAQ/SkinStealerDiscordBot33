@@ -19,3 +19,5 @@ By using Skin Stealer Discord Bot ("the bot"), you agree to the following terms 
 8. Please refrain from altering the legal developer name in this repository to avoid potential copyright issues.
 
 Please refrain from using the bot if you do not agree to this terms of condition
+
+`IHZAQ © 2024`

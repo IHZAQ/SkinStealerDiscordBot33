@@ -37,12 +37,7 @@ export default {
             });
             await interact.deferReply()
             const data = await model.findOne({ userid: id })
-            if (data === null) {
-                const newData = new model({ userid: id, ban: true })
-                await newData.save()
-                return;
-            }
-            await model.findOneAndUpdate({ userid: id }, { $set: { ban: !data.ban } }, { new: true })
+            await model.findOneAndUpdate({ userid: id }, { $set: { ban: !data.ban, access: false } }, { new: true })
             const fullName = `${user.username}(${id})`
             interact.editReply({
                 embeds: [new EmbedBuilder()

@@ -3,6 +3,7 @@ let obj = {
     userid: { type: String },
     private: { type: Boolean, default: false },
     ban: { type: Boolean, default: false },
+    access: { type: Boolean, default: false },
     hangwin: { type: Number, default: 0 },
     basechg: { type: Number, default: 0 },
     "hang-man": { type: Number, default: 0 },
