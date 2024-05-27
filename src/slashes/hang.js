@@ -93,20 +93,20 @@ Use the button to save the man
       components: [button],
     });
   },
-  async button(interact, { embErr, config: { colors, norme } }) {
-    if (!game.has(interact.user.id)) return;
+  async button(interact, { embErr, config: { colors, norme }, slashId }) {
     const [, , id,type] = interact.customId.split("-");
-    const { timeout, category, word } = game.get(interact.user.id)
     if (id !== interact.user.id) {
       return interact.reply({
         embeds: [
           embErr(
-            `This is not your game!\nCreate a new game using </hang man:${client.slashId.get("hang")}>`,
+            `This is not your game!\nCreate a new game using </hang man:${slashId.get("hang")}>`,
           ),
         ],
         ephemeral: true,
       });
     }
+    if (!game.has(interact.user.id)) return;
+    const { timeout, category, word } = game.get(interact.user.id)
     if(type === "stop"){
       let { hangwin } = await model.findOne({ userid: interact.user.id })
       clearTimeout(timeout)

@@ -45,10 +45,9 @@ export default {
             });
             const hide = interact.options.getBoolean("hide") || false;
             const data = await model.findOne({ userid: id })
-            await interact.deferReply({ ephemeral: hide })
-            if ((id !== interact.user.id) && data.private) return interact.reply({
-                embeds: [embErr("Data cannot be shown because the user toggle on the privacy")],
-                ephemeral: true
+            await interact.deferReply({ ephemeral: (data.private || hide) })
+            if ((id !== interact.user.id) && data.private) return interact.editReply({
+                embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
             });
             const filter = ["hangwin", "__v", "_id", "userid", "private"]
             const array = [...Object.entries(data.toJSON())]

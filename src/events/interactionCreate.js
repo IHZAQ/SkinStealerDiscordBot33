@@ -4,7 +4,8 @@ import model from "../schema.js"
 import {
   Collection,
   EmbedBuilder,
-  Events
+  Events,
+  PermissionsBitField
 } from "discord.js"
 
 export default {
@@ -94,9 +95,9 @@ export default {
       return;
     }
     if (interact.isButton()) {
-      if (!interact.customId.startsWith("s")) return;
-      const commandName = interact.customId.split("-")[1];
-      const command = client.slash.get(commandName);
+      const main = interact.customId.split("-")
+      if (main[0] !== "s") return;
+      const command = client.slash.get(main[1]);
       try {
         await command.button(interact, client);
       } catch (error) {

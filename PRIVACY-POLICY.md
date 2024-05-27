@@ -1,20 +1,23 @@
-## Privacy Policy for Skin Stealer Discord Bot
-Skin Stealer Discord Bot respects the privacy of its users and is committed to protecting the personal information of its users. This Privacy Policy outlines the types of personal information that Skin Stealer Discord Bot collects, how it uses this information, and how it protects your privacy.
+# Privacy Policy for Skin Stealer Discord Bot
 
-1. What Information Does Skin Stealer Discord Bot Collect?  
-**Skin Stealer Discord Bot does not collect any personal information from its users.**
+Skin Stealer Discord Bot respects the privacy of its users and is committed to protecting personal information. This Privacy Policy outlines the types of information that Skin Stealer Discord Bot collects, how it uses this information, and how it protects your privacy.
 
-2. How Does Skin Stealer Discord Bot Use This Information?  
-**N/A**
+1. **What Information Does Skin Stealer Discord Bot Collect?**  
+   Skin Stealer Discord Bot collects data on how many times users have used specific commands.
 
-3. Does Skin Stealer Discord Bot Share This Information?  
-**N/A**
+2. **How Does Skin Stealer Discord Bot Use This Information?**  
+   The collected data is used to provide users with statistics on their command usage.
 
-4. How Does Skin Stealer Discord Bot Protect Your Information?  
-**Skin Stealer Discord Bot takes reasonable measures to protect the personal information it collects from unauthorized access, disclosure, or use. It uses industry-standard security measures to protect the confidentiality and integrity of your personal information.**
+3. **Can Users View Other Users' Statistics?**  
+   Users can view other users' stats unless a user sets their privacy to true. If privacy is set to true, their stats are not viewable by others. When users check their own stats, the response will be an ephemeral message, visible only to them.
 
-5. Changes to this Privacy Policy  
-**Skin Stealer Discord Bot reserves the right to modify this Privacy Policy at any time without prior notice. If we decide to change this Privacy Policy, we will post the updated policy on our website and notify our users through Discord.**
+4. **How Does Skin Stealer Discord Bot Protect Your Information?**  
+   Skin Stealer Discord Bot takes reasonable measures to protect collected information from unauthorized access, disclosure, or use. It uses industry-standard security measures to ensure the confidentiality and integrity of your information.
 
-6. Contact Us  
-**If you have any questions or concerns about our Privacy Policy, please contact us at IHZAQSTORM33@gmail.com.**
+5. **Changes to this Privacy Policy**  
+   Skin Stealer Discord Bot reserves the right to modify this Privacy Policy at any time without prior notice. If changes are made, the updated policy will be posted on our website, and users will be notified through Discord.
+
+6. **Contact Us**  
+   If you have any questions or concerns about our Privacy Policy, please contact us at [IHZAQSTORM33@gmail.com](mailto:IHZAQSTORM33@gmail.com)
+
+`IHZAQ © 2024`
