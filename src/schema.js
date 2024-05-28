@@ -27,6 +27,7 @@ let obj = {
     vote: { type: Number, default: 0 },
     "xbox-player": { type: Number, default: 0 },
     "stats-user": { type: Number, default: 0 },
-    "stats-privacy": { type: Number, default: 0 }
+    "stats-privacy": { type: Number, default: 0 },
+    "users-stats": { type: Number, default: 0 }
 }
 export default model("stats", new Schema(obj))

@@ -44,12 +44,15 @@ export default {
                 ephemeral: true
             });
             const hide = interact.options.getBoolean("hide") || false;
-            const data = await model.findOne({ userid: id })
+            let data = await model.findOne({ userid: id })
+            if (!data) {
+                data = await (new model({ userid: id })).save()
+            }
             await interact.deferReply({ ephemeral: (data.private || hide) })
             if ((id !== interact.user.id) && data.private) return interact.editReply({
                 embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
             });
-            const filter = ["hangwin", "__v", "_id", "userid", "private", "access"]
+            const filter = ["hangwin", "__v", "_id", "userid", "private", "access", "users-stats"]
             const array = [...Object.entries(data.toJSON())]
                 .filter(e => !filter.includes(e[0]) && e[1] )
                 .map(e => `</${e[0].replace("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
@@ -63,6 +66,8 @@ ${data.ban ? "Banned": "Not Banned"}
 ${array}
 ## Games
 Hangman: ${data.hangwin} wins
+## Context Menus
+Users Stats: ${data["users-stats"]}
 `)
                 .setColor(colors.default)
                 .setFooter({ text: norme.footer })

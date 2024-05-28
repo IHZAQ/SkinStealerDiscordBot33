@@ -7,6 +7,7 @@ import {
   ActionRowBuilder
 } from "discord.js"
 import { inspect } from "util"
+import model from "../schema.js"
 export default {
   dev: true,
   data: new SlashCommandBuilder()

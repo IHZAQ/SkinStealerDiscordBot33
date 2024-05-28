@@ -14,15 +14,14 @@ import gameLevel from "../data/hivelevel.js"
 const y = (t) => t.toString().replace(/&[0-9a-fklmnor]/gi, '');
 const t = (s) =>
    s.replace(/^_*(.)|_+(.)/g, (s, c, d) => c ? c.toUpperCase() : ' ' + d.toUpperCase());
-
 function main(data, embed) {
    let desc = `
-**Username**:
-${data.username_cc}
-**Rank**:
-${data.rank}
-**First Joined**:
-<t:${data.first_played}:f>, <t:${data.first_played}:R>`;
+ **Username**:
+ ${data.username_cc}
+ **Rank**:
+ ${data.rank}
+ **First Joined**:
+ <t:${data.first_played}:f>, <t:${data.first_played}:R>`;
    if ("equipped_avatar" in data) {
       embed.setThumbnail(data.equipped_avatar.url);
       desc += `\n**Equipped Avatar**:\n${data.equipped_avatar.name}`;
@@ -55,8 +54,8 @@ export default {
       .setDescription("Shows HiveMC players' statistics, including statistics for every game")
       .addStringOption(option =>
          option.setName("username")
-         .setDescription("XBOX Gamertag here")
-         .setRequired(true)),
+            .setDescription("XBOX Gamertag here")
+            .setRequired(true)),
    execute: async (interaction, client) => {
       const {
          colors,
@@ -69,9 +68,7 @@ export default {
          ephemeral: true
       });
       const data = hive.main
-      let game = Object.entries(hive).filter(item => {
-         return (Array.isArray(item[1]) && item[1].length > 0) || (typeof item[1] === 'object' && Object.keys(item[1]).length > 0) && (item[0] != "main");
-      }).map(e => nto(e[0]));
+      let game = Object.entries(hive).filter(item => { return (Array.isArray(item[1]) && item[1].length > 0) || (typeof item[1] === 'object' && Object.keys(item[1]).length > 0) && (item[0] != "main"); }).map(e => nto(e[0]));
       [
          "hub_title_unlocked",
          "avatar_unlocked",
@@ -113,17 +110,17 @@ export default {
       embed.addFields({
          name: "Collectibles 🥚",
          value: `
-**Pets**: \`${collLn("pets")}\`
-**Mounts**: \`${collLn("mounts")}\`
-**Hats**: \`${collLn("hats")}\`
-**Backblings**: \`${collLn("backblings")}\``
+ **Pets**: \`${collLn("pets")}\`
+ **Mounts**: \`${collLn("mounts")}\`
+ **Hats**: \`${collLn("hats")}\`
+ **Backblings**: \`${collLn("backblings")}\``
       })
       embed.addFields({
          name: "Identification 🪪",
          value: `
-**UUID**: \`${data.UUID}\`
-**XUID**: \`${data.xuid}\`
-`
+ **UUID**: \`${data.UUID}\`
+ **XUID**: \`${data.xuid}\`
+ `
       })
       const act = new ActionRowBuilder().addComponents(sel)
       interaction.reply({
@@ -132,10 +129,7 @@ export default {
       })
    },
    async selectmenu(interaction, client) {
-      const {
-         norme,
-         colors
-      } = client.config
+      const { norme, colors } = client.config
       const [, userid, username] = interaction.customId.split("-")
       const embed = EmbedBuilder.from(interaction.message.embeds[0])
       if (interaction.user.id !== userid) {
@@ -144,9 +138,7 @@ export default {
                .setTitle("This is not your HiveMC menu")
                .setDescription(`Create your own using </hivemc:${client.slashId.get("hivemc")}>`)
                .setColor(colors.error)
-               .setFooter({
-                  text: norme.footer
-               })
+               .setFooter({ text: norme.footer })
             ],
             ephemeral: true
          })
@@ -170,30 +162,28 @@ export default {
 
       if (game == "main") {
          main(data, embed);
-         interaction.update({
-            embeds: [embed]
-         })
+         interaction.update({ embeds: [embed] })
          return;
       }
       let fil = ["UUID", "xp", "played", "first_played", "rating_meh_received", "rating_okay_received", "rating_good_received", "rating_great_received", "rating_love_received"]
       let arr = Object.keys(data).filter(e => !fil.includes(e));
       let desc = `
-## ${gameName.get(game)} ${gameEmoji.get(game)}
-**Level**: \`${gameLevel(game, (data.xp || 0))}\`
-**XP**: \`${data.xp || 0}\`
-**Played**:
-\`${data.played || 0} Times\`
-**First Played**:
-<t:${data.first_played}:f>, <t:${data.first_played}:R>
-`
+ ## ${gameName.get(game)} ${gameEmoji.get(game)}
+ **Level**: \`${gameLevel(game, (data.xp || 0))}\`
+ **XP**: \`${data.xp || 0}\`
+ **Played**:
+ \`${data.played || 0} Times\`
+ **First Played**:
+ <t:${data.first_played}:f>, <t:${data.first_played}:R>
+ `
       const rating = r => (`rating_${r}_received` in data) ? data[`rating_${r}_received`] : 0;
       if (game == "build") {
          desc += `### Rating Received
-🔴 **Meh**: ${rating("meh")}
-🟠 **Okay**: ${rating("okay")}
-🟡 **Good**: ${rating("good")}
-🟢 **Great**: ${rating("great")} 
-❤️ **Love**: ${rating("love")}`
+ 🔴 **Meh**: ${rating("meh")}
+ 🟠 **Okay**: ${rating("okay")}
+ 🟡 **Good**: ${rating("good")}
+ 🟢 **Great**: ${rating("great")} 
+ ❤️ **Love**: ${rating("love")}`
       }
       arr.forEach(e => {
          desc += `\n**${t(e)}**: \`${data[e]}\``

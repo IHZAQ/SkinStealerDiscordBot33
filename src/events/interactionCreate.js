@@ -11,6 +11,8 @@ import {
   ActionRowBuilder
 } from "discord.js"
 
+const t = (s) => s.replace(/\s+/g, ' ').toLowerCase();
+
 export default {
   event: Events.InteractionCreate,
   run: async (interact, client) => {
@@ -26,7 +28,7 @@ export default {
         .setColor(colors.error)],
       ephemeral: true
     }
-    if (interact.isChatInputCommand()) {
+    if (interact.isChatInputCommand() || interact.isUserContextMenuCommand()) {
       let slash = client.slash.get(interact.commandName);
       if (!slash) {
         if (!developers.includes(interact.user.id)) return interact.reply(noperms);
@@ -34,15 +36,14 @@ export default {
         if (!slash2) return;
         slash = slash2
       }
-      let name = slash.data.name
+      let name = slash.menu ? t(slash.data.name) : slash.data.name;
       try {
         let subcommand = interact.options.getSubcommand()
         name += ` ${subcommand}`
       } catch (err) { }
-      const data = await model.findOne({ userid: interact.user.id });
+      let data = await model.findOne({ userid: interact.user.id });
       if (!data) {
-        const newData = new model({ userid: interact.user.id })
-        newData.save()
+        data = await (new model({ userid: interact.user.id })).save()
       }
       if (data && data.ban) return interact.reply({
         embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
@@ -71,11 +72,11 @@ export default {
       }
       //Cooldown system
       if (slash.cooldown) {
-        if (!cooldowns.has(slash.data.name)) {
-          cooldowns.set(slash.data.name, new Collection())
+        if (!cooldowns.has(name)) {
+          cooldowns.set(name, new Collection())
         }
         const current_time = Date.now();
-        const time_stamps = cooldowns.get(slash.data.name);
+        const time_stamps = cooldowns.get(name);
         const cooldown_amount = (slash.cooldown) * 1000;
         if (time_stamps.has(interact.user.id)) {
           const expiration_time = time_stamps.get(interact.user.id) + cooldown_amount;
@@ -83,7 +84,7 @@ export default {
             const time_left = (expiration_time - current_time) / 1000;
             const embed = new EmbedBuilder()
               .setTitle("Cooldowns")
-              .setDescription(`Dude you are going too fast\nPlease wait ${time_left.toFixed(1)} more seconds before using </${name}:${client.slashId.get(interact.commandName)}>`)
+              .setDescription(`Dude you are going too fast\nPlease wait ${time_left.toFixed(1)} more seconds before using ${slash.menu ? `context menu ${slash.data.name}` : `</${name}:${client.slashId.get(interact.commandName)}>`}`)
               .setFooter({
                 text: norme.footer
               })

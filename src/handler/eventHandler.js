@@ -1,5 +1,5 @@
 export default async (files, client) => {
-	for ( const file of files) {
+	for (const file of files) {
 		const eventFunction = (await import(`../events/${file}`)).default
 		if (eventFunction.disabled) return;
 		const event = eventFunction.event || file.split('.')[0];
