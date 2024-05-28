@@ -18,7 +18,7 @@ export default {
                 ephemeral: true
             })
         }
-        const data = await model.findOne({ userid: id })
+        let data = await model.findOne({ userid: id })
         if (!data) {
             data = await (new model({ userid: id })).save()
         }
