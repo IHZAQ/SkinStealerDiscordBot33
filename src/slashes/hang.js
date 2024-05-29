@@ -41,39 +41,38 @@ export default {
         .setStyle(ButtonStyle.Danger)
         .setEmoji("<:rope:1243723395913355345>")
     );
-    if (!game.has(interact.user.id)) {
-      const { word, category } = random();
-      let cencored = "_".repeat(word.length).split("");
-      const timeout = setTimeout(() => {
-        game.delete(interact.user.id);
-        interact.editReply({
-          embeds: [
-            new EmbedBuilder()
-              .setTitle("Hanged The Man")
-              .setColor(colors.error)
-              .setDescription(`The word is \`${word}\``)
-              .setImage(pic[8])
-              .setFooter({ text: norme.footer })
-              .setAuthor({ name: `How many times you save the man: ${hangwin}`}),
-          ],
-          components: [],
-        });
-      }, 90000);
-      game.set(interact.user.id, {
-        timeout,
-        word,
-        category,
-        cencored,
-        letterList: [],
-        time: Math.floor((Date.now()/1000) + 90)
+    if (game.has(interact.user.id)) return interact.reply({
+      embeds: [embErr("You already have a game in progress!")],
+      ephemeral: true,
+    });
+    const { word, category } = random();
+    let cencored = "_".repeat(word.length).split("");
+    const timeout = setTimeout(() => {
+      game.delete(interact.user.id);
+      interact.editReply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("Hanged The Man")
+            .setColor(colors.error)
+            .setDescription(`
+Category: ${category}
+Its \`${word.split("").join(" ")}\``)
+            .setImage(pic[8])
+            .setFooter({ text: norme.footer })
+            .setAuthor({ name: `How many times you save the man: ${hangwin}` }),
+        ],
+        components: [],
       });
-    } else {
-      return interact.reply({
-        embeds: [embErr("You already have a game in progress!")],
-        ephemeral: true,
-      });
-    }
-    const { category, cencored, time } = game.get(interact.user.id);
+    }, 90000);
+    const time = Math.floor((Date.now() / 1000) + 90)
+    game.set(interact.user.id, {
+      timeout,
+      word,
+      category,
+      cencored,
+      time,
+      letterList: []
+    });
     const embed = new EmbedBuilder()
       .setTitle("Hangman")
       .setDescription(
@@ -87,14 +86,14 @@ Use the button to save the man
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
       .setImage(pic[0])
-      .setAuthor({ name: `How many times you save the man: ${hangwin}`});
+      .setAuthor({ name: `How many times you save the man: ${hangwin}` });
     interact.reply({
       embeds: [embed],
       components: [button],
     });
   },
   async button(interact, { embErr, config: { colors, norme }, slashId }) {
-    const [, , id,type] = interact.customId.split("-");
+    const [, , id, type] = interact.customId.split("-");
     if (id !== interact.user.id) {
       return interact.reply({
         embeds: [
@@ -107,7 +106,7 @@ Use the button to save the man
     }
     if (!game.has(interact.user.id)) return;
     const { timeout, category, word } = game.get(interact.user.id)
-    if(type === "stop"){
+    if (type === "stop") {
       let { hangwin } = await model.findOne({ userid: interact.user.id })
       clearTimeout(timeout)
       game.delete(interact.user.id)
@@ -116,12 +115,12 @@ Use the button to save the man
           .setTitle("You Hanged The Man")
           .setDescription(`
 Category: ${category}
-\`${word.split("").join(" ")}\`
+Its \`${word.split("").join(" ")}\`
 `)
           .setImage(pic[8])
           .setColor(colors.error)
           .setFooter({ text: norme.footer })
-          .setAuthor({ name: `How many times you save the man: ${hangwin}`})
+          .setAuthor({ name: `How many times you save the man: ${hangwin}` })
         ],
         components: []
       })
@@ -170,7 +169,7 @@ Category: ${category}
       if (!cencored.includes("_")) {
         clearTimeout(timeout);
         game.delete(interact.user.id);
-        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { new: true } )
+        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { new: true })
         return interact.update({
           embeds: [
             new EmbedBuilder()
@@ -181,7 +180,7 @@ Category: ${category}
               .setColor(colors.default)
               .setFooter({ text: norme.footer })
               .setImage(pic[7])
-              .setAuthor({ name: `How many times you save the man: ${data.hangwin + 1}`}),
+              .setAuthor({ name: `How many times you save the man: ${data.hangwin + 1}` }),
           ],
           components: [],
         });
@@ -195,7 +194,7 @@ The man need your help <t:${time}:R>
 Use the button to save the man
 `)
         .setFields({ name: "Guessed Letters", value: letterList.join(",") })
-        .setAuthor({ name: `How many times you save the man: ${data.hangwin}`});
+        .setAuthor({ name: `How many times you save the man: ${data.hangwin}` });
       game.set(interact.user.id, {
         timeout,
         word,
@@ -214,7 +213,7 @@ Use the button to save the man
       if (mistake < 6) {
         embed
           .setImage(pic[mistake + 1])
-          .setAuthor({ name: `How many times you save the man: ${hangwin}`});
+          .setAuthor({ name: `How many times you save the man: ${hangwin}` });
         if (letterList[0]) {
           embed.setFields({
             name: "Guessed Letters",
@@ -240,13 +239,13 @@ Use the button to save the man
           .setDescription(
             `
 Category: ${category}
-\`${word.split("").join(" ")}\`
+Its \`${word.split("").join(" ")}\`
 `,
           )
           .setImage(pic[8])
           .setTitle("Hanged The Man")
           .setColor(colors.error)
-          .setAuthor({ name: `How many times you save the man: ${hangwin}`});
+          .setAuthor({ name: `How many times you save the man: ${hangwin}` });
         await interact.update({
           embeds: [embed],
           components: [],
