@@ -1,4 +1,4 @@
-import { 
+import {
   EmbedBuilder,
   ActionRowBuilder,
   ButtonBuilder,
@@ -13,12 +13,12 @@ export default {
   cooldown: 5,
   category: "Minecraft Utilities",
   usage: {
-    desc: "This command is same with </skin:0> but the username was randomized"
+    desc: "This command is same with %skin% but the username was randomized"
   },
   data: new SlashCommandBuilder()
     .setName("random")
     .setDescription("No idea for Minecraft username? try this commands!"),
-  async execute (interact, client) {
+  async execute(interact, client) {
     const { norme, colors } = client.config
     let random = usernamelist[Math.floor(Math.random() * usernamelist.length)]
     const uuid = await uuidForName(random)
@@ -84,7 +84,7 @@ export default {
       components: [sel, row]
     })
   },
-  async selectmenu (interaction, client) {
+  async selectmenu(interaction, client) {
     const { norme, colors } = client.config
     const [, userid, uuid] = interaction.customId.split("-")
     if (interaction.user.id !== userid) {
