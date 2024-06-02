@@ -1,6 +1,6 @@
 {
   "name": "skinstealerdiscordbot33",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "description": "This is source code for Skin Stealer Bot",
   "main": "src/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
   "type": "module",
   "keywords": ["Skin Stealer", "Discord Bot", "Skin Stealer Discord Bot", "ihzaq"],
   "author": "IHZAQ",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.7.2",
     "discord.js": "^14.15.2",
