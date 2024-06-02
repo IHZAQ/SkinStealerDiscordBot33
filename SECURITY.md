@@ -6,6 +6,7 @@ Skin Stealer Discord Bot is currently supported on the following versions:
 
 | Version | Supported |
 | ------- | -- |
+| 3.3.0   | ✅ |
 | 3.0.0   | ✅ |
 | 2.8.0   | ✅ |
 | 2.5.0   | ✅ |
