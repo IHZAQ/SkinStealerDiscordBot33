@@ -23,12 +23,13 @@ export default {
     .addSubcommand((command) =>
       command.setName("man").setDescription("Play Hangman directly in Discord"),
     ),
-  async execute(interact, client) {
+  async execute(interact, { config: { norme, colors }, embErr }) {
+    if (game.has(interact.user.id)) return interact.reply({
+      embeds: [embErr("You already have a game in progress!")],
+      ephemeral: true,
+    });
+    await interact.deferReply()
     const { hangwin } = await model.findOne({ userid: interact.user.id })
-    const {
-      config: { norme, colors },
-      embErr,
-    } = client;
     const button = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
         .setCustomId(`s-hang-${interact.user.id}-answer`)
@@ -41,10 +42,6 @@ export default {
         .setStyle(ButtonStyle.Danger)
         .setEmoji("<:rope:1243723395913355345>")
     );
-    if (game.has(interact.user.id)) return interact.reply({
-      embeds: [embErr("You already have a game in progress!")],
-      ephemeral: true,
-    });
     const { word, category } = random();
     let cencored = "_".repeat(word.length).split("");
     const timeout = setTimeout(() => {
@@ -87,7 +84,7 @@ Use the button to save the man
       .setFooter({ text: norme.footer })
       .setImage(pic[0])
       .setAuthor({ name: `How many times you save the man: ${hangwin}` });
-    interact.reply({
+    await interact.editReply({
       embeds: [embed],
       components: [button],
     });
