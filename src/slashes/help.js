@@ -96,13 +96,13 @@ export default {
       const name = e.data.name
       const id = slashId.get(name)
       const desc = e.usage
-      if (desc.desc) {
-        newCommands.push(`</${name}:${id}> - ${repThing(desc.desc)}`)
-      } else {
-        Object.entries(desc).forEach(e => {
-          newCommands.push(`</${name} ${e[0]}:${id}> - ${repThing(e[1])}`)
-        })
-      }
+      if (!desc.desc) return Object.entries(desc).forEach(e => {
+        if (typeof desc[e[0]] === "string") return newCommands.push(`</${name} ${e[0]}:${id}> - ${repThing(e[1])}`);
+        Object.entries(desc[e[0]]).forEach(e1 => {
+          newCommands.push(`</${name} ${e[0]} ${e1[0]}:${id}> - ${e1[1]}`)
+        });
+      });
+      newCommands.push(`</${name}:${id}> - ${repThing(desc.desc)}`)
     })
     const embed = new EmbedBuilder()
       .setTitle(`Category | ${emoji.get(category)} ${category}`)
