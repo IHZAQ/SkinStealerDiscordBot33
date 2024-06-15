@@ -16,6 +16,23 @@ export default async (interact, { config: { colors, norme }, embErr }) => {
         c3: interact.options.getNumber("c3"),
         d3: interact.options.getNumber("d3")
     }
+    const fr = interact.options.getString("fraction") || false
+    const dcf = (decimal) => {
+        const decimalString = decimal.toString();
+        const [integerPart, decimalPart] = decimalString.split('.');
+        const threePart = (fr === "abc");
+        if (!decimalPart && !threePart) return integerPart;
+        const denominator = Math.pow(10, decimalPart.length);
+        const decimalInteger = parseInt(decimalPart, 10);
+        const gcd = (a, b) => b ? gcd(b, a % b) : a;
+        const divisor = gcd(decimalInteger, denominator);
+        const simplifiedNumerator = decimalInteger / divisor;
+        const simplifiedDenominator = denominator / divisor;
+        const output = threePart && simplifiedNumerator >= simplifiedDenominator
+            ? [integerPart, simplifiedNumerator, simplifiedDenominator]
+            : [integerPart * simplifiedDenominator + simplifiedNumerator, simplifiedDenominator];
+        return output.join("/");
+    };
     const subt = (str) => {
         return ((data[str[0] + str[2]] * data[str[1] + str[3]]) - (data[str[0] + str[3]] * data[str[1] + str[2]]))
     }
@@ -61,9 +78,9 @@ ${at(a1)}**X** ${at((b1 > 0) ? `+ ${b1}` : `- ${-b1}`)}**Y** ${at((c1 > 0) ? `+ 
 ${at(a2)}**X** ${at((b2 > 0) ? `+ ${b2}` : `- ${-b2}`)}**Y** ${at((c2 > 0) ? `+ ${c2}` : `- ${-c2}`)}**Z** = ${d2}
 ${at(a3)}**X** ${at((b3 > 0) ? `+ ${b3}` : `- ${-b3}`)}**Y** ${at((c3 > 0) ? `+ ${c3}` : `- ${-c3}`)}**Z** = ${d3}
 **XYZ Value**:
-X ${Number.isInteger(x) ? "=" : "≈"} ${x}
-Y ${Number.isInteger(y) ? "=" : "≈"} ${y}
-Z ${Number.isInteger(z) ? "=" : "≈"} ${z}
+X ${Number.isInteger(x) || fr ? "=" : "≈"} ${dcf(x)}
+Y ${Number.isInteger(y) || fr ? "=" : "≈"} ${dcf(y)}
+Z ${Number.isInteger(z) || fr ? "=" : "≈"} ${dcf(z)}
 `)
         await interact.reply({
             embeds: [embed]

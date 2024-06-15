@@ -61,6 +61,13 @@ export default {
                         .setMinValue(-100000)
                         .setMaxValue(100000)
                         .setRequired(true))
+                .addStringOption(option =>
+                    option.setName("fraction")
+                        .setDescription("Leave Blank for Decimals")
+                        .addChoices(
+                            { name: "A/B Fraction", value: "ab" },
+                            { name: "A/B/C Fraction", value: "abc" }
+                        ))
         )
         .addSubcommandGroup(command =>
             command.setName("eqnunk")
@@ -104,6 +111,13 @@ export default {
                                 .setMinValue(-100000)
                                 .setMaxValue(100000)
                                 .setRequired(true))
+                        .addStringOption(option =>
+                            option.setName("fraction")
+                                .setDescription("Leave Blank for Decimals")
+                                .addChoices(
+                                    { name: "A/B Fraction", value: "ab" },
+                                    { name: "A/B/C Fraction", value: "abc" }
+                                ))
                 )
                 .addSubcommand(command =>
                     command.setName("three")
@@ -180,6 +194,13 @@ export default {
                                 .setMinValue(-100000)
                                 .setMaxValue(100000)
                                 .setRequired(true))
+                        .addStringOption(option =>
+                            option.setName("fraction")
+                                .setDescription("Leave Blank for Decimals")
+                                .addChoices(
+                                    { name: "A/B Fraction", value: "ab" },
+                                    { name: "A/B/C Fraction", value: "abc" }
+                                ))
                 )
         ),
     async execute(interact, client) {
