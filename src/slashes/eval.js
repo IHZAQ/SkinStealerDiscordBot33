@@ -52,6 +52,9 @@ export default {
         .setDescription(text)
         .setColor(color)
         .setFooter({ text: norme.footer })
+        .addFields(
+          { name: "Your Code", value: `\`\`\`js\n${args}\n\`\`\`` }
+        )
     }
     const clean = async (text) => {
       if (text && text.constructor.name == "Promise")

@@ -5,7 +5,6 @@ import {
   Collection,
   EmbedBuilder,
   Events,
-  PermissionsBitField,
   ButtonBuilder,
   ButtonStyle,
   ActionRowBuilder
@@ -29,26 +28,10 @@ export default {
       ephemeral: true
     }
     if (interact.isChatInputCommand() || interact.isUserContextMenuCommand()) {
-      let slash = client.slash.get(interact.commandName);
-      if (!slash) {
-        if (!developers.includes(interact.user.id)) return interact.reply(noperms);
-        const slash2 = client.slashDev.get(interact.commandName)
-        if (!slash2) return;
-        slash = slash2
-      }
-      let name = slash.menu ? t(slash.data.name) : slash.data.name;
-      try {
-        let subcommand = interact.options.getSubcommand()
-        name += ` ${subcommand}`
-      } catch (err) { }
       let data = await model.findOne({ userid: interact.user.id });
       if (!data) {
         data = await (new model({ userid: interact.user.id })).save()
       }
-      if (data && data.ban) return interact.reply({
-        embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
-        ephemeral: true
-      });
       if (!data.access) {
         const embed = new EmbedBuilder()
           .setTitle("Welcome to Skin Stealer!")
@@ -70,6 +53,22 @@ export default {
         })
         return;
       }
+      if (data && data.ban) return interact.reply({
+        embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
+        ephemeral: true
+      });
+      let slash = client.slash.get(interact.commandName);
+      if (!slash) {
+        if (!developers.includes(interact.user.id)) return interact.reply(noperms);
+        const slash2 = client.slashDev.get(interact.commandName)
+        if (!slash2) return;
+        slash = slash2
+      }
+      let name = slash.menu ? t(slash.data.name) : slash.data.name;
+      const subgroup = interact.options.getSubcommandGroup(false)
+      const subcommand = interact.options.getSubcommand(false)
+      name += subgroup ? ` ${subgroup}` : "";
+      name += subcommand ? ` ${subcommand}` : "";
       //Cooldown system
       if (slash.cooldown) {
         if (!cooldowns.has(name)) {
@@ -95,8 +94,8 @@ export default {
             });
           }
         }
-        const newName = name.replace(" ", "-")
-        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { [newName]: (data[newName] + 1) } }, { new: true })
+        const newName = name.replaceAll(" ", "-")
+        await model.findOneAndUpdate({ userid: interact.user.id }, { [newName]: (data[newName] + 1) })
         time_stamps.set(interact.user.id, current_time);
         setTimeout(() => time_stamps.delete(interact.user.id), cooldown_amount);
       }

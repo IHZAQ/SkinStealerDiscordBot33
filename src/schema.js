@@ -5,7 +5,6 @@ let obj = {
     ban: { type: Boolean, default: false },
     access: { type: Boolean, default: false },
     hangwin: { type: Number, default: 0 },
-    basechg: { type: Number, default: 0 },
     "hang-man": { type: Number, default: 0 },
     help: { type: Number, default: 0 },
     hivemc: { type: Number, default: 0 },
@@ -28,6 +27,10 @@ let obj = {
     "xbox-player": { type: Number, default: 0 },
     "stats-user": { type: Number, default: 0 },
     "stats-privacy": { type: Number, default: 0 },
-    "users-stats": { type: Number, default: 0 }
+    "users-stats": { type: Number, default: 0 },
+    "math-base": { type: Number, default: 0 },
+    "math-eqn": { type: Number, default: 0 },
+    "math-eqnunk-two": { type: Number, default: 0 },
+    "math-eqnunk-three": { type: Number, default: 0 }
 }
 export default model("stats", new Schema(obj))

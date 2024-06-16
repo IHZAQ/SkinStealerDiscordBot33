@@ -21,7 +21,7 @@ export default {
                     option.setName("target")
                         .setDescription("The stats of other user")
                 )
-                .addBooleanOption(option => 
+                .addBooleanOption(option =>
                     option.setName("hide")
                         .setDescription("You want this stats visible or not")
                 )
@@ -54,14 +54,14 @@ export default {
             });
             const filter = ["hangwin", "__v", "_id", "userid", "private", "access", "users-stats"]
             const array = [...Object.entries(data.toJSON())]
-                .filter(e => !filter.includes(e[0]) && e[1] )
-                .map(e => `</${e[0].replace("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
+                .filter(e => !filter.includes(e[0]) && e[1])
+                .map(e => `</${e[0].replaceAll("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
                 .join(`\n`);
             const embed = new EmbedBuilder()
                 .setTitle(`${username}'s stats`)
                 .setDescription(`
 ## Ban Status
-${data.ban ? "Banned": "Not Banned"}
+${data.ban ? "Banned" : "Not Banned"}
 ## Command Stats
 ${array}
 ## Games
@@ -77,7 +77,7 @@ Users Stats: ${data["users-stats"]}
         } else {
             await interact.deferReply({ ephemeral: true })
             const boolean = interact.options.getBoolean("toggle")
-            await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { new: true } )
+            await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { new: true })
             interact.editReply({
                 embeds: [new EmbedBuilder()
                     .setTitle("Data Privacy")

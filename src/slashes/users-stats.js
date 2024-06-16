@@ -29,7 +29,7 @@ export default {
         const filter = ["hangwin", "__v", "_id", "userid", "private", "access", "users-stats"]
         const array = [...Object.entries(data.toJSON())]
             .filter(e => !filter.includes(e[0]) && e[1] && e[0])
-            .map(e => `</${e[0].replace("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
+            .map(e => `</${e[0].replaceAll("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
             .join(`\n`);
         const embed = new EmbedBuilder()
             .setTitle(`${username}'s stats`)
