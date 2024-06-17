@@ -1,5 +1,7 @@
 export default async (interact, { norme, colors }, text, Embed, items) => {
   let title = interact.options.getString("title")
+  let titleColor = interact.options.getString("title-color")
+  let textColor = interact.options.getString("text-color")
   let item = interact.options.getString("item").toLowerCase()
   if (!items.includes(item)) return interact.reply({
     embeds: [new Embed()
@@ -14,6 +16,8 @@ export default async (interact, { norme, colors }, text, Embed, items) => {
   });
   await interact.deferReply()
   let url = `https://ag.nexcord.pro/generate?title=${encodeURI(title)}&description=${encodeURI(text)}&icon=${item}`
+  if (titleColor) url += `&color1=${titleColor.toUpperCase()}`;
+  if (textColor) url += `&color2=${textColor.toUpperCase()}`;
   let embed = new Embed()
     .setTitle("Achievement Image Builder")
     .setImage(url)

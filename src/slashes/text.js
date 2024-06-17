@@ -42,6 +42,20 @@ export default {
             .setDescription("Choose an Item")
             .setRequired(true)
             .setAutocomplete(true)
+        )
+        .addStringOption(option =>
+          option
+            .setName("title-color")
+            .setDescription("Color Code for Title (left blank for default color)")
+            .setMinLength(6)
+            .setMaxLength(6)
+        )
+        .addStringOption(option =>
+          option
+            .setName("text-color")
+            .setDescription("Color Code for Text (left blank for default color)")
+            .setMinLength(6)
+            .setMaxLength(6)
         ))
     .addSubcommand(command =>
       command
