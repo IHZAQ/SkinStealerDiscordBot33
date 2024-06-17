@@ -66,7 +66,7 @@ export default {
   },
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused().toLowerCase();
-    const filtered = items.filter(choice => choice.toLowerCase().startsWith(focusedValue) || choice.toLowerCase().includes(focusedValue));
+    const filtered = items.filter(choice => choice.replaceAll("_", " ").toLowerCase().startsWith(focusedValue) || choice.replaceAll("_", " ").toLowerCase().includes(focusedValue));
     while (filtered.length > 25) filtered.pop();
     await interaction.respond(
       filtered.map(choice => ({
