@@ -37,8 +37,7 @@ export default {
         { name: 'Server count:', value: `**\`${client.guilds.cache.size} servers\`**` },
         { name: 'Credits:', value: "**Bot Avatar made by:**\n" + `> **[Dennisxx2](https://denhis2.carrd.co/)** <:dennisc:805591024118398977>\n> **[ZitzV & Evy](https://discord.gg/2uXnPpFuxM)**\n` + "**Original Idea/Inspired by:**\n" + "> **[Minecraft Skin Stealer - Discord Bot](https://youtu.be/Ja2KFcGG9_I)**" },
         {
-          name: 'Thanks to:', value: "> **[MCHeads](https://mc-heads.net) for providing an amazing API for us to use**\n" +
-            "> **[SkinMC](https://skinmc.net) for providing Minecraft Achievements API**"
+          name: 'Thanks to:', value: "> **[MCHeads](https://mc-heads.net) for providing an amazing API for us to use**"
         },
         {
           name: "Useful Links",

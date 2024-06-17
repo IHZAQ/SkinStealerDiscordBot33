@@ -6,16 +6,13 @@ import {
 import achievement from "./text/achievement.js"
 import toemoji from "./text/toemoji.js"
 
-import { items } from "../data/usernamer.js"
-let itemlist = items.map((i) => {
-  return i.name
-})
-let item = new Map(items.map(e => [e[0].toLowerCase(), e[1]]))
+import items from "../data/achievement.js"
+const convert = str => str.split('_').map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 export default {
   cooldown: 8,
   category: "Minecraft Utilities",
   usage: {
-    achievement: "Thanks to [SkinMc](https://skinmc.net), you can now generate an image of Minecraft Achievements directly in Discord!", 
+    achievement: "Thanks to [SkinMc](https://skinmc.net), you can now generate an image of Minecraft Achievements directly in Discord!",
     toemoji: "You can turn your text into discord letter emoji! After it finished, you can copy it and send it to your friend! And etc"
   },
   data: new SlashCommandBuilder()
@@ -30,14 +27,14 @@ export default {
             .setName("title")
             .setDescription("Text for Yellow text")
             .setRequired(true)
-            .setMaxLength(23)
+            .setMaxLength(24)
         )
         .addStringOption(option =>
           option
             .setName('text')
             .setDescription('Put text that gonna turn into a image')
             .setRequired(true)
-            .setMaxLength(23)
+            .setMaxLength(24)
         )
         .addStringOption(option =>
           option
@@ -61,7 +58,7 @@ export default {
     let text = interact.options.getString("text")
     switch (command) {
       case "achievement":
-        await achievement(interact, config, text, EmbedBuilder, { items, item, itemlist })
+        await achievement(interact, config, text, EmbedBuilder, items)
         break;
       case "toemoji":
         await toemoji(interact, config, text, EmbedBuilder)
@@ -69,13 +66,13 @@ export default {
   },
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused().toLowerCase();
-    const filtered = items.filter(choice => choice[0].toLowerCase().startsWith(focusedValue) || choice[0].toLowerCase().includes(focusedValue));
+    const filtered = items.filter(choice => choice.toLowerCase().startsWith(focusedValue) || choice.toLowerCase().includes(focusedValue));
     while (filtered.length > 25) filtered.pop();
     await interaction.respond(
       filtered.map(choice => ({
-        name: choice[0],
-        value: choice[0].toLowerCase()
-      })),
+        name: convert(choice),
+        value: choice
+      }))
     );
   },
 }
