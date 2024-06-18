@@ -2,8 +2,8 @@ export default async (interact, { norme, colors }, text, Embed, items) => {
   let title = interact.options.getString("title")
   let titleColor = interact.options.getString("title-color")
   let textColor = interact.options.getString("text-color")
-  let item = interact.options.getString("item").toLowerCase()
-  if (!items.includes(item)) return interact.reply({
+  let item = interact.options.getString("item")
+  if (!items.map(e => e.toLowerCase()).includes(item.toLowerCase())) return interact.reply({
     embeds: [new Embed()
       .setTitle("Invalid Item")
       .setDescription(`The only valid item is the one in autocomplete`)
