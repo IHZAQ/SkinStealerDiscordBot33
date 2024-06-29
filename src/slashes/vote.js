@@ -7,7 +7,7 @@ import {
 } from "discord.js"
 
 export default {
-  category: "General", 
+  category: "General",
   usage: {
     desc: "List of Links to vote our bot on bot list providers"
   },
@@ -46,7 +46,12 @@ export default {
           .setEmoji("<:discordlist:1051763902834294785>")
           .setLabel("Discord List")
           .setStyle(ButtonStyle.Link)
-          .setURL("https://discordlist.gg/bot/803524726219079690/vote")
+          .setURL("https://discordlist.gg/bot/803524726219079690/vote"),
+        new ButtonBuilder()
+          .setEmoji("<:discordbotsgg:1256624407972024371>")
+          .setLabel("DiscordBots.gg")
+          .setStyle(ButtonStyle.Link)
+          .setURL("https://discordbots.gg/bot/803524726219079690/vote")
       )
     await interact.editReply({
       embeds: [embed],
