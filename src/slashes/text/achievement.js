@@ -1,4 +1,9 @@
-export default async (interact, { norme, colors }, text, Embed, items) => {
+import { drawImage, items } from "../../img/achievement.js"
+import {
+  AttachmentBuilder
+} from "discord.js"
+
+export default async (interact, { norme, colors }, text, Embed) => {
   let title = interact.options.getString("title")
   let titleColor = interact.options.getString("title-color")
   let textColor = interact.options.getString("text-color")
@@ -15,17 +20,26 @@ export default async (interact, { norme, colors }, text, Embed, items) => {
     ephemeral: true
   });
   await interact.deferReply()
-  let url = `https://ag.nexcord.pro/generate?title=${encodeURI(title)}&description=${encodeURI(text)}&icon=${item}`
-  if (titleColor) url += `&color1=${titleColor.toUpperCase()}`;
-  if (textColor) url += `&color2=${textColor.toUpperCase()}`;
+  let data = {
+    title,
+    description: text,
+    icon: item
+  }
+  if (titleColor) data.color1 = "#" + titleColor.toUpperCase();
+  if (textColor) data.color2 = "#" + textColor.toUpperCase();
+  const buffer = await drawImage(data);
+  const img = new AttachmentBuilder(buffer, {
+    name: "achievement.png"
+  })
   let embed = new Embed()
     .setTitle("Achievement Image Builder")
-    .setImage(url)
+    .setImage("attachment://achievement.png")
     .setColor(colors.default)
     .setFooter({
       text: norme.footer
     })
   await interact.editReply({
-    embeds: [embed]
+    embeds: [embed],
+    files: [img]
   })
 }

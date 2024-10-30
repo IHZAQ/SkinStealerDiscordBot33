@@ -5,14 +5,14 @@ import {
 
 import achievement from "./text/achievement.js"
 import toemoji from "./text/toemoji.js"
+import { items } from "../img/achievement.js"
 
-import items from "../data/achievement.js"
 const convert = str => str.split('_').map(word => word[0].toUpperCase() + word.slice(1).toLowerCase()).join(' ');
 export default {
   cooldown: 8,
   category: "Minecraft Utilities",
   usage: {
-    achievement: "Thanks to [SkinMc](https://skinmc.net), you can now generate an image of Minecraft Achievements directly in Discord!",
+    achievement: "Achievement Picture is Generated directly in Discord!",
     toemoji: "You can turn your text into discord letter emoji! After it finished, you can copy it and send it to your friend! And etc"
   },
   data: new SlashCommandBuilder()
@@ -72,7 +72,7 @@ export default {
     let text = interact.options.getString("text")
     switch (command) {
       case "achievement":
-        await achievement(interact, config, text, EmbedBuilder, items)
+        await achievement(interact, config, text, EmbedBuilder)
         break;
       case "toemoji":
         await toemoji(interact, config, text, EmbedBuilder)

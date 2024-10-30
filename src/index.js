@@ -45,6 +45,17 @@ client.app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/main.html`);
   res.status(200)
 });
+client.app.get('/mcs/:name/:ip/:port', (req, res) => {
+  const { name, ip, port } = req.params;
+  if (!name || !ip || !port) {
+    return res.status(400).send('Missing required parameters: name, ip, port');
+  }
+  res.send(`
+<title> redirecting </title>
+<meta http-equiv="refresh" content="0; url=minecraft://?addExternalServer=${name}|${ip}:${port}">
+`)
+  res.status(200)
+});
 client.app.listen(port, () => {
   console.log('Bot is ready to online!');
 });
