@@ -178,10 +178,10 @@ export default {
       let url = new ActionRowBuilder()
         .addComponents(
           new ButtonBuilder()
-            .setEmoji("🌱")
+            .setEmoji("<:minecraft:1286196639521968140>")
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
-            .setURL(`http://fi2.bot-hosting.net:21737/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`),
+            .setURL(`{your url here}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`),
           new ButtonBuilder()
             .setCustomId(`s-mcserver-bedrock`)
             .setLabel("Publish")

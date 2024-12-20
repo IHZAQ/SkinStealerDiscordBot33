@@ -1,9 +1,9 @@
 export const emoji = new Map([
-  ["Minecraft Utilities", "<:minecraft:1082646921103032340>"],
-  ["Roblox Tools", "<:roblox:1082647296208019557>"],
-  ["Xbox Live", "<:xbox:1083322489276465172>"],
-  ["Fun / Utilities", "<:funtools:1212740850203754516>"],
-  ["Math / Complex Mode", "<:Calculator:1251197882078462102>"],
+  ["Minecraft Utilities", "<:minecraft:1286196639521968140>"],
+  ["Roblox Tools", "<:roblox:1286196676918513706>"],
+  ["Xbox Live", "<:xbox:1286196751065415700>"],
+  ["Fun / Utilities", "<:funtools:1286196588506775582>"],
+  ["Math / Complex Mode", "<:Calculator:1286196509687418900>"],
   ["General", "⚙️"],
   ["Statistics", "📊"]
 ])
