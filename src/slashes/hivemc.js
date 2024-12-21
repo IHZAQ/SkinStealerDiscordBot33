@@ -58,7 +58,6 @@ export default {
             .setRequired(true)),
    execute: async (interaction, client) => {
       const {
-         colors,
          norme
       } = client.config
       const username = interaction.options.getString("username")
@@ -83,7 +82,7 @@ export default {
          game.unshift({
             label: gameName.get(e),
             emoji: gameEmoji.get(e),
-            value: `main-${e}`
+            value: `main~${e}`
          })
       })
       game.unshift({
@@ -143,7 +142,7 @@ export default {
             ephemeral: true
          })
       }
-      let [game, item] = interaction.values[0].split("-")
+      let [game, item] = interaction.values[0].split("~")
       const data = await getHive(username, game)
       if (item) {
          let desc = `## ${gameName.get(item)} ${gameEmoji.get(item)}\n`
@@ -165,19 +164,20 @@ export default {
          interaction.update({ embeds: [embed] })
          return;
       }
-      let fil = ["UUID", "xp", "played", "first_played", "rating_meh_received", "rating_okay_received", "rating_good_received", "rating_great_received", "rating_love_received"]
+      let fil = ["UUID", "xp", "played", "parkours", "first_played", "rating_meh_received", "rating_okay_received", "rating_good_received", "rating_great_received", "rating_love_received"]
       let arr = Object.keys(data).filter(e => !fil.includes(e));
-      let desc = `
- ## ${gameName.get(game)} ${gameEmoji.get(game)}
- **Level**: \`${gameLevel(game, (data.xp || 0))}\`
- **XP**: \`${data.xp || 0}\`
- **Played**:
- \`${data.played || 0} Times\`
- **First Played**:
- <t:${data.first_played}:f>, <t:${data.first_played}:R>
- `
-      const rating = r => (`rating_${r}_received` in data) ? data[`rating_${r}_received`] : 0;
+      let desc = `## ${gameName.get(game)} ${gameEmoji.get(game)}`
+      if (data.xp) desc += `\n**Level**: \`${gameLevel(game.split("-")[0], (data.xp || 0))}\``
+      if (data.xp) desc += `\n**XP**: \`${data.xp || 0}\``
+      if (data.played) desc += `\n**Played**:\n\`${data.played || 0} Times\``
+      if (data.first_played) desc += `\n**First Played**:\n<t:${data.first_played}:f>, <t:${data.first_played}:R>`
+      if (game == "parkour") {
+         desc += `
+Total Stars Collected: \`${data.parkours.total_stars}/400\`
+`
+      }
       if (game == "build") {
+         const rating = r => (`rating_${r}_received` in data) ? data[`rating_${r}_received`] : 0;
          desc += `### Rating Received
  🔴 **Meh**: ${rating("meh")}
  🟠 **Okay**: ${rating("okay")}

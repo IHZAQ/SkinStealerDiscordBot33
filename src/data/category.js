@@ -3,7 +3,7 @@ export const emoji = new Map([
   ["Roblox Tools", "<:roblox:1286196676918513706>"],
   ["Xbox Live", "<:xbox:1286196751065415700>"],
   ["Fun / Utilities", "<:funtools:1286196588506775582>"],
-  ["Math / Complex Mode", "<:Calculator:1286196509687418900>"],
+  ["Math / Complex Mode", "🧮"],
   ["General", "⚙️"],
   ["Statistics", "📊"]
 ])
