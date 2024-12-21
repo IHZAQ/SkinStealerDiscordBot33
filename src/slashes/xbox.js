@@ -49,7 +49,7 @@ export default {
         },
         {
           name: "Gamerscore", 
-          value: `**${info.gamerscore}** <:gamerscore:1083333180024688660>`
+          value: `**${info.gamerscore}** <:gamerscore:1286196597390049290>`
         }, 
         {
           name: "XUID", 
