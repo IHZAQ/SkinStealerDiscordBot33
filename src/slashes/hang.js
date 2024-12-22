@@ -22,7 +22,8 @@ export default {
     .setDescription("Hanging someone")
     .addSubcommand((command) =>
       command.setName("man").setDescription("Play Hangman directly in Discord"),
-    ),
+    )
+    .setIntegrationTypes([0,1]),
   async execute(interact, { config: { norme, colors }, embErr }) {
     if (game.has(interact.user.id)) return interact.reply({
       embeds: [embErr("You already have a game in progress!")],

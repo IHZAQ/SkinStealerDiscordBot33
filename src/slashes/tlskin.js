@@ -18,7 +18,8 @@ export default {
     .addStringOption(option =>
       option.setName('username')
         .setDescription('Put invalid Minecraft username')
-        .setRequired(true)),
+        .setRequired(true))
+    .setIntegrationTypes([0,1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     const username = interact.options.getString("username")

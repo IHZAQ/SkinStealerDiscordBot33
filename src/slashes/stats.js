@@ -34,7 +34,8 @@ export default {
                         .setDescription("decision")
                         .setRequired(true)
                 )
-        ),
+        )
+        .setIntegrationTypes([0,1]),
     async execute(interact, { slashId, embErr, config: { colors, norme } }) {
         const subcommand = interact.options.getSubcommand()
         if (subcommand === "user") {

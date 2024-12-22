@@ -50,7 +50,8 @@ export default {
             .setMaxValue(65535)
         )
 
-    ),
+    )
+    .setIntegrationTypes([0,1]),
 
   async execute(interact, client) {
     const { norme, colors } = client.config

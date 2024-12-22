@@ -16,7 +16,8 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("reportbug")
-    .setDescription("Report bug or suggestion straight to developer"),
+    .setDescription("Report bug or suggestion straight to developer")
+    .setIntegrationTypes([0,1]),
   async execute(interact) {
     const modal = new ModalBuilder()
       .setCustomId("reportbug")

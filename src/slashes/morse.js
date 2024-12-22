@@ -26,7 +26,8 @@ export default {
           name: "Morse => Text",
           value: "mtt"
         })
-        .setRequired(true)),
+        .setRequired(true))
+    .setIntegrationTypes([0,1]),
   execute: async (interaction, {embErr, config: {norme, colors}}) => {
     const decision = interaction.options.getString("decision")
     const prompt = interaction.options.getString("prompt").toLowerCase()

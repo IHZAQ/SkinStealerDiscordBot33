@@ -66,7 +66,8 @@ export default {
             .setName("text")
             .setDescription("Text Prompt")
             .setRequired(true)
-        )),
+        ))
+    .setIntegrationTypes([0,1]),
   async execute(interact, { config }) {
     const command = interact.options.getSubcommand()
     let text = interact.options.getString("text")

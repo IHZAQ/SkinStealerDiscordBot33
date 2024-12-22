@@ -16,7 +16,8 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("info")
-    .setDescription("Shows info of the bot like latency, Server count and more."),
+    .setDescription("Shows info of the bot like latency, Server count and more.")
+    .setIntegrationTypes([0,1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     await interact.deferReply({ ephemeral: true });

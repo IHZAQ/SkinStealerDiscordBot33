@@ -202,7 +202,8 @@ export default {
                                     { name: "A/B/C Fraction", value: "abc" }
                                 ))
                 )
-        ),
+        )
+        .setIntegrationTypes([0,1]),
     async execute(interact, client) {
         const subcommand = interact.options.getSubcommand()
         switch (subcommand) {

@@ -28,7 +28,8 @@ export default {
 			option.setName("dark")
 			.setDescription("Set Custom Color for Dark Area")
 			.setMinLength(6)
-			.setMaxLength(6)),
+			.setMaxLength(6))
+		.setIntegrationTypes([0,1]),
 	execute: async (interaction, {
 		embErr,
 		config: {

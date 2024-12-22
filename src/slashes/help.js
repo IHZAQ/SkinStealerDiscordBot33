@@ -34,7 +34,8 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("help")
-    .setDescription("List of Commands. yeah"),
+    .setDescription("List of Commands")
+    .setIntegrationTypes([0,1]),
   async execute(interact, { config: { norme, colors }, slashId, slash }) {
     await interact.deferReply({ ephemeral: true })
     let commands = [...slash.values()]

@@ -52,7 +52,8 @@ export default {
             .setRequired(true)
             .setAutocomplete(true)
         )
-    ),
+    )
+    .setIntegrationTypes([0,1]),
   async execute(interact, { config, embErr }) {
     const command = interact.options.getSubcommand()
     switch (command) {

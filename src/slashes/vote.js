@@ -13,7 +13,8 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("vote")
-    .setDescription("Vote and Upvote this bot. May support the development"),
+    .setDescription("Vote and Upvote this bot. May support the development")
+    .setIntegrationTypes([0,1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     await interact.deferReply({ ephemeral: true })

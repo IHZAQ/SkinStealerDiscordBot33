@@ -19,7 +19,8 @@ export default {
     .addStringOption(option =>
       option.setName('username')
         .setDescription('Put invalid Minecraft Username')
-        .setRequired(true)),
+        .setRequired(true))
+    .setIntegrationTypes([0,1]),
   async execute(interaction, client) {
     const { colors, norme } = client.config
     const embedColor = colors.default;

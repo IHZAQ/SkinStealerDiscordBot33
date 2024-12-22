@@ -55,7 +55,8 @@ export default {
       .addStringOption(option =>
          option.setName("username")
             .setDescription("XBOX Gamertag here")
-            .setRequired(true)),
+            .setRequired(true))
+      .setIntegrationTypes([0,1]),
    execute: async (interaction, client) => {
       const {
          norme

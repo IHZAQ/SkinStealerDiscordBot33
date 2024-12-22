@@ -17,7 +17,8 @@ export default {
   },
   data: new SlashCommandBuilder()
     .setName("random")
-    .setDescription("No idea for Minecraft username? try this commands!"),
+    .setDescription("No idea for Minecraft username? try this commands!")
+    .setIntegrationTypes([0,1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     let random = usernamelist[Math.floor(Math.random() * usernamelist.length)]

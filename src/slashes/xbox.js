@@ -24,7 +24,8 @@ export default {
             .setDescription("Gamertag of Xbox Live Users")
             .setRequired(true)
         )
-    ),
+    )
+    .setIntegrationTypes([0,1]),
   async execute(interaction, client){
     const {
       colors, 
