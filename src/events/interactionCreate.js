@@ -98,6 +98,9 @@ export default {
         await model.findOneAndUpdate({ userid: interact.user.id }, { [newName]: (data[newName] + 1) })
         time_stamps.set(interact.user.id, current_time);
         setTimeout(() => time_stamps.delete(interact.user.id), cooldown_amount);
+      } else {
+        const newName = name.replaceAll(" ", "-")
+        await model.findOneAndUpdate({ userid: interact.user.id }, { [newName]: (data[newName] + 1) })
       }
       //Ends of Slash command
       try {
