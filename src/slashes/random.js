@@ -57,26 +57,44 @@ export default {
             {
               label: "Body",
               description: "Full 3D Representation of the Minecraft Skin",
-              emoji: "<:body:1215904407301001216>",
+              emoji: "<:body:1286196485804920832>",
               value: "skin_body"
+            },
+            {
+              label: "Full Body",
+              description: "Full 2D Representation of the Minecraft Skin",
+              emoji: "<:papercraft:1320532080639217684>",
+              value: "skin_fullbody"
             },
             {
               label: "Head",
               description: "3D Head of the Minecraft Skin",
-              emoji: "<:head:1086303156805308466>",
+              emoji: "<:head:1286196606944677920>",
               value: "skin_head"
             },
             {
               label: "Avatar",
               description: "2D Face of Minecraft Skin",
-              emoji: "<:avatar:1086303238883651584>",
+              emoji: "<:avatar:1286196285212332094>",
               value: "skin_avatar"
             },
             {
               label: "Skin",
               description: "Raw Minecraft Skin Image",
-              emoji: "<:skin:1086303320362196992>",
+              emoji: "<:skin:1286196696388337736>",
               value: "skin_skin"
+            },
+            {
+              label: "Two Layer (Default)",
+              description: "Show both skin layers",
+              emoji: "2️⃣",
+              value: "helm_yes"
+            },
+            {
+              label: "One Layer",
+              description: "Only show the first layer of the skin",
+              emoji: "1️⃣",
+              value: "helm_no"
             }
           ]),
       );
@@ -100,20 +118,20 @@ export default {
       })
     }
     const embed = EmbedBuilder.from(interaction.message.embeds[0])
-    const part = interaction.values[0].split("_")[1]
-    switch (part) {
-      case "body":
-        embed.setImage(`https://mc-heads.net/body/${uuid}`)
-        break;
-      case "head":
-        embed.setImage(`https://mc-heads.net/head/${uuid}`)
-        break;
-      case "avatar":
-        embed.setImage(`https://mc-heads.net/avatar/${uuid}`)
-        break;
-      case "skin":
-        embed.setImage(`https://mc-heads.net/skin/${uuid}`)
+    let url = interaction.message.embeds[0].image.url
+    const [menu, part] = interaction.values[0].split("_")
+    if (menu == "skin") {
+      url = url.replace(/(https:\/\/mc-heads\.net\/)[^\/]+(\/[^\/]+)(\/nohelm)?/, `$1${part}$2$3`)
     }
+    if (menu == "helm") {
+      if (part == "yes" && url.endsWith("/nohelm")) {
+        url = url.replace("/nohelm", "")
+      }
+      if (part == "no" && !url.endsWith("/nohelm")) {
+        url += "/nohelm"
+      }
+    }
+    embed.setImage(url)
     interaction.update({
       embeds: [embed]
     })
