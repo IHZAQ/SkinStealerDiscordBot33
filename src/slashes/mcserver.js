@@ -51,7 +51,7 @@ export default {
         )
 
     )
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0]),
 
   async execute(interact, client) {
     const { norme, colors } = client.config
