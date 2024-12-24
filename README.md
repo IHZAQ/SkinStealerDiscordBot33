@@ -23,7 +23,7 @@ Note that after you use this code, Our [Terms Of Service](TOS.md) and [Privacy P
 You need to fill in the information inside the configuration files, which is located in [config.js](config.js) and [.env](.env). Here few things need to be filled
 
 - Report Bugs Channel Id ( To Log Users Complain)
-- Your user id (no need to fill in if you already put it in .env)
+- Your user id
 - [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user
 - [MongoDB](https://mongodb.com/) String, where you can get after registering and creating a cluster (Your Database)
 - Server ID to install dev commands

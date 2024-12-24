@@ -7,7 +7,7 @@ export default {
 		footer: "IHZAQ © 2024" //Don't Change This (Read TOS)
 	},
 	developers: [
-		process.env.FOUNDER_ID,
+		"userid1",
 		//Feel free to add more developer id in here
 	],
 	channels: {
