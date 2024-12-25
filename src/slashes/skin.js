@@ -56,7 +56,7 @@ export default {
     const sel = new ActionRowBuilder()
       .addComponents(
         new StringSelectMenuBuilder()
-          .setCustomId(`skin-${interaction.user.id}-${uuid.id}`)
+          .setCustomId(`skin-${interaction.user.id}`)
           .setPlaceholder("Choose Part To Preview")
           .addOptions([
             {
@@ -120,7 +120,7 @@ export default {
   },
   async selectmenu (interaction, client) {
     const { norme, colors } = client.config
-    const [, userid, uuid] = interaction.customId.split("-")
+    const [, userid] = interaction.customId.split("-")
     if (interaction.user.id !== userid) {
       return await interaction.reply({
         embeds: [new EmbedBuilder()
