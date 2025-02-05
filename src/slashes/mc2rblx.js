@@ -24,10 +24,10 @@ export default {
       embeds: [embErr("The file you uploaded was not an image.")],
       flags: 64
     });
+    await interaction.deferReply()
     const data = await converter(url);
-    if (!data) return interaction.reply({
-      embeds: [embErr("Only image with the size of 64 x 64 will be accepted.\n* Legacy is not supported")],
-      flags: 64
+    if (!data) return interaction.editReply({
+      embeds: [embErr("Only image with the size of 64 x 64 will be accepted.\n* Legacy is not supported")]
     });
     const shirt = new AttachmentBuilder(data[0], {
       name: "shirt.png"
@@ -45,7 +45,7 @@ export default {
       .setImage("attachment://pants.png")
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
-    interaction.reply({
+    interaction.editReply({
       embeds: [embed1, embed2],
       files: [shirt, pants]
     })
