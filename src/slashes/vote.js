@@ -14,10 +14,10 @@ export default {
   data: new SlashCommandBuilder()
     .setName("vote")
     .setDescription("Vote and Upvote this bot. May support the development")
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
-    await interact.deferReply({ ephemeral: true })
+    await interact.deferReply({ flags: 64 })
     const embed = new EmbedBuilder()
       .setTitle("Vote")
       .setDescription("Vote me by clicking this bot list provider below")
@@ -57,7 +57,7 @@ export default {
     await interact.editReply({
       embeds: [embed],
       components: [row1, row2],
-      ephemeral: true
+      flags: 64
     })
   }
 }

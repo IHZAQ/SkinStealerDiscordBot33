@@ -2,7 +2,6 @@ import { createCanvas, loadImage } from "canvas"
 import axios from "axios"
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url'
-import fs from "fs"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const paths = path => resolve(__dirname, path);
@@ -35,8 +34,6 @@ async function shirt(skin) {
     // Back
     ctx.drawImage(skin, 32, 20, 8, 12, 427, 74, 128, 128);
     ctx.drawImage(skin, 32, 36, 8, 12, 427, 74, 128, 128);
-    // Down (need to be inverted)
-    
     // RIGHTARM
     // F
     ctx.drawImage(skin, 44, 20, 4 - s, 12, 217, 355, 64, 128);
@@ -55,7 +52,7 @@ async function shirt(skin) {
     ctx.drawImage(skin, 44, 32, 4 - s, 4, 217, 289, 64, 64);
     // LEFTARM
     // F
-    ctx.drawImage(skin, 36, 52, 4 - s , 12, 308, 355, 64, 128);
+    ctx.drawImage(skin, 36, 52, 4 - s, 12, 308, 355, 64, 128);
     ctx.drawImage(skin, 52, 52, 4 - s, 12, 308, 355, 64, 128);
     // L
     ctx.drawImage(skin, 40 - s, 52, 4, 12, 374, 355, 64, 128);
@@ -70,8 +67,8 @@ async function shirt(skin) {
     ctx.drawImage(skin, 36, 48, 4 - s, 4, 308, 289, 64, 64);
     ctx.drawImage(skin, 52, 48, 4 - s, 4, 308, 289, 64, 64);
     // Avatar
-    ctx.drawImage(skin, 8, 8, 8, 8, 40, 50, 64 , 64);
-    ctx.drawImage(skin, 40, 8, 8, 8, 40, 50, 64 , 64);
+    ctx.drawImage(skin, 8, 8, 8, 8, 40, 50, 64, 64);
+    ctx.drawImage(skin, 40, 8, 8, 8, 40, 50, 64, 64);
     // INVERTED
     ctx.scale(1, -1);
     // Torso Down
@@ -110,8 +107,6 @@ async function pants(skin) {
     // Back
     ctx.drawImage(skin, 32, 20, 8, 12, 427, 74, 128, 128);
     ctx.drawImage(skin, 32, 36, 8, 12, 427, 74, 128, 128);
-    // Down (need to be inverted)
-    
     // RIGHTLEG
     // F
     ctx.drawImage(skin, 4, 20, 4, 12, 217, 355, 64, 128);
@@ -145,8 +140,8 @@ async function pants(skin) {
     ctx.drawImage(skin, 20, 48, 4, 4, 308, 289, 64, 64);
     ctx.drawImage(skin, 4, 48, 4, 4, 308, 289, 64, 64);
     // Avatar
-    ctx.drawImage(skin, 8, 8, 8, 8, 40, 50, 64 , 64);
-    ctx.drawImage(skin, 40, 8, 8, 8, 40, 50, 64 , 64);
+    ctx.drawImage(skin, 8, 8, 8, 8, 40, 50, 64, 64);
+    ctx.drawImage(skin, 40, 8, 8, 8, 40, 50, 64, 64);
     // INVERTED
     ctx.scale(1, -1);
     // Torso Down
@@ -163,10 +158,10 @@ async function pants(skin) {
     return buffer
 }
 const generate = async (url) => {
-  const res = await axios.get(url, { responseType: "arraybuffer" }).catch(err => {});
-  const buffer = Buffer.from(res.data);
-  const img = await loadImage(buffer);
-  if (img.width !== 64 || img.height !== 64) return undefined;
-  return [await shirt(img), await pants(img)]
+    const res = await axios.get(url, { responseType: "arraybuffer" }).catch(err => { });
+    const buffer = Buffer.from(res.data);
+    const img = await loadImage(buffer);
+    if (img.width !== 64 || img.height !== 64) return undefined;
+    return [await shirt(img), await pants(img)]
 }
 export default generate

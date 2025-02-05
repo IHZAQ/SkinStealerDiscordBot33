@@ -22,7 +22,7 @@ export default {
         if (!data) {
             data = await (new model({ userid: id })).save()
         }
-        await interact.deferReply({ ephemeral: data.private })
+        await interact.deferReply(data.private ? { flags: 64 } : {})
         if ((id !== interact.user.id) && data.private) return interact.editReply({
             embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
         });

@@ -35,7 +35,7 @@ export default {
                         .setRequired(true)
                 )
         )
-        .setIntegrationTypes([0,1]),
+        .setIntegrationTypes([0, 1]),
     async execute(interact, { slashId, embErr, config: { colors, norme } }) {
         const subcommand = interact.options.getSubcommand()
         if (subcommand === "user") {
@@ -49,7 +49,7 @@ export default {
             if (!data) {
                 data = await (new model({ userid: id })).save()
             }
-            await interact.deferReply({ ephemeral: (data.private || hide) })
+            await interact.deferReply((data.private || hide) ? { flags: 64 } : {})
             if ((id !== interact.user.id) && data.private) return interact.editReply({
                 embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
             });

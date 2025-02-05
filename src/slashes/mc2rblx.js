@@ -17,10 +17,11 @@ export default {
     .addAttachmentOption(option =>
       option.setName("skin")
         .setDescription("Upload your Minecraft Skin")
-        .setRequired(true)),
-  execute: async (interaction, { embErr, config: { norme, colors } } ) => {
+        .setRequired(true))
+    .setIntegrationTypes([0, 1]),
+  execute: async (interaction, { embErr, config: { norme, colors } }) => {
     const { url, contentType } = interaction.options.getAttachment("skin")
-    if(!contentType.startsWith("image")) return interaction.reply({
+    if (!contentType.startsWith("image")) return interaction.reply({
       embeds: [embErr("The file you uploaded was not an image.")],
       flags: 64
     });
