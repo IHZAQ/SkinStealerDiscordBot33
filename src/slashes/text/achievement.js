@@ -17,7 +17,7 @@ export default async (interact, { norme, colors }, text, Embed) => {
         text: norme.footer
       })
     ],
-    ephemeral: true
+    flags: 64
   });
   await interact.deferReply()
   let data = {

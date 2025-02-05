@@ -27,7 +27,7 @@ export default {
   async execute(interact, { config: { norme, colors }, embErr }) {
     if (game.has(interact.user.id)) return interact.reply({
       embeds: [embErr("You already have a game in progress!")],
-      ephemeral: true,
+      flags: 64,
     });
     await interact.deferReply()
     const { hangwin } = await model.findOne({ userid: interact.user.id })
@@ -99,7 +99,7 @@ Use the button to save the man
             `This is not your game!\nCreate a new game using </hang man:${slashId.get("hang")}>`,
           ),
         ],
-        ephemeral: true,
+        flags: 64,
       });
     }
     if (!game.has(interact.user.id)) return;
@@ -144,7 +144,7 @@ Its \`${word.split("").join(" ")}\`
     if (/[^a-zA-Z]/.test(letter)) {
       return interact.reply({
         embeds: [embErr("This input only accepted letter")],
-        ephemeral: true,
+        flags: 64,
       });
     }
     let { timeout, word, category, cencored, letterList, time } = game.get(
@@ -153,7 +153,7 @@ Its \`${word.split("").join(" ")}\`
     if (letterList.includes(letter)) {
       return interact.reply({
         embeds: [embErr("You already guessed this letter!")],
-        ephemeral: true,
+        flags: 64,
       });
     }
     const embed = EmbedBuilder.from(interact.message.embeds[0]);

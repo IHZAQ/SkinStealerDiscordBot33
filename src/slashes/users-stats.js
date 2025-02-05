@@ -15,7 +15,7 @@ export default {
         if (bot) {
             return interact.reply({
                 embeds: [embErr("The user you picked cannot be a bot")],
-                ephemeral: true
+                flags: 64
             })
         }
         let data = await model.findOne({ userid: id })

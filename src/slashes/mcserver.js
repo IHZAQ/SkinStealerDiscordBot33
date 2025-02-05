@@ -56,7 +56,7 @@ export default {
   async execute(interact, client) {
     const { norme, colors } = client.config
     await interact.deferReply({
-      ephemeral: true
+      flags: 64
     })
     const errore = new EmbedBuilder()
       .setTitle("Error")
@@ -102,7 +102,7 @@ export default {
       const info = await mc()
       if (!info) return await interact.editReply({
         embeds: [errore],
-        ephemeral: true
+        flags: 64
       });
 
       let image;

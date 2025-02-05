@@ -33,7 +33,7 @@ export default {
             const user = await users.fetch(id)
             if (!user) return interact.reply({
                 embeds: [embErr("This user did not exist/Your id may wrong")],
-                ephemeral: true
+                flags: 64
             });
             await interact.deferReply()
             const data = await model.findOne({ userid: id })
@@ -57,7 +57,7 @@ export default {
             }
             if (!guild) return interact.reply({
                 embeds: [client.embErr("There could be two reason\n1. ID is not valid\n2. Server not found")],
-                ephemeral: true
+                flags: 64
             });
             guild.leave().then(() => {
                 interact.reply({

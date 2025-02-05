@@ -70,7 +70,7 @@ export default async (interact, {
         const x = (c1 - (b1 * y)) / a1
         if (!isFinite(x) || !isFinite(y)) return interact.reply({
             embeds: [embErr("Math Error, You got Infinity Solution/No Solution")],
-            ephemeral: true
+            flags: 64
         });
         embed
             .setTitle("EQN XY Linear Solver")
@@ -99,7 +99,7 @@ Y ${!Number.isInteger(y) && !fr ? "≈" : "="} ${y}
         const x = (d1 - (c1 * z) - (b1 * y)) / a1;
         if (!isFinite(x) || !isFinite(y) || !isFinite(z)) return interact.reply({
             embeds: [embErr("Math Error, You got Infinity Solution/No Solution")],
-            ephemeral: true
+            flags: 64
         });
         embed
             .setTitle("EQN XYZ Linear Solver")

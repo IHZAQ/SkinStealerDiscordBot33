@@ -38,8 +38,8 @@ export default {
         { name: 'Player didn\'t exist', value: `A player with username ${username} is not exist` },
         { name: '3-16 Character', value: 'Username must be between 3 and 16 character' })
     const uuid = await uuidForName(username)
-    if (uuid === null) return await interaction.reply({ ephemeral: true, content: "Hi, At this point, Mojang API maybe down. Please try again later\n-ur mom" });
-    if (!uuid) return await interaction.reply({ embeds: [errorMessage], ephemeral: true });
+    if (uuid === null) return await interaction.reply({ flags: 64, content: "Hi, At this point, Mojang API maybe down. Please try again later\n-ur mom" });
+    if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
     await interaction.deferReply()
     const download = `https://mc-heads.net/download/${username}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
@@ -129,7 +129,7 @@ export default {
           .setColor(colors.error)
           .setFooter({ text: norme.footer })
         ],
-        ephemeral: true
+        flags: 64
       })
     }
 

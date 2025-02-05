@@ -48,7 +48,7 @@ export default {
 		}).catch(err => {})
 		if (!qr) return interaction.reply({
 			embeds: [embErr(`A QR Code Cannot be generated due to unknown reason.\nIf you think this is mistake please report using </reportbug:${client.slashId.get("reportbug")}> commands`)],
-			ephemeral: true
+			flags: 64
 		});
 		const img = new Buffer.from(qr.split(",")[1], "base64");
 		const attach = new AttachmentBuilder(await img, {

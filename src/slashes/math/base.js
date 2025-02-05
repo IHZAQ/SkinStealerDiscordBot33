@@ -6,7 +6,7 @@ export default async (interaction, { embErr, config: { norme, colors } }) => {
     if (!(/^[A-Z0-9]+$/.test(num1))) {
         interaction.reply({
             embeds: [embErr("You can only put numbers and letters\nAlso please refrain from using decimals")],
-            ephemeral: true
+            flags: 64
         })
         return;
     }
@@ -17,7 +17,7 @@ export default async (interaction, { embErr, config: { norme, colors } }) => {
     if (!check(num1)) {
         interaction.reply({
             embeds: [embErr(`The Number ${num1} is not in Base ${base1}`)],
-            ephemeral: true
+            flags: 64
         })
         return;
     }

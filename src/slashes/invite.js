@@ -30,7 +30,7 @@ export default {
       )
     await interact.reply({
       components: [row], 
-      ephemeral: true
+      flags: 64
     })
   }
 }

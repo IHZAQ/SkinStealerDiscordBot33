@@ -41,7 +41,7 @@ export default async (interact, {
   if (a == 0) {
     await interact.reply({
       embeds: [embErr("Get back to school kiddo, A value cannot be zero")],
-      ephemeral: true
+      flags: 64
     })
     return;
   }
@@ -49,7 +49,7 @@ export default async (interact, {
   if (pembezalayan < 0) {
     await interact.reply({
       embeds: [embErr("Math Error, you got [imaginary](https://www.google.com/search?q=imaginary+roots+of+quadratic+equation) number")],
-      ephemeral: true
+      flags: 64
     })
     return;
   }

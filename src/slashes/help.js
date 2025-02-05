@@ -37,7 +37,7 @@ export default {
     .setDescription("List of Commands")
     .setIntegrationTypes([0,1]),
   async execute(interact, { config: { norme, colors }, slashId, slash }) {
-    await interact.deferReply({ ephemeral: true })
+    await interact.deferReply({ flags: 64 })
     let commands = [...slash.values()]
     let categories = commands.filter(e => e.category).reduce((acc, command) => {
       if (!acc[command.category]) {
@@ -70,7 +70,7 @@ export default {
     await interact.editReply({
       embeds: [helpEmbed(norme, colors, slashId)],
       components: [menu],
-      ephemeral: true
+      flags: 64
     })
   },
   async selectmenu(interact, { config: { colors, norme }, slashId, slash }) {

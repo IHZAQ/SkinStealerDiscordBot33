@@ -40,7 +40,7 @@ export default {
       case "ttm":
         if(!(/^[a-z0-9\s.?!]+$/).test(prompt)) return interaction.reply({
           embeds: [embErr("For Text to Morse\nPlease use **Text** with only all letters and numbers")],
-          ephemeral: true
+          flags: 64
         });
         ans = prompt.split("").map(e => ttm[e]).join(" ");
         embed.addFields({
@@ -54,7 +54,7 @@ export default {
       case "mtt":
         if(!(/^[.\-_/ ]+$/.test(prompt))) return interaction.reply({
           embeds: [embErr("For Morse to Text\nPlease use **Dots(.)** and **Dash(-)/Underscore(_)** for Morse Code\n**Slash(/)**is for Space")],
-          ephemeral: true
+          flags: 64
         });
         ans = prompt.replaceAll("_", "-").split(" ").map(e => (mtt[e] || "×")).join("");
         embed.addFields({

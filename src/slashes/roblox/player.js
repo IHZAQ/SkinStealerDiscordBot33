@@ -11,7 +11,7 @@ export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }, e
   let id = await noblox.getIdFromUsername(username).catch((e) => { });
   if (!id) return await interact.reply({
     embeds: [embErr("The users you looking for does not exist. Try others")],
-    ephemeral: true
+    flags: 64
   });
   await interact.deferReply();
   await wait(300);

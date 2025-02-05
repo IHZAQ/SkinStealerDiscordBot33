@@ -65,7 +65,7 @@ export default {
       const hive = await getHive(username)
       if (!hive) return interaction.reply({
          embeds: [client.embErr("The user never join the server or the user never exist")],
-         ephemeral: true
+         flags: 64
       });
       const data = hive.main
       let game = Object.entries(hive).filter(item => { return (Array.isArray(item[1]) && item[1].length > 0) || (typeof item[1] === 'object' && Object.keys(item[1]).length > 0) && (item[0] != "main"); }).map(e => nto(e[0]));
@@ -140,7 +140,7 @@ export default {
                .setColor(colors.error)
                .setFooter({ text: norme.footer })
             ],
-            ephemeral: true
+            flags: 64
          })
       }
       let [game, item] = interaction.values[0].split("~")

@@ -25,7 +25,7 @@ export default {
     const uuid = await uuidForName(random)
     if (!uuid) return interact.reply({
       embeds: [client.embErr(`The generated username is not available, run another </random:${client.slashId.get("random")}>`)],
-      ephemeral: true
+      flags: 64
     });
     await interact.deferReply();
     const download = `https://mc-heads.net/download/${random}`
@@ -114,7 +114,7 @@ export default {
           .setColor(colors.error)
           .setFooter({ text: norme.footer })
         ],
-        ephemeral: true
+        flags: 64
       })
     }
     const embed = EmbedBuilder.from(interaction.message.embeds[0])

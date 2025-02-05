@@ -11,7 +11,7 @@ export default async (interact, noblox, EmbedBuilder, wait, { norme, colors }, e
   const id = await noblox.getIdFromUsername(username).catch((e) => { });
   const error = embErr("The users you looking for does not exist. Try others")
   const nofavgame = embErr("This user doesn't have a favourite games" )
-  if (!id) return await interact.reply({ embeds: [error], ephemeral: true });
+  if (!id) return await interact.reply({ embeds: [error], flags: 64 });
   await interact.deferReply()
   const games = await favgame(id).catch(err => { })
   if (!games) return await interact.editReply({ embeds: [nofavgame] })

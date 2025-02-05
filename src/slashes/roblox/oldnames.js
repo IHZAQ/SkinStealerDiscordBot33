@@ -9,9 +9,9 @@ export default async (interact, noblox, EmbedBuilder, wait ,{ norme, colors }, e
   const id = await noblox.getIdFromUsername(usern).catch((e) => { });
   const error = embErr("The users you looking for does not exist. Try others")
   const noname = embErr("This users doesn't have a history of names")
-  if (!id) return await interact.reply({ embeds: [error], ephemeral: true });
+  if (!id) return await interact.reply({ embeds: [error], flags: 64 });
   const { oldNames, username, displayName, isBanned } = await noblox.getPlayerInfo({ userId: id }).catch((e) => { })
-  if (!oldNames || !oldNames.length) return await interact.reply({ embeds: [noname], ephemeral: true });
+  if (!oldNames || !oldNames.length) return await interact.reply({ embeds: [noname], flags: 64 });
   await interact.deferReply()
   function r(arr) {
     return arr.filter((item,

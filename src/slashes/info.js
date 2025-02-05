@@ -20,7 +20,7 @@ export default {
     .setIntegrationTypes([0,1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
-    await interact.deferReply({ ephemeral: true });
+    await interact.deferReply({ flags: 64 });
     let days = Math.floor(client.uptime / 86400000);
     let hours = Math.floor(client.uptime / 3600000) % 24;
     let minutes = Math.floor(client.uptime / 60000) % 60;
@@ -49,8 +49,7 @@ export default {
       .setColor(colors.default)
       .setThumbnail(client.user.displayAvatarURL())
     await interact.editReply({
-      embeds: [embed],
-      ephemeral: true
+      embeds: [embed]
     })
   }
 }

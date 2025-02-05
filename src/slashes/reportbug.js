@@ -89,7 +89,7 @@ Please acknowledge that misused of this commands may result in ban`)
     interact.reply({ 
       embeds: [embed],
       components: [button],
-      ephemeral: true
+      flags: 64
     })
     channel.send({ embeds: [report] })
   }

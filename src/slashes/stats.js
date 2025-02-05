@@ -42,7 +42,7 @@ export default {
             const { id, username, bot } = interact.options.getUser("target") || interact.user;
             if (bot) return interact.reply({
                 embeds: [embErr("The user you picked cannot be a bot")],
-                ephemeral: true
+                flags: 64
             });
             const hide = interact.options.getBoolean("hide") || false;
             let data = await model.findOne({ userid: id })
@@ -76,7 +76,7 @@ Users Stats: ${data["users-stats"]}
                 embeds: [embed]
             })
         } else {
-            await interact.deferReply({ ephemeral: true })
+            await interact.deferReply({ flags: 64 })
             const boolean = interact.options.getBoolean("toggle")
             await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { new: true })
             interact.editReply({

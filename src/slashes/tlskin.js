@@ -48,8 +48,8 @@ export default {
         components: [row]
       })
     } else {
-      await interact.deferReply({ ephemeral: true })
-      await interact.editReply({ embeds: [notAscii], ephemeral: true })
+      await interact.deferReply({ flags: 64 })
+      await interact.editReply({ embeds: [notAscii], flags: 64 })
     }
   }
 }

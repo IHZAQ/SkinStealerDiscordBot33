@@ -25,7 +25,7 @@ export default {
         .setTitle("Missing Permission")
         .setDescription("Only Owner and Developers had permission to use this commands")
         .setColor(colors.error)],
-      ephemeral: true
+      flags: 64
     }
     if (interact.isChatInputCommand() || interact.isUserContextMenuCommand()) {
       let data = await model.findOne({ userid: interact.user.id });
@@ -49,13 +49,13 @@ export default {
         await interact.reply({
           embeds: [embed],
           components: [button],
-          ephemeral: true
+          flags: 64
         })
         return;
       }
       if (data && data.ban) return interact.reply({
         embeds: [client.embErr("You are banned from using Skin Stealer bot\nPlease join [our server](https://discord.gg/3d3HBTvfaT) to request for unban")],
-        ephemeral: true
+        flags: 64
       });
       let slash = client.slash.get(interact.commandName);
       if (!slash) {
@@ -90,7 +90,7 @@ export default {
               .setColor(colors.error)
             return await interact.reply({
               embeds: [embed],
-              ephemeral: true
+              flags: 64
             });
           }
         }
