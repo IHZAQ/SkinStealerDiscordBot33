@@ -22,10 +22,11 @@ Note that after you use this code, Our [Terms Of Service](TOS.md) and [Privacy P
 
 You need to fill in the information inside the configuration files, which is located in [config.js](config.js) and [.env](.env). Here few things need to be filled
 
-- Report Bugs Channel Id ( To Log Users Complain)
+- Report Bugs Channel Id (To Log Users Complain)
 - Your user id
 - [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user
 - [MongoDB](https://mongodb.com/) String, where you can get after registering and creating a cluster (Your Database)
+- [Roblox API key](https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab) for checking user have the premium or not (provide the `user.social.read` and `user.advanced.permission`)
 - Server ID to install dev commands
 
 After that, run `npm start` in your terminal to start your bot

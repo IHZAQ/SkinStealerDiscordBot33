@@ -1,14 +1,11 @@
-import noblox from "noblox.js"
-import search from "../api/search.js"
+import { search } from "../api/robloxuser.js"
 import {
   EmbedBuilder,
   SlashCommandBuilder
 } from "discord.js"
-import { promisify } from "util"
 import player from "./roblox/player.js"
 import favgame from "./roblox/favgame.js"
 import oldnames from "./roblox/oldnames.js"
-const wait = promisify(setTimeout)
 export default {
   cooldown: 18,
   category: "Roblox Tools",
@@ -53,27 +50,25 @@ export default {
             .setAutocomplete(true)
         )
     )
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interact, { config, embErr }) {
     const command = interact.options.getSubcommand()
     switch (command) {
       case "player":
-        await player(interact, noblox, EmbedBuilder, wait, config, embErr)
+        await player(interact, EmbedBuilder, config, embErr)
         break;
       case "favgame":
-        await favgame(interact, noblox, EmbedBuilder, wait, config, embErr)
+        await favgame(interact, EmbedBuilder, config, embErr)
         break;
       case "oldnames":
-        await oldnames(interact, noblox, EmbedBuilder, wait, config, embErr)
+        await oldnames(interact, EmbedBuilder, config, embErr)
     }
   },
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused();
     let result = await search(focusedValue)
     try {
-     await interaction.respond(result);
-    } catch (err) {
-      console.log(`Cannot send the username list to ${interaction.user.username}`)
-    }
+      await interaction.respond(result);
+    } catch (err) { }
   },
 }

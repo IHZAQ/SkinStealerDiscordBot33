@@ -9,7 +9,9 @@ export default {
   once: true,
   run: async (client) => {
     client.app.get("/icon", async (req, res) => {
-      res.redirect(client.user.displayAvatarURL());
+      let str = ""
+      if (req.query.size) str += `?size=${req.query.size}`;
+      res.redirect(client.user.displayAvatarURL() + str);
     })
     client.app.get('/apidata', async (req, res) => {
       let data = {

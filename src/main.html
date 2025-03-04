@@ -1,106 +1,126 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#BFFF00"/>
-    <meta property="og:site_name" content="If you see this means the bot is online"/>
-    <meta name="keywords" content="skin stealer, discord bot, skin stealer discord bot, ihzaq, skinstealer">
-    <meta property="og:description" content="This is Official Skin Stealer Webpage, but its not finished yet"/>
-    <meta name="description" content="This is Official Skin Stealer Webpage, but its not finished yet"/>
-    <meta property="og:image" content="/icon"/>
-    <link rel="icon" href="/icon"/>
-    <title>Skin Stealer Webpage</title>
-    <meta property="og:title" content="Skin Stealer Webpage"/>
-    <style>
-     @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@500&display=swap');
-      body {
-        background-color: #121212;
-        color: #FFFFFF;
-        font-family: 'Kumbh Sans', sans-serif
-      }
-      .links {
-        display: flex;
-      }
-      @keyframes clicked {
-        from {background-color:#323232;}
-        to {background-color:#585858;}
-      }
-      .links a {
-        text-decoration: none;
-        color: white;
-        padding: 10px;
-        margin: 2px;
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#BFFF00" />
+  <meta property="og:site_name" content="If you see this means the bot is online" />
+  <meta name="keywords" content="skin stealer, discord bot, skin stealer discord bot, ihzaq, skinstealer">
+  <meta property="og:description" content="This is Official Skin Stealer Webpage, but its not finished yet" />
+  <meta name="description" content="This is Official Skin Stealer Webpage, but its not finished yet" />
+  <meta property="og:image" content="/icon" />
+  <link rel="icon" href="/icon" />
+  <title>Skin Stealer Webpage</title>
+  <meta property="og:title" content="Skin Stealer Webpage" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@500&display=swap');
+
+    body {
+      background-color: #121212;
+      color: #FFFFFF;
+      font-family: 'Kumbh Sans', sans-serif
+    }
+
+    .links {
+      display: flex;
+    }
+
+    @keyframes clicked {
+      from {
         background-color: #323232;
-        border-radius: 5%;
       }
-      .links a:active {
-        animation-name: clicked;
-        animation-duration: 3s;
+
+      to {
+        background-color: #585858;
       }
-      #days, #hours, #minutes, #seconds {
-        font-family: 'Courier New', monospace;
+    }
+
+    .links a {
+      text-decoration: none;
+      color: white;
+      padding: 10px;
+      margin: 2px;
+      background-color: #323232;
+      border-radius: 5%;
+    }
+
+    .links a:active {
+      animation-name: clicked;
+      animation-duration: 3s;
+    }
+
+    #days,
+    #hours,
+    #minutes,
+    #seconds {
+      font-family: 'Courier New', monospace;
+    }
+
+    .footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 10;
+    }
+  </style>
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const days = document.getElementById("days")
+      const hours = document.getElementById("hours")
+      const minutes = document.getElementById("minutes")
+      const seconds = document.getElementById("seconds")
+      const invite = document.getElementById("inv")
+      function s(num) {
+        var s = num + "";
+        while (s.length < 2) s = "0" + s;
+        return s;
       }
-      .footer { 
-        position: absolute; 
-        bottom: 0; 
-        left: 0; 
-        z-index: 10;
+      function format(e) {
+        let day = Math.floor(e / 86400000);
+        let hour = Math.floor(e / 3600000) % 24;
+        let minute = Math.floor(e / 60000) % 60;
+        let second = Math.floor(e / 1000) % 60;
+        days.textContent = s(day);
+        hours.textContent = s(hour);
+        minutes.textContent = s(minute);
+        seconds.textContent = s(second);
+        console.log(second)
       }
-    </style>
-    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", async () => {
-        const days = document.getElementById("days")
-        const hours = document.getElementById("hours")
-        const minutes = document.getElementById("minutes")
-        const seconds = document.getElementById("seconds")
-        const invite = document.getElementById("inv")
-        function s(num) {
-          var s = num + "";
-          while (s.length < 2) s = "0" + s;
-          return s;
-        }
-        function format(e) {
-          let day = Math.floor(e / 86400000);
-          let hour = Math.floor(e / 3600000) % 24;
-          let minute = Math.floor(e / 60000) % 60;
-          let second = Math.floor(e / 1000) % 60;
-          days.textContent = s(day);
-          hours.textContent = s(hour);
-          minutes.textContent = s(minute);
-          seconds.textContent = s(second);
-          console.log(second)
-        }
-        const { data } = await axios.get("/apidata")
-        const uptime = data.uptime
-        const int = data.serverCount
-        invite.href = `https://discord.com/oauth2/authorize?client_id=${data.id}&permissions=274878118976&scope=bot%20applications.commands`
-        format(uptime)
-        let sec = 0
-        setInterval(() => {
-          sec++
-          format(uptime + (sec*1000))
-        }, 1000)
-        const number = document.getElementById("number")
-        number.textContent = int.toString()
-      })
-    </script>
-  </head>
-  <body>
-    <h2>
-      <span style="color: #BFFF00">Skin Stealer</span> Bot are online
-    </h2>
-    <h2>
-      <span style="color: #BFFF00">Uptime: </span><span id="days">00</span>d:<span id="hours">00</span>h:<span id="minutes">00</span>m:<span id="seconds">00</span>s
-    </h2>
-    <p>Currently in <span id="number">0</span> servers</p><br />
-    <div class="links">
-      <a id = "inv" target="_blank">Invite Bot</a>
-      <a href="https://ihz.carrd.co" target="_blank">Developer</a>
-      <a href="https://github.com/IHZAQ/SkinStealerDiscordBot33" target="_blank">Repo</a>
-      <a href="/apidata" target="_blank">API</a>
-    </div>
-    <div class="footer"><code>IHZAQ © 2024</code></div>
-  </body>
+      const { data } = await axios.get("/apidata")
+      const uptime = data.uptime
+      const int = data.serverCount
+      invite.href = `https://discord.com/oauth2/authorize?client_id=${data.id}`
+      format(uptime)
+      let sec = 0
+      setInterval(() => {
+        sec++
+        format(uptime + (sec * 1000))
+      }, 1000)
+      const number = document.getElementById("number")
+      number.textContent = int.toString()
+    })
+  </script>
+</head>
+
+<body>
+  <img src="/icon?size=32" />
+  <h2>
+    <span style="color: #BFFF00">Skin Stealer</span> Bot are online
+  </h2>
+  <h2>
+    <span style="color: #BFFF00">Uptime: </span><span id="days">00</span>d:<span id="hours">00</span>h:<span
+      id="minutes">00</span>m:<span id="seconds">00</span>s
+  </h2>
+  <p>Currently in <span id="number">0</span> servers</p><br />
+  <div class="links">
+    <a id="inv" target="_blank">Invite Bot</a>
+    <a href="https://ihz.carrd.co" target="_blank">Developer</a>
+    <a href="https://github.com/IHZAQ/SkinStealerDiscordBot33" target="_blank">Repo</a>
+    <a href="/apidata" target="_blank">API</a>
+  </div>
+  <div class="footer"><code>IHZAQ © 2024</code></div>
+</body>
+
 </html>
