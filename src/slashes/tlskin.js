@@ -1,11 +1,12 @@
 import {
   EmbedBuilder,
-  SlashCommandBuilder, 
-  ActionRowBuilder, 
-  ButtonBuilder, 
-  ButtonStyle
+  SlashCommandBuilder,
+  ActionRowBuilder,
+  ButtonBuilder,
+  ButtonStyle,
+  AttachmentBuilder
 } from "discord.js"
-const isASCII = (str) => /^[\x00-\x7F]*$/.test(str);
+import tlauncher from "../api/tlauncher.js";
 export default {
   cooldown: 3,
   category: "Minecraft Utilities",
@@ -19,19 +20,26 @@ export default {
       option.setName('username')
         .setDescription('Put invalid Minecraft username')
         .setRequired(true))
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     const username = interact.options.getString("username")
-    let fullArgs = encodeURI(username);
-    const ascii = isASCII(fullArgs);
-    const body = `https://tlauncher.org/skin.php?username_catalog=nickname&username_file=tlauncher_${fullArgs}.png&`
-    const skin = `https://tlauncher.org/upload/all/nickname/tlauncher_${fullArgs}.png`
+    const body = await tlauncher(username);
+    let notExist = client.embErr("This user did not exist")
+    if (!body) return interact.reply({
+      embeds: [notExist],
+      flags: 64
+    });
+    await interact.deferReply();
+    const img = new AttachmentBuilder(body, {
+      name: "body.png"
+    })
+    const skin = `https://tlauncher.org/catalog/nickname/download/tlauncher_${encodeURI(username)}.png`
     let embed = new EmbedBuilder()
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
-      .setImage(body)
-      .setAuthor({ name: `TLauncher ${username}'s skin`, iconURL: "https://tlauncher.org/apple-touch-icon.png", })
+      .setImage("attachment://body.png")
+      .setTitle(`<:tlauncher:1346481610853322783> TLauncher ${username}'s skin`)
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -40,16 +48,10 @@ export default {
           .setStyle(ButtonStyle.Link)
           .setURL(skin),
       );
-    let notAscii = client.embErr("You can only do 0-9 and uppercase/lowercase letter as username.")
-    if (ascii) {
-      await interact.deferReply()
-      await interact.editReply({
-        embeds: [embed],
-        components: [row]
-      })
-    } else {
-      await interact.deferReply({ flags: 64 })
-      await interact.editReply({ embeds: [notAscii], flags: 64 })
-    }
+    await interact.editReply({
+      embeds: [embed],
+      components: [row],
+      files: [img]
+    })
   }
 }
