@@ -1,5 +1,6 @@
-import { createCanvas, loadImage } from "canvas"
-import axios from "axios"
+import { createCanvas, loadImage } from "canvas";
+import axios from "axios";
+import sharp from "sharp";
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url);
@@ -157,10 +158,16 @@ async function pants(skin) {
     const buffer = canvas.toBuffer('image/png')
     return buffer
 }
-const generate = async (url) => {
+const generate = async (url, responseType) => {
     const res = await axios.get(url, { responseType: "arraybuffer" }).catch(err => { });
-    const buffer = Buffer.from(res.data);
+    let buffer;
+    if (!["png", "jpeg"].includes(responseType.split("/")[1])) {
+        buffer = await sharp(res.data).toFormat('png').toBuffer();
+    } else {
+        buffer = Buffer.from(res.data);
+    }
     const img = await loadImage(buffer);
+    console.log(buffer, responseType, img)
     if (img.width !== 64 || img.height !== 64) return undefined;
     return [await shirt(img), await pants(img)]
 }

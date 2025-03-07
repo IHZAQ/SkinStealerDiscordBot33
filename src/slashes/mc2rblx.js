@@ -26,7 +26,7 @@ export default {
       flags: 64
     });
     await interaction.deferReply()
-    const data = await converter(url);
+    const data = await converter(url, contentType);
     if (!data) return interaction.editReply({
       embeds: [embErr("Only image with the size of 64 x 64 will be accepted.\n* Legacy is not supported")]
     });
