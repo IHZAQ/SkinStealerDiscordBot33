@@ -18,6 +18,6 @@ Skin Stealer Discord Bot respects the privacy of its users and is committed to p
    Skin Stealer Discord Bot reserves the right to modify this Privacy Policy at any time without prior notice. If changes are made, the updated policy will be posted on our website, and users will be notified through Discord.
 
 6. **Contact Us**  
-   If you have any questions or concerns about our Privacy Policy, please contact us at [IHZAQSTORM33@gmail.com](mailto:IHZAQSTORM33@gmail.com)
+   If you have any questions or concerns about our Privacy Policy, please contact us at [ihzaq@yahoo.com](mailto:ihzaq@yahoo.com)
 
-`IHZAQ © 2024`
+`IHZAQ © 2025`

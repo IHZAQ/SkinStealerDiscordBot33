@@ -20,4 +20,4 @@ By using Skin Stealer Discord Bot ("the bot"), you agree to the following terms 
 
 Please refrain from using the bot if you do not agree to this terms of condition
 
-`IHZAQ © 2024`
+`IHZAQ © 2025`
