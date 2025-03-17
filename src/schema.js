@@ -32,6 +32,7 @@ let obj = {
     "math-eqn": { type: Number, default: 0 },
     "math-eqnunk-two": { type: Number, default: 0 },
     "math-eqnunk-three": { type: Number, default: 0 },
-    "mc2rblx": { type: Number, default: 0 }
+    "mc2rblx": { type: Number, default: 0 },
+    "userinfo": { type: Number, default: 0 }
 }
 export default model("stats", new Schema(obj))

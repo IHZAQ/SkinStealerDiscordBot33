@@ -9,5 +9,9 @@ export default new Map([
   [8, "<:inviter:1286196630596358164>"],
   [12, "<:veteran:1286196724469071913>"],
   [17, "<:rbxm:1286196667170684939>"],
-  [18, "<:welcome:1286196742173229136>"]
+  [18, "<:welcome:1286196742173229136>"],
+  ["HypeSquadOnlineHouse1", "<:hypesquadbravery:1351179566328188968>"],
+  ["HypeSquadOnlineHouse2", "<:hypesquadbriliance:1351179594866233388>"],
+  ["HypeSquadOnlineHouse3", "<:hypesquadbalance:1351179518148214826>"],
+  ["ActiveDeveloper", "<:activedeveloperbadge:1351179889264300132>"]
 ])
