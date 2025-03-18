@@ -53,7 +53,7 @@ export default {
     )
     .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
-    const { norme, colors } = client.config
+    const { norme, colors, serverUrl } = client.config
     await interact.deferReply({
       flags: 64
     })
@@ -181,7 +181,7 @@ export default {
             .setEmoji("<:minecraft:1286196639521968140>")
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
-            .setURL(`{your url here}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`))
+            .setURL(`${serverUrl}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`))
       if (client.checkPerms(interact, true)) url.addComponents(new ButtonBuilder()
         .setCustomId(`s-mcserver-bedrock`)
         .setLabel("Publish")

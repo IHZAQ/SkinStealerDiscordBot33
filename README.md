@@ -28,6 +28,7 @@ You need to fill in the information inside the configuration files, which is loc
 - [MongoDB](https://mongodb.com/) String, where you can get after registering and creating a cluster (Your Database)
 - [Roblox API key](https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab) for checking user have the premium or not (provide the `user.social.read` and `user.advanced.permission`)
 - Server ID to install dev commands
+- Your server url, (localhost:3000 if hosted on your computer, [https://yourskinstealer.glitch.me](https://glitch.com) if you hosted on glitch and so on)
 
 After that, run `npm start` in your terminal to start your bot
 
