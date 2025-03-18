@@ -3,7 +3,7 @@ import {
   AttachmentBuilder
 } from "discord.js"
 
-export default async (interact, { norme, colors }, text, Embed) => {
+export default async (interact, { norme, colors }, text, Embed, checkPerms) => {
   let title = interact.options.getString("title")
   let titleColor = interact.options.getString("title-color")
   let textColor = interact.options.getString("text-color")
@@ -19,7 +19,7 @@ export default async (interact, { norme, colors }, text, Embed) => {
     ],
     flags: 64
   });
-  await interact.deferReply()
+  await interact.deferReply(checkPerms(interact))
   let data = {
     title,
     description: text,

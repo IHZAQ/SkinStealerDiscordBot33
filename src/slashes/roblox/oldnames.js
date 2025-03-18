@@ -9,7 +9,7 @@ import {
   getInfo,
   oldNames
 } from "../../api/robloxuser.js"
-export default async (interact, EmbedBuilder, { norme, colors }, embErr) => {
+export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPerms) => {
   const usern = interact.options.getString("username")
   if (!usern) return;
   const id = await getIdFromUsername(usern)
@@ -19,7 +19,7 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr) => {
   const { username, displayName, isBanned, isPremium } = await getInfo(id)
   let list = await oldNames(id)
   if (!oldNames || !oldNames.length) return await interact.reply({ embeds: [noname], flags: 64 });
-  await interact.deferReply()
+  await interact.deferReply(checkPerms(interact))
   while (list.join(`\n`).length > 4096) list.pop();
   const thumbnail = await getThumbnail(id);
   const row = new ActionRowBuilder()

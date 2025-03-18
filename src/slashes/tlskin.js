@@ -30,7 +30,7 @@ export default {
       embeds: [notExist],
       flags: 64
     });
-    await interact.deferReply();
+    await interact.deferReply(client.checkPerms(interact));
     const img = new AttachmentBuilder(body, {
       name: "body.png"
     })

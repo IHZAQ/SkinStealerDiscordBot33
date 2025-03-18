@@ -36,7 +36,7 @@ export default {
                 )
         )
         .setIntegrationTypes([0, 1]),
-    async execute(interact, { slashId, embErr, config: { colors, norme } }) {
+    async execute(interact, { slashId, embErr, config: { colors, norme }, checkPerms }) {
         const subcommand = interact.options.getSubcommand()
         if (subcommand === "user") {
             const { id, username, bot } = interact.options.getUser("target") || interact.user;
@@ -49,7 +49,7 @@ export default {
             if (!data) {
                 data = await (new model({ userid: id })).save()
             }
-            await interact.deferReply((data.private || hide) ? { flags: 64 } : {})
+            await interact.deferReply((data.private || hide) ? { flags: 64 } : checkPerms(interact))
             if ((id !== interact.user.id) && data.private) return interact.editReply({
                 embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
             });

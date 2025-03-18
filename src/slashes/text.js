@@ -67,16 +67,16 @@ export default {
             .setDescription("Text Prompt")
             .setRequired(true)
         ))
-    .setIntegrationTypes([0,1]),
-  async execute(interact, { config }) {
+    .setIntegrationTypes([0, 1]),
+  async execute(interact, { config, checkPerms }) {
     const command = interact.options.getSubcommand()
     let text = interact.options.getString("text")
     switch (command) {
       case "achievement":
-        await achievement(interact, config, text, EmbedBuilder)
+        await achievement(interact, config, text, EmbedBuilder, checkPerms)
         break;
       case "toemoji":
-        await toemoji(interact, config, text, EmbedBuilder)
+        await toemoji(interact, config, text, EmbedBuilder, checkPerms)
     }
   },
   async autocomplete(interaction) {

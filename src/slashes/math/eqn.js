@@ -7,7 +7,8 @@ export default async (interact, {
     norme,
     colors
   },
-  embErr
+  embErr,
+  checkPerms
 }) => {
   const a = interact.options.getNumber("a")
   const b = interact.options.getNumber("b")
@@ -23,7 +24,7 @@ export default async (interact, {
 
     const denominator = 10 ** decimalPart.length;
     const numerator = parseInt(decimalPart, 10);
-    
+
     const gcd = (a, b) => (b ? gcd(b, a % b) : a);
     const divisor = gcd(numerator, denominator);
 
@@ -53,6 +54,7 @@ export default async (interact, {
     })
     return;
   }
+  await interact.deferReply(checkPerms(interact))
   const pembeza = (Math.sqrt(pembezalayan)) / (2 * a);
   const cx = -b / (2 * a);
   const x1 = cx + pembeza;
@@ -73,7 +75,7 @@ ${pembezalayan == 0 ? "" : `X² ${!Number.isInteger(x2) && !fr ? "≈" : "="} ${
     .setFooter({
       text: norme.footer
     });
-  await interact.reply({
+  await interact.editReply({
     embeds: [embed]
   })
 }

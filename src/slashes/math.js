@@ -203,7 +203,7 @@ export default {
                                 ))
                 )
         )
-        .setIntegrationTypes([0,1]),
+        .setIntegrationTypes([0, 1]),
     async execute(interact, client) {
         const subcommand = interact.options.getSubcommand()
         switch (subcommand) {

@@ -62,7 +62,7 @@ client.app.listen(port, () => {
 client.rest.on("rateLimited", () => {
   console.log("helo u got ratelimit haha")
 })
-
+client.checkPerms = (e, i) => (e.channel || !e.inGuild()) ? (i ? true : {}) : (i ? false : { flags: 64 });
 client.slash = new Collection();
 client.slashArray = [];
 

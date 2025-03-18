@@ -24,7 +24,7 @@ export default {
                 .setDescription("Put the user id")
         )
         .setIntegrationTypes([0, 1]),
-    execute: async (interaction, { embErr, config: { norme, colors }, users }) => {
+    execute: async (interaction, { embErr, config: { norme, colors }, users, checkPerms }) => {
         const idOption = interaction.options.getString("id");
         const userOption = interaction.options.getUser("user");
         const userFromId = idOption ? (await users.fetch(idOption).catch(err => { })) : undefined;
@@ -34,7 +34,7 @@ export default {
                 flags: 64
             })
         }
-        await interaction.deferReply();
+        await interaction.deferReply(checkPerms(interaction));
         const user = interaction.options.getUser("user") || userFromId || (await users.fetch(interaction.user.id));
         const banner = user.bannerURL()
         const unix = parseInt((new Date(user.createdTimestamp).getTime() / 1000).toFixed(0))
@@ -47,7 +47,7 @@ export default {
                     .setURL(`discord://-/users/${user.id}`)
             )
         const embed = new EmbedBuilder()
-            .setTitle(`${user.globalName}${(user.discriminator !== "0") ? `#${user.discriminator}` : ""} (@${user.username.toLowerCase()})`)
+            .setTitle(`${user.globalName || user.username}${(user.discriminator !== "0") ? `#${user.discriminator}` : ""} (@${user.username.toLowerCase()})`)
             .setFooter({ text: norme.footer })
             .setThumbnail(user.avatarURL())
             .setColor(colors.default)

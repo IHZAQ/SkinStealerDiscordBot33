@@ -19,13 +19,13 @@ export default {
         .setDescription("Upload your Minecraft Skin")
         .setRequired(true))
     .setIntegrationTypes([0, 1]),
-  execute: async (interaction, { embErr, config: { norme, colors } }) => {
+  execute: async (interaction, { embErr, config: { norme, colors }, checkPerms }) => {
     const { url, contentType } = interaction.options.getAttachment("skin")
     if (!contentType.startsWith("image")) return interaction.reply({
       embeds: [embErr("The file you uploaded was not an image.")],
       flags: 64
     });
-    await interaction.deferReply()
+    await interaction.deferReply(checkPerms(interaction))
     const data = await converter(url, contentType);
     if (!data) return interaction.editReply({
       embeds: [embErr("Only image with the size of 64 x 64 will be accepted.\n* Legacy is not supported")]

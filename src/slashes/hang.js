@@ -23,13 +23,13 @@ export default {
     .addSubcommand((command) =>
       command.setName("man").setDescription("Play Hangman directly in Discord"),
     )
-    .setIntegrationTypes([0,1]),
-  async execute(interact, { config: { norme, colors }, embErr }) {
+    .setIntegrationTypes([0, 1]),
+  async execute(interact, { config: { norme, colors }, embErr, checkPerms }) {
     if (game.has(interact.user.id)) return interact.reply({
       embeds: [embErr("You already have a game in progress!")],
       flags: 64,
     });
-    await interact.deferReply()
+    await interact.deferReply(checkPerms(interact))
     const { hangwin } = await model.findOne({ userid: interact.user.id })
     const button = new ActionRowBuilder().addComponents(
       new ButtonBuilder()
@@ -60,7 +60,7 @@ Its \`${word.split("").join(" ")}\``)
             .setAuthor({ name: `How many times you save the man: ${hangwin}` }),
         ],
         components: [],
-      });
+      }).catch(err => { })
     }, 90000);
     const time = Math.floor((Date.now() / 1000) + 90)
     game.set(interact.user.id, {

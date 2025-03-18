@@ -1,7 +1,7 @@
-import { 
+import {
   EmbedBuilder,
-  SlashCommandBuilder, 
-  ActionRowBuilder, 
+  SlashCommandBuilder,
+  ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   ModalBuilder,
@@ -17,7 +17,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("reportbug")
     .setDescription("Report bug or suggestion straight to developer")
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interact) {
     const modal = new ModalBuilder()
       .setCustomId("reportbug")
@@ -45,14 +45,14 @@ export default {
     await interact.showModal(modal)
   },
   async modal(interact, client) {
-    const { 
+    const {
       channels: { reportlogs },
       colors,
       norme
     } = client.config
     let subject = interact.fields.getTextInputValue('subject');
     let message = interact.fields.getTextInputValue('message');
-    if(!subject || !message || !reportlogs) return;
+    if (!subject || !message || !reportlogs) return;
     let channel = await client.channels.fetch(reportlogs)
     let member = interact.user
     const report = new EmbedBuilder()
@@ -85,8 +85,8 @@ Please acknowledge that misused of this commands may result in ban`)
           .setLabel('Join Our Server')
           .setStyle(ButtonStyle.Link)
           .setURL("https://discord.gg/3d3HBTvfaT"),
-    );
-    interact.reply({ 
+      );
+    interact.reply({
       embeds: [embed],
       components: [button],
       flags: 64

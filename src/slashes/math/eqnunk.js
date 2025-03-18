@@ -6,7 +6,8 @@ export default async (interact, {
         colors,
         norme
     },
-    embErr
+    embErr,
+    checkPerms
 }) => {
     const data = {
         a1: interact.options.getNumber("a1"),
@@ -101,6 +102,7 @@ Y ${!Number.isInteger(y) && !fr ? "≈" : "="} ${y}
             embeds: [embErr("Math Error, You got Infinity Solution/No Solution")],
             flags: 64
         });
+        await interact.deferReply(checkPerms(interact))
         embed
             .setTitle("EQN XYZ Linear Solver")
             .setDescription(`
@@ -113,7 +115,7 @@ X ${!Number.isInteger(x) && !fr ? "≈" : "="} ${dcf(x)}
 Y ${!Number.isInteger(y) && !fr ? "≈" : "="} ${dcf(y)}
 Z ${!Number.isInteger(z) && !fr ? "≈" : "="} ${dcf(z)}
 `)
-        await interact.reply({
+        await interact.editReply({
             embeds: [embed]
         })
     }

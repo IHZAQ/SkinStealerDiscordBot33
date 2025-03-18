@@ -1,7 +1,7 @@
 import emoji from "../../data/texttoemoji.js"
-export default async (interact, { colors, norme } , text, Embed) => {
+export default async (interact, { colors, norme }, text, Embed, checkPerms) => {
+  await interact.deferReply(checkPerms(interact))
   let letter = text.toLowerCase().split("")
-  
   letter = letter.map(e => emoji[e] || e)
   while (letter.join(" ").length > 4096) letter.pop();
   const embed = new Embed()
@@ -11,7 +11,7 @@ export default async (interact, { colors, norme } , text, Embed) => {
     .setFooter({
       text: norme.footer
     })
-  await interact.reply({
+  await interact.editReply({
     embeds: [embed]
   })
 }

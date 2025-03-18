@@ -20,7 +20,7 @@ export default {
       option.setName('username')
         .setDescription('Put invalid Minecraft Username')
         .setRequired(true))
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interaction, client) {
     const { colors, norme } = client.config
     const embedColor = colors.default;
@@ -40,7 +40,7 @@ export default {
     const uuid = await uuidForName(username)
     if (uuid === null) return await interaction.reply({ flags: 64, content: "Hi, At this point, Mojang API maybe down. Please try again later\n-ur mom" });
     if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
-    await interaction.deferReply()
+    await interaction.deferReply(client.checkPerms(interaction))
     const download = `https://mc-heads.net/download/${username}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
     const body = `https://mc-heads.net/body/${uuid.id}`
@@ -118,7 +118,7 @@ export default {
       components: [sel, row]
     })
   },
-  async selectmenu (interaction, client) {
+  async selectmenu(interaction, client) {
     const { norme, colors } = client.config
     const [, userid] = interaction.customId.split("-")
     if (interaction.user.id !== userid) {

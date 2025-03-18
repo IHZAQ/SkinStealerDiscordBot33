@@ -51,17 +51,17 @@ export default {
         )
     )
     .setIntegrationTypes([0, 1]),
-  async execute(interact, { config, embErr }) {
+  async execute(interact, { config, embErr, checkPerms }) {
     const command = interact.options.getSubcommand()
     switch (command) {
       case "player":
-        await player(interact, EmbedBuilder, config, embErr)
+        await player(interact, EmbedBuilder, config, embErr, checkPerms)
         break;
       case "favgame":
-        await favgame(interact, EmbedBuilder, config, embErr)
+        await favgame(interact, EmbedBuilder, config, embErr, checkPerms)
         break;
       case "oldnames":
-        await oldnames(interact, EmbedBuilder, config, embErr)
+        await oldnames(interact, EmbedBuilder, config, embErr, checkPerms)
     }
   },
   async autocomplete(interaction) {

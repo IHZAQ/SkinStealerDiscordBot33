@@ -10,14 +10,14 @@ import {
   favgame
 } from "../../api/robloxuser.js"
 
-export default async (interact, EmbedBuilder, { norme, colors }, embErr) => {
+export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPerms) => {
   const username = interact.options.getString("username")
   if (!username) return;
   const id = await getIdFromUsername(username)
   const error = embErr("The users you looking for does not exist. Try others")
   const nofavgame = embErr("This user doesn't have a favourite games")
   if (!id) return await interact.reply({ embeds: [error], flags: 64 });
-  await interact.deferReply()
+  await interact.deferReply(checkPerms(interact))
   const games = await favgame(id)
   if (!games) return await interact.editReply({ embeds: [nofavgame] })
   const info = await getInfo(id)

@@ -18,7 +18,7 @@ export default {
   data: new SlashCommandBuilder()
     .setName("random")
     .setDescription("No idea for Minecraft username? try this commands!")
-    .setIntegrationTypes([0,1]),
+    .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
     const { norme, colors } = client.config
     let random = usernamelist[Math.floor(Math.random() * usernamelist.length)]
@@ -27,7 +27,7 @@ export default {
       embeds: [client.embErr(`The generated username is not available, run another </random:${client.slashId.get("random")}>`)],
       flags: 64
     });
-    await interact.deferReply();
+    await interact.deferReply(client.checkPerms(interact));
     const download = `https://mc-heads.net/download/${random}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
     const body = `https://mc-heads.net/body/${uuid.id}`
@@ -105,7 +105,7 @@ export default {
   },
   async selectmenu(interaction, client) {
     const { norme, colors } = client.config
-    const [, userid, uuid] = interaction.customId.split("-")
+    const [, userid] = interaction.customId.split("-")
     if (interaction.user.id !== userid) {
       return await interaction.reply({
         embeds: [new EmbedBuilder()

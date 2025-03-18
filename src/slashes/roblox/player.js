@@ -10,7 +10,7 @@ import {
   emoji
 } from "../../api/robloxuser.js"
 
-export default async (interact, EmbedBuilder, { norme, colors }, embErr) => {
+export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPerms) => {
   const username = interact.options.getString("username")
   if (!username) return;
   let id = await getIdFromUsername(username)
@@ -18,7 +18,7 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr) => {
     embeds: [embErr("The users you looking for does not exist. Try others")],
     flags: 64
   });
-  await interact.deferReply();
+  await interact.deferReply(checkPerms(interact));
   const info = await getInfo(id);
   if (!info) return interact.editReply({ content: `An error has occured\nPlease use report bug commands` });
   const badges = await emoji(id).catch((e) => { });

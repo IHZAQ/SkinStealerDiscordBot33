@@ -1,7 +1,7 @@
 import {
     EmbedBuilder
 } from "discord.js"
-export default async (interaction, { embErr, config: { norme, colors } }) => {
+export default async (interaction, { embErr, config: { norme, colors }, checkPerms }) => {
     const num1 = interaction.options.getString("num1").toUpperCase()
     if (!(/^[A-Z0-9]+$/.test(num1))) {
         interaction.reply({
@@ -35,7 +35,9 @@ export default async (interaction, { embErr, config: { norme, colors } }) => {
             })
         .setFooter({ text: norme.footer })
         .setColor(colors.default)
-    interaction.reply({
+    let content = {
         embeds: [embed]
-    })
+    }
+    if (!checkPerms(interaction, true)) content.flags = 64;
+    interaction.reply(content)
 }
