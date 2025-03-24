@@ -10,6 +10,7 @@ import {
 } from "discord.js";
 import { pic, random } from "../data/hang.js";
 import model from "../schema.js"
+import emoji from "../data/emoji.js"
 let game = new Map();
 export default {
   category: "Fun / Utilities",
@@ -41,7 +42,7 @@ export default {
         .setCustomId(`s-hang-${interact.user.id}-stop`)
         .setLabel("Hang")
         .setStyle(ButtonStyle.Danger)
-        .setEmoji("<:rope:1243723395913355345>")
+        .setEmoji(emoji("rope"))
     );
     const { word, category } = random();
     let cencored = "_".repeat(word.length).split("");

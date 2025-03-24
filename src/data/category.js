@@ -1,8 +1,9 @@
+import emoj from "../data/emoji.js"
 export const emoji = new Map([
-  ["Minecraft Utilities", "<:minecraft:1286196639521968140>"],
-  ["Roblox Tools", "<:roblox:1286196676918513706>"],
-  ["Xbox Live", "<:xbox:1286196751065415700>"],
-  ["Fun / Utilities", "<:funtools:1286196588506775582>"],
+  ["Minecraft Utilities", emoj("minecraft")],
+  ["Roblox Tools", emoj("roblox")],
+  ["Xbox Live", emoj("xbox")],
+  ["Fun / Utilities", emoj("funtools")],
   ["Math / Complex Mode", "🧮"],
   ["General", "⚙️"],
   ["Statistics", "📊"]

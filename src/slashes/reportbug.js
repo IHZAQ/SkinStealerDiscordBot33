@@ -46,14 +46,13 @@ export default {
   },
   async modal(interact, client) {
     const {
-      channels: { reportlogs },
       colors,
       norme
     } = client.config
     let subject = interact.fields.getTextInputValue('subject');
     let message = interact.fields.getTextInputValue('message');
-    if (!subject || !message || !reportlogs) return;
-    let channel = await client.channels.fetch(reportlogs)
+    if (!subject || !message || !process.env.REPORT_LOGS) return;
+    let channel = await client.channels.fetch(process.env.REPORT_LOGS)
     let member = interact.user
     const report = new EmbedBuilder()
       .setTitle(`${member.username} Reported:`)

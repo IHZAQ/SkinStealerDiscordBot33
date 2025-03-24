@@ -5,6 +5,7 @@ import {
   ActionRowBuilder,
   ButtonStyle
 } from "discord.js"
+import emoji from "../data/emoji.js"
 
 export default {
   category: "General",
@@ -26,12 +27,12 @@ export default {
     const row1 = new ActionRowBuilder()
       .setComponents(
         new ButtonBuilder()
-          .setEmoji("<:dbl:1051426332355076096>")
+          .setEmoji(emoji("dbl"))
           .setLabel("Discord Bot List")
           .setStyle(ButtonStyle.Link)
           .setURL("https://discordbotlist.com/bots/skin-stealer/upvote"),
         new ButtonBuilder()
-          .setEmoji("<:discordbotlab:1051427429173952552>")
+          .setEmoji(emoji("discordbotlab"))
           .setLabel("Discord Labs")
           .setStyle(ButtonStyle.Link)
           .setURL("https://bots.discordlabs.org/bot/803524726219079690")
@@ -39,17 +40,17 @@ export default {
     const row2 = new ActionRowBuilder()
       .setComponents(
         new ButtonBuilder()
-          .setEmoji("<:topGG:1051426019233497089>")
+          .setEmoji(emoji("topGG"))
           .setLabel("Top.gg")
           .setStyle(ButtonStyle.Link)
           .setURL("https://top.gg/bot/803524726219079690/vote"),
         new ButtonBuilder()
-          .setEmoji("<:discordlist:1051763902834294785>")
+          .setEmoji(emoji("discordlist"))
           .setLabel("Discord List")
           .setStyle(ButtonStyle.Link)
           .setURL("https://discordlist.gg/bot/803524726219079690/vote"),
         new ButtonBuilder()
-          .setEmoji("<:discordbotsgg:1256624407972024371>")
+          .setEmoji(emoji("discordbotsgg"))
           .setLabel("DiscordBots.gg")
           .setStyle(ButtonStyle.Link)
           .setURL("https://discordbots.gg/bot/803524726219079690/vote")

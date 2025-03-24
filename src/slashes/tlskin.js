@@ -7,6 +7,7 @@ import {
   AttachmentBuilder
 } from "discord.js"
 import tlauncher from "../api/tlauncher.js";
+import emoji from "../data/emoji.js"
 export default {
   cooldown: 3,
   category: "Minecraft Utilities",
@@ -39,7 +40,7 @@ export default {
       .setColor(colors.default)
       .setFooter({ text: norme.footer })
       .setImage("attachment://body.png")
-      .setTitle(`<:tlauncher:1346481610853322783> TLauncher ${username}'s skin`)
+      .setTitle(`${emoji("tlauncher")} TLauncher ${username}'s skin`)
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()

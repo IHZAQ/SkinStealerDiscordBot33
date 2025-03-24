@@ -7,6 +7,7 @@ import {
   ButtonStyle
 } from "discord.js"
 import axios from "axios"
+import emoji from "../data/emoji.js"
 
 export default {
   cooldown: 8,
@@ -53,7 +54,7 @@ export default {
     )
     .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
-    const { norme, colors, serverUrl } = client.config
+    const { norme, colors } = client.config
     await interact.deferReply({
       flags: 64
     })
@@ -178,10 +179,10 @@ export default {
       let url = new ActionRowBuilder()
         .addComponents(
           new ButtonBuilder()
-            .setEmoji("<:minecraft:1286196639521968140>")
+            .setEmoji(emoji("minecraft"))
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
-            .setURL(`${serverUrl}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`))
+            .setURL(`${process.env.SERVER_URL}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`))
       if (client.checkPerms(interact, true)) url.addComponents(new ButtonBuilder()
         .setCustomId(`s-mcserver-bedrock`)
         .setLabel("Publish")

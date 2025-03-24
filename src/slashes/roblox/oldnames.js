@@ -9,6 +9,7 @@ import {
   getInfo,
   oldNames
 } from "../../api/robloxuser.js"
+import emoji from "../../data/emoji.js"
 export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPerms) => {
   const usern = interact.options.getString("username")
   if (!usern) return;
@@ -32,7 +33,7 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
     )
   const embed = new EmbedBuilder()
     .setAuthor({ name: "Roblox Users Old Names" })
-    .setTitle(`${isPremium ? "<:premium:1346043842285273159> " : ""}${displayName} (@${username.toLowerCase()})`)
+    .setTitle(`${isPremium ? `${emoji("premium")} ` : ""}${displayName} (@${username.toLowerCase()})`)
     .setDescription(list.join(`\n`))
     .setColor(colors.default)
     .setFooter({ text: norme.footer })

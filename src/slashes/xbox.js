@@ -6,6 +6,7 @@ import {
   ButtonStyle
 } from "discord.js"
 import getUser from "../api/xboxuser.js"
+import emoji from "../data/emoji.js"
 export default {
   cooldown: 12,
   usage: {
@@ -50,7 +51,7 @@ export default {
         },
         {
           name: "Gamerscore",
-          value: `**${info.gamerscore}** <:gamerscore:1286196597390049290>`
+          value: `**${info.gamerscore}** ${emoji("gamerscore")}`
         },
         {
           name: "XUID",

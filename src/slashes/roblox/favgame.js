@@ -9,6 +9,7 @@ import {
   getInfo,
   favgame
 } from "../../api/robloxuser.js"
+import emoji from "../../data/emoji.js"
 
 export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPerms) => {
   const username = interact.options.getString("username")
@@ -32,7 +33,7 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
     )
   const embed = new EmbedBuilder()
     .setAuthor({ name: "Roblox Users Favourite Games" })
-    .setTitle(`${info.isPremium ? "<:premium:1346043842285273159> " : ""}${info.displayName} (@${username.toLowerCase()})`)
+    .setTitle(`${info.isPremium ? `${emoji("premium")} ` : ""}${info.displayName} (@${username.toLowerCase()})`)
     .setDescription(`${games}`)
     .setColor(colors.default)
     .setFooter({ text: norme.footer })

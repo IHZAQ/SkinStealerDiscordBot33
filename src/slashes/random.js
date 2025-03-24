@@ -8,6 +8,7 @@ import {
 } from "discord.js"
 import { usernamelist } from '../data/usernamer.js'
 import uuidForName from "../api/mcuuid.js"
+import emoji from "../data/emoji.js"
 
 export default {
   cooldown: 5,
@@ -57,31 +58,31 @@ export default {
             {
               label: "Body",
               description: "Full 3D Representation of the Minecraft Skin",
-              emoji: "<:body:1286196485804920832>",
+              emoji: emoji("body"),
               value: "skin_body"
             },
             {
               label: "Full Body",
               description: "Full 2D Representation of the Minecraft Skin",
-              emoji: "<:papercraft:1320532080639217684>",
+              emoji: emoji("papercraft"),
               value: "skin_fullbody"
             },
             {
               label: "Head",
               description: "3D Head of the Minecraft Skin",
-              emoji: "<:head:1286196606944677920>",
+              emoji: emoji("head"),
               value: "skin_head"
             },
             {
               label: "Avatar",
               description: "2D Face of Minecraft Skin",
-              emoji: "<:avatar:1286196285212332094>",
+              emoji: emoji("avatar"),
               value: "skin_avatar"
             },
             {
               label: "Skin",
               description: "Raw Minecraft Skin Image",
-              emoji: "<:skin:1286196696388337736>",
+              emoji: emoji("skin"),
               value: "skin_skin"
             },
             {

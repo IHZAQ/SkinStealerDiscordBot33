@@ -7,7 +7,16 @@ import {
   ActionRowBuilder
 } from "discord.js"
 import { inspect } from "util"
+import axios from "axios"
 import model from "../schema.js"
+import emoji from "../../emoji.json" with { type: "json" }
+import fs from "fs"
+import { fileURLToPath } from 'url';
+import { dirname, resolve } from 'path';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const paths = path => resolve(__dirname, path);
 export default {
   dev: true,
   data: new SlashCommandBuilder()
@@ -38,6 +47,17 @@ export default {
     await interaction.showModal(modal)
   },
   modal: async (interaction, client) => {
+    async function setupEmoji() {
+      let obj = emoji;
+      const emojiFetch = await interaction.guild.emojis.fetch();
+      [...emojiFetch.entries()].forEach(e => {
+        const boo = e[1].name in obj;
+        if (!boo) return;
+        obj[e[1].name] = e[0]
+      })
+      const json = JSON.stringify(obj, null, "\t")
+      fs.writeFileSync(paths("../../emoji.json"), json)
+    }
     const { norme, colors } = client.config
     await interaction.deferReply()
     const option = interaction.fields.getTextInputValue("option").toUpperCase()

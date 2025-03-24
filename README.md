@@ -20,7 +20,7 @@ Note that after you use this code, Our [Terms Of Service](TOS.md) and [Privacy P
 
 ## Configuration Files
 
-You need to fill in the information inside the configuration files, which is located in [config.js](config.js) and [.env](.env). Here few things need to be filled
+You need to fill in the information inside the configuration files, which is located in [config.js](config.js), [emoji.json](emoji.json) and [.env](.env). Here few things need to be filled
 
 - Report Bugs Channel Id (To Log Users Complain)
 - Your user id
@@ -29,6 +29,7 @@ You need to fill in the information inside the configuration files, which is loc
 - [Roblox API key](https://create.roblox.com/dashboard/credentials?activeTab=ApiKeysTab) for checking user have the premium or not (provide the `user.social.read` and `user.advanced.permission`)
 - Server ID to install dev commands
 - Your server url, (localhost:3000 if hosted on your computer, [https://yourskinstealer.glitch.me](https://glitch.com) if you hosted on glitch and so on)
+- Custom Emoji ID, please follow my [intructions](EMOJI_GUIDE.md) for easier method
 
 After that, run `npm start` in your terminal to start your bot
 
