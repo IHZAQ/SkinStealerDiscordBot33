@@ -76,3 +76,5 @@ After completing the setup:
 If you face any issues, feel free to reach out for support!
 
 Happy customizing! 😎
+
+`IHZAQ © 2025`
