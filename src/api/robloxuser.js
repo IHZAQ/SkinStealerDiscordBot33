@@ -49,7 +49,9 @@ export const favgame = async (id) => {
 export const oldNames = async (ids) => {
     const api = await axios.get(`https://users.roblox.com/v1/users/${ids}/username-history?limit=100&sortOrder=Asc`).catch(err => { })
     if (!api) return undefined;
-    let arr = api.data.data.map(e => e.name);
+    const dat = api.data
+    if (!dat.data.length) return undefined;
+    let arr = dat.data.map(e => e.name);
     return [...new Set(arr)];
 }
 export const getInfo = async (ids) => {

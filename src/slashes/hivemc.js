@@ -67,7 +67,7 @@ export default {
          embeds: [client.embErr("The user never join the server or the user never exist")],
          flags: 64
       });
-      interaction.deferReply(client.checkPerms(interaction))
+      await interaction.deferReply(client.checkPerms(interaction))
       const data = hive.main
       let game = Object.entries(hive).filter(item => { return (Array.isArray(item[1]) && item[1].length > 0) || (typeof item[1] === 'object' && Object.keys(item[1]).length > 0) && (item[0] != "main"); }).map(e => nto(e[0]));
       [
