@@ -24,7 +24,7 @@ export const getIdFromUsername = async (username) => {
     const api = await axios.post(`https://users.roblox.com/v1/usernames/users`, {
         usernames: [username]
     }).catch(err => { })
-    if (!api) return undefined;
+    if (!api || !api.data.data.length) return undefined;
     return api.data.data[0].id.toString()
 }
 export const search = async (id) => {
