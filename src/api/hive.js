@@ -29,6 +29,7 @@ export const getHive = async (username, typeGame) => {
     if (hiveuser.get(username)) hiveuser.get(username)[type] = data[type];
     else hiveuser.set(username, data)
   }
+  if (!data[typeGame || "main"]) return null;
   return { data, isAvailable, isMain }
 }
 export const getLeaderboard = async (game, type, date) => {
