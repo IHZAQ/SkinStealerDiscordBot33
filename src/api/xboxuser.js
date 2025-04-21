@@ -6,7 +6,7 @@ export default async (username) => {
       "x-authorization": process.env.XBOX_TOKEN
     }
   }
-  const api = await axios.get(`https://xbl.io/api/v2/search/${username}`, config).catch(err => { })
+  const api = await axios.get(`https://xbl.io/api/v2/search/${encodeURI(username)}`, config).catch(err => { })
   if (!api || api.status !== 200) return undefined;
   if (!api.data) return undefined;
   if (!api.data.people.length) return undefined;

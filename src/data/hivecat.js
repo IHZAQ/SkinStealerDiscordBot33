@@ -50,6 +50,21 @@ export const gameEmoji = new Map([
   ["hats", "🎩"],
   ["backblings", "🎒"]
 ])
+export const addChoice = [
+  { name: 'Hide and Seek 👀', value: 'hide' },
+  { name: 'Deathrun 💀', value: 'dr' },
+  { name: 'Murder Mystery 🕵️', value: 'murder' },
+  { name: 'Capture The Flag 🚩', value: 'ctf' },
+  { name: 'Block Drop 🚶', value: 'drop' },
+  { name: 'Ground Wars 🥚', value: 'ground' },
+  { name: 'Just Build 👷🏻‍♀️', value: 'build' },
+  { name: 'Block Party 🕺', value: 'party' },
+  { name: 'The Bridge 🌉', value: 'bridge' },
+  { name: 'Bedwars 🛏️', value: 'bed' },
+  { name: 'Gravity 🪂', value: 'grav' },
+  { name: 'SkyWars 🏹', value: 'sky' },
+  { name: 'Treasure Wars 💰', value: 'wars' }
+]
 export const nto = (n) => {
   return {
     label: gameName.get(n) || n,

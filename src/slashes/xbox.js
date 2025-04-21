@@ -67,7 +67,7 @@ export default {
           .setEmoji("👤")
           .setLabel('Gamers Profile')
           .setStyle(ButtonStyle.Link)
-          .setURL(`https://account.xbox.com/en-gb/profile?gamertag=${info.name}`),
+          .setURL(`https://account.xbox.com/en-gb/profile?gamertag=${encodeURI(info.name)}`),
       );
     if (info.realname) {
       embed.addFields({
