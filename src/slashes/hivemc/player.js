@@ -1,7 +1,9 @@
 import {
     EmbedBuilder,
     StringSelectMenuBuilder,
-    ActionRowBuilder
+    ActionRowBuilder,
+    ButtonBuilder,
+    ButtonStyle,
 } from "discord.js"
 import {
     gameName,
@@ -126,6 +128,11 @@ and try again </hivemc player:${client.slashId.get("hivemc")}> with game option
             .setCustomId(`hivemc-${interaction.user.id}-${username}-player`)
             .setPlaceholder("Choose other item/minigame data")
             .addOptions(game)
+        const profileURL = new ButtonBuilder()
+            .setLabel("The HiveMC Profile Page")
+            .setURL(`https://playhive.com/profile/${username}`)
+            .setStyle(ButtonStyle.Link)
+            .setEmoji("🐝")
         const embed = new EmbedBuilder()
             .setAuthor({
                 name: "HiveMC Player Stats",
@@ -154,10 +161,11 @@ and try again </hivemc player:${client.slashId.get("hivemc")}> with game option
     **XUID**: \`${mainData?.xuid || "Unknown"}\`
     `
         })
-        const act = new ActionRowBuilder().addComponents(sel)
+        const row1 = new ActionRowBuilder().addComponents(sel)
+        const row2 = new ActionRowBuilder().addComponents(profileURL)
         interaction.editReply({
             embeds: [embed],
-            components: [act]
+            components: [row1, row2]
         })
     },
     selectmenu: async (interaction, client) => {

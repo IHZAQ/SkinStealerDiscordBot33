@@ -6,8 +6,8 @@ import {
   SlashCommandBuilder,
   ButtonStyle
 } from "discord.js"
-import axios from "axios"
 import emoji from "../data/emoji.js"
+import { java, bedrock } from "../api/mcserver.js"
 
 export default {
   cooldown: 8,
@@ -77,29 +77,12 @@ export default {
         return defalt
       }
     }
-    const ip = interact.options.getString("ip")
-    const port = parseInt(interact.options.getInteger("port"))
-    if (interact.options.getSubcommand() === "java") {
+    const [ip, ipPort] = interact.options.getString("ip").split(":")
+    const port = parseInt(interact.options.getInteger("port")) || parseInt(ipPort);
+    const subcommand = interact.options.getSubcommand()
+    if (subcommand === "java") {
       const por = p(port, 25565)
-      const mc = async () => {
-        try {
-          const {
-            data
-          } = await axios.get(`https://api.mcstatus.io/v2/status/java/${ip}:${por}`).catch(err => {
-            return undefined
-          })
-          return {
-            motd: data.motd.clean,
-            version: data.version.name_clean,
-            players: `${data.players.online}/${data.players.max}`,
-            favicon: data.icon,
-            list: data.players.list || undefined
-          }
-        } catch (err) {
-          return undefined
-        }
-      }
-      const info = await mc()
+      const info = await java(ip, por);
       if (!info) return await interact.editReply({
         embeds: [errore],
         flags: 64
@@ -118,20 +101,23 @@ export default {
         .addFields({
           name: "Ip:Port",
           value: `**\`${ip}:${por}\`**`
-        }, {
-          name: "Motd",
-          value: info.motd
-        }, {
-          name: "Version",
-          value: info.version
-        }, {
-          name: "Players Counts",
-          value: info.players
         })
-        .setColor(colors.default)
+        .setColor(info.online ? colors.default : colors.error)
         .setFooter({
           text: norme.footer
         })
+        if (info.motd) embed.addFields({
+          name: "Motd",
+          value: info.motd
+        });
+        if (info.version) embed.addFields({
+          name: "Version",
+          value: info.version
+        });
+        if (info.players) embed.addFields({
+          name: "Players Counts",
+          value: info.players
+        });
       if (info.list && info.length) {
         const player = info.length.map((e) => e.name_raw).join(`\n`)
         embed.addFields({
@@ -155,24 +141,9 @@ export default {
       }
       await interact.editReply(content)
     }
-    if (interact.options.getSubcommand() === "bedrock") {
+    if (subcommand === "bedrock") {
       let por = p(port, 19132)
-      const mcpe = async () => {
-        try {
-          const {
-            data
-          } = await axios.get(`https://api.mcstatus.io/v2/status/bedrock/${ip}:${por}`)
-          return {
-            motd: data.motd.clean,
-            version: data.version.name,
-            gamemode: data.gamemode,
-            players: `${data.players.online}/${data.players.max}`
-          }
-        } catch (error) {
-          return undefined
-        }
-      }
-      const info = await mcpe()
+      const info = await bedrock(ip, por);
       if (!info) return await interact.editReply({
         embeds: [errore]
       });
@@ -205,7 +176,7 @@ export default {
           name: "Players Count",
           value: info.players || "unknown"
         })
-        .setColor(colors.default)
+        .setColor(info.online ? colors.default : colors.error)
         .setFooter({
           text: norme.footer
         })
