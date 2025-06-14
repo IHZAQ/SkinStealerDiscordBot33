@@ -39,9 +39,9 @@ export const search = async (id) => {
     }]
 }
 export const favgame = async (id) => {
-    const { data } = await axios.get(`https://www.roblox.com/users/favorites/list-json?assetTypeId=9&itemsPerPage=150&pageNumber=1&userId=${id}`).catch(err => { })
-    if (!data || !data.IsValid || !data.Data.Items.length) return undefined
-    const games = data.Data.Items.map((e) => `[${e.Item.Name}](${e.Item.AbsoluteUrl})`)
+    const api = await axios.get(`https://games.roblox.com/v2/users/${id}/favorite/games?accessFilter=2&limit=100&sortOrder=Desc`).catch(err => { });
+    if (!api || !api.data || !api.data.data || !api.data.data.length) return undefined;
+    const games = api.data.data.map((e) => `[${e.name}](https://www.roblox.com/games/${e.rootPlace.id})`);
     while (games.join(`\n`).length > 4096) games.pop();
     let string = games.join(`\n`)
     return string

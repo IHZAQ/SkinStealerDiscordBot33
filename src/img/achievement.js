@@ -14,7 +14,7 @@ const items = readdirSync(paths('./items')).filter(file => file.endsWith(".png")
 registerFont(fontPath, { family: 'Minecraft' });
 
 async function drawImage({ title, description, icon, color1 = '#FFFF00', color2 = '#FFFFFF' }) {
-    const canvas = createCanvas(320, 64);
+    const canvas = createCanvas(640, 128);
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
 
@@ -24,14 +24,14 @@ async function drawImage({ title, description, icon, color1 = '#FFFF00', color2 
 
     ctx.drawImage(base, 0, 0);
 
-    ctx.font = '15px "Minecraft"';
+    ctx.font = '30px "Minecraft"';
     ctx.fillStyle = color1;
-    ctx.fillText(title, 60, 28);
+    ctx.fillText(title, 120, 56);
 
     ctx.fillStyle = color2;
-    ctx.fillText(description, 60, 50);
+    ctx.fillText(description, 120, 100);
 
-    ctx.drawImage(iconImage, 17, 16, 32, 32);
+    ctx.drawImage(iconImage, 34, 32, 64, 64);
 
     return canvas.toBuffer('image/png');
 }

@@ -8,7 +8,12 @@ export default {
    cooldown: 14,
    category: "Statistics",
    usage: {
-      player: "Shows HiveMC players' statistics, including statistics for every game"
+      player: "Shows HiveMC players' statistics, including statistics for every game",
+      leaderboard: {
+         alltime: "Shows all time HiveMC leaderboard for every game",
+         monthly: "Shows monthly HiveMC leaderboard for every game",
+         season: "Shows HiveMC leaderboard for every game in a specific season"
+      }
    },
    data: new SlashCommandBuilder()
       .setName("hivemc")
