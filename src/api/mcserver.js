@@ -5,7 +5,7 @@ export const java = async (ip, por) => {
     if (!data) return undefined;
     return {
         online: data.online,
-        motd: data?.motd?.clean,
+        motd: data?.motd?.clean || `${ip}:${por}`,
         version: data?.version?.name_clean,
         players: data?.players ? `${data.players.online}/${data.players.max}` : undefined,
         favicon: data?.icon,
@@ -18,7 +18,7 @@ export const bedrock = async (ip, por) => {
     if (!data) return undefined;
     return {
         online: data.online,
-        motd: data?.motd?.clean,
+        motd: data?.motd?.clean || `${ip}:${por}`,
         version: data?.version?.name,
         gamemode: data?.gamemode,
         players: `${data?.players?.online}/${data?.players?.max}`

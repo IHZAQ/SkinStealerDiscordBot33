@@ -167,7 +167,6 @@ const generate = async (url, responseType) => {
         buffer = Buffer.from(res.data);
     }
     const img = await loadImage(buffer);
-    console.log(buffer, responseType, img)
     if (img.width !== 64 || img.height !== 64) return undefined;
     return [await shirt(img), await pants(img)]
 }

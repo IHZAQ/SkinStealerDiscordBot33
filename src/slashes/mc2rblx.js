@@ -3,7 +3,7 @@ import {
   EmbedBuilder,
   AttachmentBuilder
 } from "discord.js"
-import converter from "../data/converter.js"
+import converter from "../img/mc2rblx.js"
 
 export default {
   cooldown: 60,
