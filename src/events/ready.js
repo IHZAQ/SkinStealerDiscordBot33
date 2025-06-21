@@ -4,6 +4,8 @@ import {
   Routes
 } from "discord.js"
 import mongoose from "mongoose"
+const log = (e) => console.log(`\x1b[32m${e}\x1b[0m`);
+const logErr = (e) => console.log(`\x1b[31m${e}\x1b[0m`);
 export default {
   event: Events.ClientReady,
   once: true,
@@ -22,7 +24,7 @@ export default {
       res.json(data)
     })
     console.clear()
-    console.log(`Bot is online!: ${client.user.tag}`);
+    log(`Bot is online!: ${client.user.tag}`);
     const CLIENT_ID = client.user.id;
     const rest = new REST({
       version: "10"
@@ -34,15 +36,15 @@ export default {
         })
         client.slashId = new Map(data.map(e => [e.name, e.id]))
         rest.put(Routes.applicationGuildCommands(CLIENT_ID, process.env.GUILD_ID), { body: client.slashDevArray }).then(() => {
-          console.log("Successfully registered command locally")
+          log("Successfully registered command locally")
         })
-        console.log("Succesfully registered command globally")
+        log("Succesfully registered command globally")
       } catch (err) {
         if (err) console.log(err);
-        console.log("The provided server id is not valid, please invite the bot to the server")
+        logErr("The provided server id is not valid, please invite the bot to the server")
       }
     })()
     await mongoose.connect(process.env.MONGO)
-    console.log("MongoDB Successfully Connected")
+    log("MongoDB Successfully Connected")
   }
 };
