@@ -3,9 +3,11 @@ import {
     EmbedBuilder,
     ButtonBuilder,
     ButtonStyle,
-    ActionRowBuilder
+    ActionRowBuilder,
+    UserFlags
 } from "discord.js";
 import emojiData from "../data/bedji.js";
+import emoji from "../data/emoji.js";
 export default {
     cooldown: 10,
     category: "Fun / Utilities",
@@ -36,8 +38,10 @@ export default {
         }
         await interaction.deferReply(checkPerms(interaction));
         const user = interaction.options.getUser("user") || userFromId || (await users.fetch(interaction.user.id));
-        const banner = user.bannerURL()
+        const banner = user.bannerURL();
+        const avatar = user.avatarURL();
         const unix = parseInt((new Date(user.createdTimestamp).getTime() / 1000).toFixed(0))
+        const botVeri = user.flags.has(UserFlags.VerifiedBot) ? emoji("bot_verified") : emoji("bot_noverified");
         const row = new ActionRowBuilder()
             .addComponents(
                 new ButtonBuilder()
@@ -47,20 +51,23 @@ export default {
                     .setURL(`discord://-/users/${user.id}`)
             )
         const embed = new EmbedBuilder()
-            .setTitle(`${user.globalName || user.username}${(user.discriminator !== "0") ? `#${user.discriminator}` : ""} (@${user.username.toLowerCase()})`)
+            .setTitle(`${user.globalName || user.username}${(user.discriminator !== "0") ? `#${user.discriminator}` : ""} ${user.bot ? botVeri : `(@${user.username.toLowerCase()})`}`)
             .setFooter({ text: norme.footer })
-            .setThumbnail(user.avatarURL())
             .setColor(colors.default)
             .setAuthor({ name: "Discord User Info" });
         let description = `
 **ID**: **\`${user.id}\`**
 **Username**: **\`${user.username}\`**
 **Badges**: ${user.flags.toArray().map(e => emojiData.get(e))}
-**Joined Date**: <t:${unix}:D>, <t:${unix}:R>
-**Download**: [Avatar](${user.avatarURL()})`
+**Joined Date**: <t:${unix}:D>, <t:${unix}:R>\n`
+        if (avatar || banner) description += "**Download**:";
+        if (avatar) {
+            embed.setThumbnail(avatar);
+            description += ` [Avatar](${avatar})`
+        }
         if (banner) {
-            embed.setImage(banner)
-            description += ` [Banner](${banner})`
+            embed.setImage(banner);
+            description += ` [Banner](${banner})`;
         }
         if (user.accentColor) {
             description += `\n**Banner Color**: **\`${user.accentColor}\`**`;
