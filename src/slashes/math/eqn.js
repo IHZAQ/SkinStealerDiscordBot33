@@ -17,10 +17,10 @@ export default async (interact, {
   const dcf = (decima) => {
     let decimal = Math.abs(decima)
     const neg = (decima != decimal) ? "-" : "";
-    if (!fr) return decimal;
+    if (!fr) return `${neg}${decimal}`;
     if (typeof decimal !== "number" || isNaN(decimal)) return null;
     const [integerPart, decimalPart] = decimal.toString().split(".");
-    if (!decimalPart) return integerPart;
+    if (!decimalPart) return `${neg}${integerPart}`;
 
     const denominator = 10 ** decimalPart.length;
     const numerator = parseInt(decimalPart, 10);
