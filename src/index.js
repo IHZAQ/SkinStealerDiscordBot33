@@ -56,6 +56,7 @@ client.app.get('/mcs/:name/:ip/:port', (req, res) => {
 `)
   res.status(200)
 });
+client.app.use("/hangman", express.static(paths("./img/hangman")));
 client.app.listen(port, () => {
   console.log('Bot is ready to online!');
 });

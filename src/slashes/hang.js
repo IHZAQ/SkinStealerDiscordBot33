@@ -8,10 +8,11 @@ import {
   TextInputBuilder,
   TextInputStyle,
 } from "discord.js";
-import { pic, random } from "../data/hang.js";
+import { random } from "../data/hang.js";
 import model from "../schema.js"
 import emoji from "../data/emoji.js"
 let game = new Map();
+let pic = ["wtf1", "wtf2", "wtf3", "wtf4", "wtf5", "wtf6", "wtf7", "wtf-win", "wtf-lose"].map((e) => `${process.env.SERVER_URL}/hangman/${e}.png`);
 export default {
   category: "Fun / Utilities",
   cooldown: 10,

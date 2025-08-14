@@ -1,14 +1,3 @@
-export const pic = [
-  "https://i.postimg.cc/fR8Tk2fh/wtf1.png",
-  "https://i.postimg.cc/xd7f3XZx/wtf2.png",
-  "https://i.postimg.cc/R0qCt7gJ/wtf3.png",
-  "https://i.postimg.cc/j57sgs0s/wtf4.png",
-  "https://i.postimg.cc/1X0ySJ32/wtf5.png",
-  "https://i.postimg.cc/KjhmCdxt/wtf6.png",
-  "https://i.postimg.cc/Y2QrQqzR/wtf7.png",
-  "https://i.postimg.cc/K8G8GSLN/wtf-win.png",
-  "https://i.postimg.cc/zXSfYXLv/wtf-lose.png",
-];
 const randomWords = {
   "Animals 😺": [
     "DOG",

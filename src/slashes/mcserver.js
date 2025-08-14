@@ -153,7 +153,7 @@ export default {
             .setEmoji(emoji("minecraft"))
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
-            .setURL(`${process.env.SERVER_URL}/mcs/${encodeURI(info.motd.split(`\n`)[0])}/${ip}/${por}`))
+            .setURL(`${process.env.SERVER_URL}/mcs/${encodeURI(info.motd ? info.motd.split(`\n`)[0] : `${ip}:${por}`)}/${ip}/${por}`))
       if (client.checkPerms(interact, true)) url.addComponents(new ButtonBuilder()
         .setCustomId(`s-mcserver-bedrock`)
         .setLabel("Publish")

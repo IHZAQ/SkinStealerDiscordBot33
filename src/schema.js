@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose"
 let obj = {
     userid: { type: String },
+    seenews: { type: Boolean, default: false },
     private: { type: Boolean, default: false },
     ban: { type: Boolean, default: false },
     access: { type: Boolean, default: false },

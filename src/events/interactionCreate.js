@@ -105,6 +105,19 @@ export default {
       //Ends of Slash command
       try {
         await slash.execute(interact, client);
+        if (!data.seenews) {
+          const embed = new EmbedBuilder()
+            .setTitle("Announcement")
+            .setDescription(`We have updated our [Privacy Policy](https://github.com/IHZAQ/SkinStealerDiscordBot33/blob/main/PRIVACY-POLICY.md) and [Terms of Service](https://github.com/IHZAQ/SkinStealerDiscordBot33/blob/main/TOS.md).
+Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the changes and stay informed about the latest updates.`)
+            .setColor(colors.default)
+            .setFooter({ text: norme.footer });
+          await model.findOneAndUpdate({ userid: interact.user.id }, { seenews: true }, { new: true });
+          await interact.followUp({
+            embeds: [embed],
+            flags: 64
+          });
+        }
       } catch (err) {
         if (err) console.log(err)
       }
@@ -131,7 +144,13 @@ export default {
         return;
       }
       if (main[0] !== "s") return;
-      const command = client.slash.get(main[1]);
+      let command = client.slash.get(main[1]);
+      if (!command) {
+        if (!developers.includes(interact.user.id)) return interact.reply(noperms);
+        const slash2 = client.slashDev.get(main[1]);
+        if (!slash2) return;
+        command = slash2
+      }
       try {
         await command.button(interact, client);
       } catch (error) {

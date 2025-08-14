@@ -19,7 +19,7 @@ export default {
     .setDescription("Just like skin command but this take a skin from TLauncher.")
     .addStringOption(option =>
       option.setName('username')
-        .setDescription('Put invalid Minecraft username')
+        .setDescription('Enter a valid Minecraft username')
         .setRequired(true))
     .setIntegrationTypes([0, 1]),
   async execute(interact, client) {

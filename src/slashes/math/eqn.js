@@ -59,7 +59,7 @@ export default async (interact, {
   const cx = -b / (2 * a);
   const x1 = cx + pembeza;
   const x2 = cx - pembeza;
-  const cy = -(b ** b) / ((4 * a) + c);
+  const cy = -(pembezalayan) / (4 * a);
   const embed = new EmbedBuilder()
     .setTitle("EQN Quadratic Solver")
     .setDescription(`

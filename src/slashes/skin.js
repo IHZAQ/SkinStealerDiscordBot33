@@ -19,7 +19,7 @@ export default {
     .setDescription("Grab Minecraft Player Skin")
     .addStringOption(option =>
       option.setName('username')
-        .setDescription('Put invalid Minecraft Username')
+        .setDescription('Enter a valid Minecraft Username')
         .setRequired(true))
     .setIntegrationTypes([0, 1]),
   async execute(interaction, client) {
@@ -39,7 +39,7 @@ export default {
         { name: 'Player didn\'t exist', value: `A player with username ${username} is not exist` },
         { name: '3-16 Character', value: 'Username must be between 3 and 16 character' })
     const uuid = await uuidForName(username)
-    if (uuid === null) return await interaction.reply({ flags: 64, content: "Hi, At this point, Mojang API maybe down. Please try again later\n-ur mom" });
+    if (uuid === null) return await interaction.reply({ flags: 64, embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
     if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
     await interaction.deferReply(client.checkPerms(interaction))
     const download = `https://mc-heads.net/download/${username}`

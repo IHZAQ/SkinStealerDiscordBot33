@@ -21,7 +21,7 @@ export default {
   async execute(interact) {
     const modal = new ModalBuilder()
       .setCustomId("reportbug")
-      .setTitle("Feedback / Suggestion / Bugs");
+      .setTitle("Feedback / Suggestion / Bugs / Delete Request");
     const subject = new TextInputBuilder()
       .setCustomId("subject")
       .setLabel("Subject")
