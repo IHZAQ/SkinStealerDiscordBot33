@@ -95,7 +95,7 @@ export default {
         const [, , subcommand, id] = interact.customId.split("-")
         if (subcommand === "userban") {
             const data = await model.findOne({ userid: id });
-            await model.findOneAndUpdate({ userid: id }, { $set: { ban: !data.ban, access: false } }, { new: true });
+            await model.findOneAndUpdate({ userid: id }, { $set: { ban: !data.ban, access: false } }, { returnDocument: 'after' });
             const user = await users.fetch(id).catch(() => { });
             const fullName = `${user.username}(${id})`;
             await interact.update({

@@ -2,6 +2,7 @@ import {
   SlashCommandBuilder,
   EmbedBuilder,
   ModalBuilder,
+  LabelBuilder,
   TextInputBuilder,
   TextInputStyle,
   ActionRowBuilder
@@ -26,24 +27,24 @@ export default {
     const modal = new ModalBuilder()
       .setCustomId("eval")
       .setTitle("Evaluation Mode")
-    modal.addComponents(
-      new ActionRowBuilder()
-        .addComponents(
-          new TextInputBuilder()
-            .setCustomId("option")
-            .setLabel("Normal / Async")
-            .setPlaceholder("N or A")
-            .setStyle(TextInputStyle.Short)
-            .setMinLength(1)
-            .setMaxLength(1)),
-      new ActionRowBuilder()
-        .addComponents(
-          new TextInputBuilder()
-            .setCustomId("code")
-            .setLabel("Code")
-            .setPlaceholder("Your code here")
-            .setStyle(TextInputStyle.Paragraph)
-        ))
+    const optionInput = new TextInputBuilder()
+        .setCustomId("option")
+        .setPlaceholder("N or A")
+        .setStyle(TextInputStyle.Short)
+        .setMinLength(1)
+        .setMaxLength(1)
+    const optionLabel = new LabelBuilder()
+      .setLabel("Normal or Async")
+      .setTextInputComponent(optionInput)
+    const codeInput = new TextInputBuilder()
+      .setCustomId("code")
+      .setPlaceholder("Your code here")
+      .setStyle(TextInputStyle.Paragraph)
+      .setRequired(true)
+    const codeLabel = new LabelBuilder()
+      .setLabel("Code")
+      .setTextInputComponent(codeInput)
+    modal.addLabelComponents(optionLabel, codeLabel)
     await interaction.showModal(modal)
   },
   modal: async (interaction, client) => {

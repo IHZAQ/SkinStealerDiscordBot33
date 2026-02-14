@@ -112,11 +112,12 @@ export default {
 Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the changes and stay informed about the latest updates.`)
             .setColor(colors.default)
             .setFooter({ text: norme.footer });
-          await model.findOneAndUpdate({ userid: interact.user.id }, { seenews: true }, { new: true });
+          await model.findOneAndUpdate({ userid: interact.user.id }, { seenews: true }, { returnDocument: 'after' });
           await interact.followUp({
             embeds: [embed],
             flags: 64
-          });
+          }).catch(() => { });
+          //catch an error for me
         }
       } catch (err) {
         if (err) console.log(err)
@@ -136,7 +137,7 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
     if (interact.isButton()) {
       const main = interact.customId.split("-")
       if (main[0] === "access") {
-        await model.findOneAndUpdate({ userid: main[1] }, { $set: { access: true } }, { new: true })
+        await model.findOneAndUpdate({ userid: main[1] }, { $set: { access: true } }, { returnDocument: 'after' })
         await interact.update({
           embeds: [EmbedBuilder.from(interact.message.embeds[0]).setDescription("Thank you for accepting the Privacy Policy and Terms of Service! You’re all set to start using Skin Stealer. Enjoy your experience!")],
           components: []

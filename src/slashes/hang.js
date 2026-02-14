@@ -4,6 +4,7 @@ import {
   ButtonStyle,
   ButtonBuilder,
   ActionRowBuilder,
+  LabelBuilder,
   ModalBuilder,
   TextInputBuilder,
   TextInputStyle,
@@ -130,15 +131,16 @@ Its \`${word.split("").join(" ")}\`
       .setTitle("Save The Man");
     const input = new TextInputBuilder()
       .setCustomId("letter")
-      .setLabel("Guess the letter to save the man")
       .setPlaceholder("The Letter")
       .setStyle(TextInputStyle.Short)
       .setRequired(true)
       .setMinLength(1)
       .setMaxLength(1);
-    const first = new ActionRowBuilder().addComponents(input);
-    modal.addComponents(first);
-    await interact.showModal(modal);
+    const inputLabel = new LabelBuilder()
+      .setLabel("Guess the letter to save the man")
+      .setTextInputComponent(input)
+    modal.addLabelComponents(inputLabel)
+    await interact.showModal(modal)
   },
   async modal(interact, { config: { colors, norme }, embErr }) {
     if (!interact.message.components[0]) return;
@@ -169,7 +171,7 @@ Its \`${word.split("").join(" ")}\`
       if (!cencored.includes("_")) {
         clearTimeout(timeout);
         game.delete(interact.user.id);
-        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { new: true })
+        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { returnDocument: 'after' })
         return interact.update({
           embeds: [
             new EmbedBuilder()

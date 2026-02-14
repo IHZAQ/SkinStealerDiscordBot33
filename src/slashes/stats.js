@@ -53,7 +53,7 @@ export default {
             if ((id !== interact.user.id) && data.private) return interact.editReply({
                 embeds: [embErr("Data cannot be shown because the user toggle on the privacy")]
             });
-            const filter = ["hangwin", "__v", "_id", "userid", "private", "access", "users-stats", "ban"]
+            const filter = ["hangwin", "__v", "_id", "userid", "private", "access", "users-stats", "ban", "seenews"]
             const array = [...Object.entries(data.toJSON())]
                 .filter(e => !filter.includes(e[0]) && e[1])
                 .map(e => `</${e[0].replaceAll("-", " ")}:${slashId.get(e[0].split("-")[0])}> - ${e[1]}`)
@@ -78,7 +78,7 @@ Users Stats: ${data["users-stats"]}
         } else {
             await interact.deferReply({ flags: 64 })
             const boolean = interact.options.getBoolean("toggle")
-            await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { new: true })
+            await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { private: boolean } }, { returnDocument: 'after' })
             interact.editReply({
                 embeds: [new EmbedBuilder()
                     .setTitle("Data Privacy")

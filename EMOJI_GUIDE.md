@@ -77,4 +77,4 @@ If you face any issues, feel free to reach out for support!
 
 Happy customizing! 😎
 
-`IHZAQ © 2025`
+`IHZAQ © 2026`

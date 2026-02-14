@@ -41,21 +41,26 @@ let client = new Client({
 
 client.config = fig
 client.app = express()
+client.app.disable('x-powered-by');
 client.app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/main.html`);
   res.status(200)
 });
+const escapeHtml = (text) => {
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  return text.replace(/[&<>"']/g, m => map[m]);
+};
 client.app.get('/mcs/:name/:ip/:port', (req, res) => {
   const { name, ip, port } = req.params;
   if (!name || !ip || !port) {
     return res.status(400).send('Missing required parameters: name, ip, port');
   }
   res.send(`
-<title> redirecting </title>
-<meta http-equiv="refresh" content="0; url=minecraft://?addExternalServer=${name}|${ip}:${port}">
-`)
-  res.status(200)
-});
+    <title>redirecting</title>
+    <meta http-equiv="refresh" content="0; url=minecraft://?addExternalServer=${escapeHtml(name)}|${escapeHtml(ip)}:${escapeHtml(port)}">
+    `)
+    res.status(200)
+  });
 client.app.use("/hangman", express.static(paths("./img/hangman")));
 client.app.listen(port, () => {
   console.log('Bot is ready to online!');
@@ -71,7 +76,6 @@ client.slashDev = new Collection();
 client.slashDevArray = [];
 
 client.names = [];
-
 (async () => {
   const command = readdirSync(paths("./slashes")).filter(filter);
   const event = readdirSync(paths('./events')).filter(filter);

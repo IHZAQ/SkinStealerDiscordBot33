@@ -1,10 +1,13 @@
 import {
   EmbedBuilder,
   SlashCommandBuilder,
+  StringSelectMenuBuilder,
+  StringSelectMenuOptionBuilder,
   ActionRowBuilder,
   ButtonBuilder,
   ButtonStyle,
   ModalBuilder,
+  LabelBuilder,
   TextInputBuilder,
   TextInputStyle
 } from "discord.js"
@@ -21,27 +24,46 @@ export default {
   async execute(interact) {
     const modal = new ModalBuilder()
       .setCustomId("reportbug")
-      .setTitle("Feedback / Suggestion / Bugs / Delete Request");
-    const subject = new TextInputBuilder()
-      .setCustomId("subject")
-      .setLabel("Subject")
-      .setStyle(TextInputStyle.Short)
-      .setRequired(true)
-      .setMinLength(3)
-      .setMaxLength(20)
-      .setPlaceholder("The Main Topic Here");
+      .setTitle("Report");
+    const topics = new StringSelectMenuBuilder()
+      .setCustomId("topics")
+      .setPlaceholder("Select Topic of Your Report")
+      .addOptions(
+        new StringSelectMenuOptionBuilder()
+          .setLabel("Feedback")
+          .setDescription("General feedback about the bot")
+          .setValue("Feedback"),
+        new StringSelectMenuOptionBuilder()
+          .setLabel("Suggestion")
+          .setDescription("Have a suggestion to make? Select me")
+          .setValue("Suggestion"),
+        new StringSelectMenuOptionBuilder()
+          .setLabel("Report Bug")
+          .setDescription("Encountered a bug? Select me")
+          .setValue("Report Bug"),
+        new StringSelectMenuOptionBuilder()
+          .setLabel("Delete Request")
+          .setDescription("Request to delete your data from our database")
+          .setValue("Delete Request"),
+        new StringSelectMenuOptionBuilder()
+          .setLabel("Other")
+          .setDescription("Any other topic that is not listed")
+          .setValue("Other")
+      )
+    const topicLabel = new LabelBuilder()
+      .setLabel("Topics")
+      .setStringSelectMenuComponent(topics)
     const message = new TextInputBuilder()
       .setCustomId("message")
-      .setLabel("Your Message")
       .setStyle(TextInputStyle.Paragraph)
       .setRequired(true)
       .setMinLength(15)
       .setMaxLength(500)
-      .setPlaceholder("Write Your Report Here");
-    modal.addComponents(
-      (new ActionRowBuilder().addComponents(subject)),
-      (new ActionRowBuilder().addComponents(message))
-    )
+      .setPlaceholder("Write Your Report Here")
+    const messageLabel = new LabelBuilder()
+      .setLabel("Report")
+      .setTextInputComponent(message)
+    modal.addLabelComponents(topicLabel, messageLabel)
     await interact.showModal(modal)
   },
   async modal(interact, client) {
@@ -49,7 +71,7 @@ export default {
       colors,
       norme
     } = client.config
-    let subject = interact.fields.getTextInputValue('subject');
+    let subject = interact.fields.getStringSelectValues('topics');
     let message = interact.fields.getTextInputValue('message');
     if (!subject || !message || !process.env.REPORT_LOGS) return;
     let channel = await client.channels.fetch(process.env.REPORT_LOGS)
