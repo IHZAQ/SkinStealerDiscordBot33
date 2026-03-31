@@ -20,8 +20,11 @@ Note that after you use this code, Our [Terms Of Service](TOS.md) and [Privacy P
 
 ## Configuration Files
 
-You need to fill in the information inside the configuration files, which is located in [config.js](config.js), [emoji.json](emoji.json) and [.env](.env). Here few things need to be filled
-
+1. Rename or copy the example files: 
+    - [config.example.js](config.example.js) → config.js
+    - [emoji.example.json](emoji.example.json) → emoji.json
+    - [.env.example](.env.example) → .env
+2. Open the new files and fill in the required fields:
 - Report Bugs Channel Id (To Log Users Complain)
 - Your user id
 - [XBL](https://xbl.io/console) Token, This is required or xbox command cannot find the user
@@ -31,7 +34,7 @@ You need to fill in the information inside the configuration files, which is loc
 - Your server url, (localhost:3000 if hosted on your computer, [https://yourskinstealer.glitch.me](https://glitch.com) if you hosted on glitch and so on)
 - Custom Emoji ID, please follow my [intructions](EMOJI_GUIDE.md) for easier method
 
-After that, run `npm start` in your terminal to start your bot
+3. After that, run `npm start` in your terminal to start your bot
 
 ## IMPORTANT
 
