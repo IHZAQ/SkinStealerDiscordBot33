@@ -22,6 +22,7 @@
     "discord.js": "^14.26.0",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.3.2",
     "mongoose": "^9.3.3",
     "qrcode": "^1.5.4",
     "sharp": "^0.34.5"

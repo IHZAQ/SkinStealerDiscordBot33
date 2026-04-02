@@ -9,6 +9,7 @@ import { config } from "dotenv"
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import express from "express"
+import { rateLimit } from "express-rate-limit"
 import fig from "../config.js"
 import eventHandler from './handler/eventHandler.js'
 import commandHandler from './handler/commandHandler.js'
@@ -38,7 +39,13 @@ let client = new Client({
     }]
   }
 })
-
+const limiter = rateLimit({
+  windowMs: 15*60*1000,
+  limit: 100,
+  standardHeaders: 'draft-8',
+  legacyHeaders: false,
+  ipv6Subnet: 56
+})
 client.config = fig
 client.app = express()
 client.app.disable('x-powered-by');
@@ -46,22 +53,16 @@ client.app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/main.html`);
   res.status(200)
 });
-const escapeHtml = (text) => {
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-  return text.replace(/[&<>"']/g, m => map[m]);
-};
 client.app.get('/mcs/:name/:ip/:port', (req, res) => {
   const { name, ip, port } = req.params;
   if (!name || !ip || !port) {
     return res.status(400).send('Missing required parameters: name, ip, port');
   }
-  res.send(`
-    <title>redirecting</title>
-    <meta http-equiv="refresh" content="0; url=minecraft://?addExternalServer=${escapeHtml(name)}|${escapeHtml(ip)}:${escapeHtml(port)}">
-    `)
-    res.status(200)
-  });
+  res.location(`minecraft://?addExternalServer=${name}|${ip}:${port}`)
+  res.status(302).end();
+});
 client.app.use("/hangman", express.static(paths("./img/hangman")));
+client.app.use(limiter)
 client.app.listen(port, () => {
   console.log('Bot is ready to online!');
 });
