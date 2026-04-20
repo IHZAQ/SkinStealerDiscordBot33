@@ -9,7 +9,7 @@ export default async (username) => {
   const api = await axios.get(`https://xbl.io/api/v2/search/${encodeURI(username)}`, config).catch(err => { })
   if (!api || api.status !== 200) return undefined;
   if (!api.data) return undefined;
-  if (!api.data.people.length) return undefined;
+  if (!api.data.people || api.data.people.length === 0) return undefined;
   const data = api.data.people[0]
   const json = {
     name: data.gamertag,

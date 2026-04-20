@@ -48,6 +48,7 @@ const limiter = rateLimit({
 })
 client.config = fig
 client.app = express()
+client.app.set('trust proxy', 1);
 client.app.disable('x-powered-by');
 client.app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/main.html`);
