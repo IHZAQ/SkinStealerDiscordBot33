@@ -42,6 +42,6 @@ Submitting this bot to bot listing websites? Not on my watch! 🕶️
 
 ## Inquiries
 
-Check out my [Carrd](https://ihz.carrd.co) for more detailed information about myself and join my [My Discord Server](http://discord.gg/ndEftjM) if you want to ask me any questions
+Check out my [website](https://ihzaq.dev) for more detailed information about myself and join my [My Discord Server](http://discord.gg/ndEftjM) if you want to ask me any questions
 
 `IHZAQ © 2026`

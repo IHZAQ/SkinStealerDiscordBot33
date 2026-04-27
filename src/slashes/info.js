@@ -32,7 +32,7 @@ export default {
       .setDescription("Here a few information about this bot")
       .addFields(
         { name: 'Bots itself:', value: client.user.toString(), inline: true },
-        { name: 'Creator/Founder:', value: `**[IHZAQ](https://ihz.carrd.co)** <:Ihzaqstorm33_head:721731760601170000>`, inline: true },
+        { name: 'Creator/Founder:', value: `**[IHZAQ](https://ihzaq.dev)** <:Ihzaqstorm33_head:721731760601170000>`, inline: true },
         { name: 'Ping:', value: `**\`${ping}ms\`**`, inline: false },
         { name: 'Uptime:', value: `**\`${uptime}\`**`, inline: true },
         { name: 'Server count:', value: `**\`${client.guilds.cache.size} servers\`**` },
@@ -42,7 +42,7 @@ export default {
         },
         {
           name: "Useful Links",
-          value: `[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Top.gg](https://top.gg/bot/803524726219079690) | [Developer](https://ihz.carrd.co) | [Invite Bot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id})`
+          value: `[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Personal Website](https://skinstealer.ihzaq.dev) | [Developer](https://ihzaq.dev) | [Invite Bot](https://discord.com/api/oauth2/authorize?client_id=${client.user.id})`
         }
       )
       .setFooter({ text: norme.footer })

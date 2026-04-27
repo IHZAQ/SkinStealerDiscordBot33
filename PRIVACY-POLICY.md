@@ -42,7 +42,7 @@ Your data is used for:
 ## 5. Data Deletion
 You can request your data to be deleted at any time by:
 1. Using the `/reportbug` command and selecting **Data Deletion Request**
-2. Emailing us at: **ihzaq@yahoo.com**
+2. Emailing us at: [**me@ihzaq.dev**](mailto:me@ihzaq.dev)
 
 **Important:**  
 - If you are **banned**, your data will still be deleted, but your ban will remain in effect.  
@@ -66,4 +66,4 @@ When the Privacy Policy or Terms of Service is updated, users will also be notif
 ## 8. Contact
 For questions or concerns about this Privacy Policy, contact us via:
 - **Discord Support Server:** [https://discord.gg/3d3HBTvfaT](https://discord.gg/3d3HBTvfaT)
-- **Email:** [ihzaq@yahoo.com](mailto:ihzaq@yahoo.com)
+- **Email:** [me@ihzaq.dev](mailto:me@ihzaq.dev)

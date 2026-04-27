@@ -15,7 +15,7 @@ const helpEmbed = (norme, colors, slashId) => new EmbedBuilder()
       `> </info:${slashId.get("info")}> - Show detailed bot stats and credits that help this bot works`
   }, {
     name: "Useful Links:",
-    value: `[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Top.gg](https://top.gg/bot/803524726219079690) | [Developer](https://ihz.carrd.co) | [Invite Bot](https://discord.com/oauth2/authorize?client_id=803524726219079690)`
+    value: `[Support Server](https://discord.gg/3d3HBTvfaT) | [Github Repo](https://github.com/IHZAQ/SkinStealerDiscordBot33) | [Skin Stealer Website](https://top.gg/bot/803524726219079690) | [Developer](https://ihzaq.dev) | [Invite Bot](https://discord.com/oauth2/authorize?client_id=803524726219079690)`
   })
   .setColor(colors.default)
   .setFooter({
