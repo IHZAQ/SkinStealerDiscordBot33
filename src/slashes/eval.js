@@ -13,10 +13,12 @@ import model from "../schema.js"
 import emoji from "../../emoji.json" with { type: "json" }
 import fs from "fs"
 import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
+import { extname, basename, dirname, resolve } from 'path';
+import AdmZip from 'adm-zip'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const paths = path => resolve(__dirname, path);
 export default {
   dev: true,
@@ -49,15 +51,40 @@ export default {
   },
   modal: async (interaction, client) => {
     async function setupEmoji() {
-      let obj = emoji;
-      const emojiFetch = await interaction.guild.emojis.fetch();
-      [...emojiFetch.entries()].forEach(e => {
-        const boo = e[1].name in obj;
-        if (!boo) return;
-        obj[e[1].name] = e[0]
-      })
-      const json = JSON.stringify(obj, null, "\t")
-      fs.writeFileSync(paths("../../emoji.json"), json)
+      let message = ""
+      const appEmojis = await interaction.client.application.emojis.fetch();
+      const zip = new AdmZip(paths("../data/emojis.zip"));
+      for (const entry of zip.getEntries()) {
+          if (entry.isDirectory) continue;
+
+          const ext = extname(entry.entryName).toLowerCase();
+          const name = basename(entry.entryName, ext);
+          if (!['.png', '.gif', '.jpg', '.jpeg'].includes(ext) || appEmojis.find(e => e.name === name)) {
+              continue;
+          }
+
+          try {
+              const newEmoji = await interaction.client.application.emojis.create({
+                  attachment: entry.getData(),
+                  name: name
+              });
+              appEmojis.set(newEmoji.id, newEmoji);
+
+              message += `[+] Successfully uploaded: ${name}\n`;
+              await sleep(2000);
+          } catch (error) {
+              message += `[-] Failed to upload ${name}:\n${error.message}\n`
+          }
+      }
+
+      const emojiData = {};
+      appEmojis.forEach(e => {
+          emojiData[e.name] = e.id;
+      });
+
+      fs.writeFileSync(paths("../../emoji.json"), JSON.stringify(emojiData, null, "\t"));
+      message += `[✓] Sync complete! emoji.json has been updated.`
+      return message;
     }
     const { norme, colors } = client.config
     await interaction.deferReply()

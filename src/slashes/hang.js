@@ -47,7 +47,7 @@ export default {
         .setEmoji(emoji("rope"))
     );
     const { word, category } = random();
-    let cencored = "_".repeat(word.length).split("");
+    let censored = word.replace(/[^\s]/g, "_").split("");
     const timeout = setTimeout(() => {
       game.delete(interact.user.id);
       interact.editReply({
@@ -70,7 +70,7 @@ Its \`${word.split("").join(" ")}\``)
       timeout,
       word,
       category,
-      cencored,
+      censored,
       time,
       letterList: []
     });
@@ -79,7 +79,7 @@ Its \`${word.split("").join(" ")}\``)
       .setDescription(
         `
 Category: ${category}
-\`${cencored.join(" ")}\`
+\`${censored.join(" ")}\`
 The man need your help <t:${time}:R>
 Use the button to save the man
 `,
@@ -151,7 +151,7 @@ Its \`${word.split("").join(" ")}\`
         flags: 64,
       });
     }
-    let { timeout, word, category, cencored, letterList, time } = game.get(
+    let { timeout, word, category, censored, letterList, time } = game.get(
       interact.user.id,
     );
     if (letterList.includes(letter)) {
@@ -161,28 +161,28 @@ Its \`${word.split("").join(" ")}\`
       });
     }
     const embed = EmbedBuilder.from(interact.message.embeds[0]);
+    let { hangwin } = await model.findOne({ userid: interact.user.id })
     if (word.includes(letter)) {
       for (let i = 0; i < word.length; i++) {
         if (word[i] === letter) {
-          cencored[i] = letter;
+          censored[i] = letter;
         }
       }
-      const data = await model.findOne({ userid: interact.user.id })
-      if (!cencored.includes("_")) {
+      if (!censored.includes("_")) {
         clearTimeout(timeout);
         game.delete(interact.user.id);
-        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (data.hangwin + 1) } }, { returnDocument: 'after' })
+        await model.findOneAndUpdate({ userid: interact.user.id }, { $set: { hangwin: (hangwin + 1) } }, { returnDocument: 'after' })
         return interact.update({
           embeds: [
             new EmbedBuilder()
               .setTitle("Un-hanged The Man")
               .setDescription(
-                `Category: ${category}\n\`${cencored.join(" ")}\``,
+                `Category: ${category}\n\`${censored.join(" ")}\``,
               )
               .setColor(colors.default)
               .setFooter({ text: norme.footer })
               .setImage(pic[7])
-              .setAuthor({ name: `How many times you save the man: ${data.hangwin + 1}` }),
+              .setAuthor({ name: `How many times you save the man: ${hangwin + 1}` }),
           ],
           components: [],
         });
@@ -191,25 +191,16 @@ Its \`${word.split("").join(" ")}\`
       embed
         .setDescription(`
 Category: ${category}
-\`${cencored.join(" ")}\`
+\`${censored.join(" ")}\`
 The man need your help <t:${time}:R>
 Use the button to save the man
 `)
         .setFields({ name: "Guessed Letters", value: letterList.join(",") })
-        .setAuthor({ name: `How many times you save the man: ${data.hangwin}` });
-      game.set(interact.user.id, {
-        timeout,
-        word,
-        category,
-        cencored,
-        letterList,
-        time
-      });
+        .setAuthor({ name: `How many times you save the man: ${hangwin}` });
       await interact.update({
         embeds: [embed],
       });
     } else {
-      let { hangwin } = await model.findOne({ userid: interact.user.id })
       letterList.push(letter);
       let mistake = pic.indexOf(embed.toJSON().image.url);
       if (mistake < 6) {
@@ -222,14 +213,6 @@ Use the button to save the man
             value: letterList.join(","),
           });
         }
-        game.set(interact.user.id, {
-          timeout,
-          word,
-          category,
-          cencored,
-          letterList,
-          time
-        });
         await interact.update({
           embeds: [embed],
         });

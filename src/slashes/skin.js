@@ -8,6 +8,7 @@ import {
   SlashCommandBuilder
 } from "discord.js"
 import emoji from "../data/emoji.js"
+
 export default {
   cooldown: 6,
   category: "Minecraft Utilities",
@@ -28,6 +29,7 @@ export default {
     const errorColor = colors.error;
     const footer = norme.footer
     const username = interaction.options.getString("username")
+    
     let errorMessage = new EmbedBuilder()
       .setTitle("Username Error")
       .setColor(errorColor)
@@ -35,17 +37,21 @@ export default {
       .setDescription("**Minecraft Username Requirements**")
       .addFields(
         { name: 'No Space', value: 'The minecraft username must be one character with no space', inline: true },
-        { name: 'Must ASCII letter', value: 'It must 0-9,  all upper/lowercase alphabet and underscore `_`' },
-        { name: 'Player didn\'t exist', value: `A player with username ${username} is not exist` },
-        { name: '3-16 Character', value: 'Username must be between 3 and 16 character' })
+        { name: 'Must ASCII letter', value: 'It must 0-9, all upper/lowercase alphabet and underscore `_`' },
+        { name: 'Player didn\'t exist', value: `A player with username ${username} does not exist` },
+        { name: '3-16 Character', value: 'Username must be between 3 and 16 characters' })
+        
     const uuid = await uuidForName(username)
     if (uuid === null) return await interaction.reply({ flags: 64, embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
     if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
+    
     await interaction.deferReply(client.checkPerms(interaction))
+    
     const download = `https://mc-heads.net/download/${username}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
     const body = `https://mc-heads.net/body/${uuid.id}`
     const head = `https://mc-heads.net/head/${uuid.id}`
+    
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -54,6 +60,7 @@ export default {
           .setStyle(ButtonStyle.Link)
           .setURL(download),
       );
+      
     const sel = new ActionRowBuilder()
       .addComponents(
         new StringSelectMenuBuilder()
@@ -61,10 +68,16 @@ export default {
           .setPlaceholder("Choose Part To Preview")
           .addOptions([
             {
-              label: "Body",
+              label: "Body (Right)",
               description: "Full 3D Representation of the Minecraft Skin",
               emoji: emoji("body"),
-              value: "skin_body"
+              value: "skin_body_right"
+            },
+            {
+              label: "Body (Left)",
+              description: "Full 3D Representation of the Minecraft Skin",
+              emoji: emoji("bodyleft"),
+              value: "skin_body_left"
             },
             {
               label: "Full Body",
@@ -73,10 +86,16 @@ export default {
               value: "skin_player"
             },
             {
-              label: "Head",
+              label: "Head (Right)",
               description: "3D Head of the Minecraft Skin",
               emoji: emoji("head"),
-              value: "skin_head"
+              value: "skin_head_right"
+            },
+            {
+              label: "Head (Left)",
+              description: "3D Head of the Minecraft Skin",
+              emoji: emoji("headleft"),
+              value: "skin_head_left"
             },
             {
               label: "Avatar",
@@ -104,6 +123,7 @@ export default {
             }
           ]),
       );
+      
     let embed = new EmbedBuilder()
       .setColor(embedColor)
       .setFooter({ text: footer })
@@ -114,14 +134,17 @@ export default {
         iconURL: avatar
       })
       .setDescription(`**UUID**: \`${uuid.id}\``)
+      
     await interaction.editReply({
       embeds: [embed],
       components: [sel, row]
     })
   },
-  async selectmenu(interaction, client) {
+  
+    async selectmenu(interaction, client) {
     const { norme, colors } = client.config
     const [, userid] = interaction.customId.split("-")
+    
     if (interaction.user.id !== userid) {
       return await interaction.reply({
         embeds: [new EmbedBuilder()
@@ -136,18 +159,34 @@ export default {
 
     const embed = EmbedBuilder.from(interaction.message.embeds[0])
     let url = interaction.message.embeds[0].image.url
-    const [menu, part] = interaction.values[0].split("_")
-    if (menu == "skin") {
-      url = url.replace(/(https:\/\/mc-heads\.net\/)[^\/]+(\/[^\/]+)(\/nohelm)?/, `$1${part}$2$3`)
+    const [menu, part, direction] = interaction.values[0].split("_")
+    
+    if (menu === "skin") {
+      const match = url.match(/(https:\/\/mc-heads\.net\/)[^\/]+\/([^\/]+)/);
+      if (match) {
+        const baseUrl = match[1];
+        const uuid = match[2];
+        const hasNoHelm = url.endsWith("/nohelm");
+        url = `${baseUrl}${part}/${uuid}`;
+        
+        if (["head", "body"].includes(part) && direction) {
+          url += `/${direction}`;
+        }
+        if (hasNoHelm) {
+          url += "/nohelm";
+        }
+      }
     }
-    if (menu == "helm") {
-      if (part == "yes" && url.endsWith("/nohelm")) {
+    
+    if (menu === "helm") {
+      if (part === "yes" && url.endsWith("/nohelm")) {
         url = url.replace("/nohelm", "")
       }
-      if (part == "no" && !url.endsWith("/nohelm")) {
+      if (part === "no" && !url.endsWith("/nohelm")) {
         url += "/nohelm"
       }
     }
+    
     embed.setImage(url)
     interaction.update({
       embeds: [embed]

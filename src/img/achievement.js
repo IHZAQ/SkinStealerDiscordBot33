@@ -9,16 +9,16 @@ const paths = path => resolve(__dirname, path);
 const fontPath = paths('minecraft.ttf');
 const baseImagePath = paths('base.png');
 
-const items = readdirSync(paths('./items')).filter(file => file.endsWith(".png")).map(e => e.split(".")[0]);
 
 registerFont(fontPath, { family: 'Minecraft' });
+const base = await loadImage(baseImagePath);
+const items = readdirSync(paths('./items')).filter(file => file.endsWith(".png")).map(e => e.split(".")[0]);
 
 async function drawImage({ title, description, icon, color1 = '#FFFF00', color2 = '#FFFFFF' }) {
     const canvas = createCanvas(640, 128);
     const ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = false;
 
-    const base = await loadImage(baseImagePath);
     const iconImagePath = paths(`items/${icon}.png`);
     const iconImage = await loadImage(iconImagePath);
 
