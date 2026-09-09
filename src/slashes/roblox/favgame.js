@@ -17,10 +17,12 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
   const id = await getIdFromUsername(username)
   const error = embErr("The users you looking for does not exist. Try others")
   const nofavgame = embErr("This user doesn't have a favourite games")
-  if (!id) return await interact.reply({ embeds: [error], flags: 64 });
-  await interact.deferReply(checkPerms(interact))
+  if (!id) return await interact.editReply({ embeds: [error] });
   const games = await favgame(id)
   if (!games) return await interact.editReply({ embeds: [nofavgame] })
+  await interact.editReply({
+    content: "You may close this message"
+  });
   const info = await getInfo(id)
   const thumbnail = await getThumbnail(id)
   const row = new ActionRowBuilder()
@@ -41,10 +43,11 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
     embed.setThumbnail(thumbnail)
   }
   let content = {
-    embeds: [embed]
+    embeds: [embed],
+    ...checkPerms(interact)
   }
   if (!info.isBanned) {
     content.components = [row]
   }
-  await interact.editReply(content)
+  await interact.followUp(content)
 }

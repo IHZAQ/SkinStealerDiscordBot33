@@ -52,6 +52,7 @@ export default {
     )
     .setIntegrationTypes([0, 1]),
   async execute(interact, { config, embErr, checkPerms }) {
+    await interact.deferReply({ flags: 64 });
     const command = interact.options.getSubcommand()
     switch (command) {
       case "player":

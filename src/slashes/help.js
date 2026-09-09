@@ -10,7 +10,7 @@ const helpEmbed = (norme, colors, slashId) => new EmbedBuilder()
   .setDescription("Welcome to Help Menu!\nIn here, you can explore various types of commands by choosing a category below.")
   .addFields({
     name: "Featured Commands:",
-    value: `> </skin:${slashId.get("skin")}> - Grabbing Minecraft Player Skin easily\n` +
+    value: `> </skin java:${slashId.get("skin")}> & </skin bedrock:${slashId.get("skin")}>- Grabbing Minecraft Player Skin easily\n` +
       `> </roblox player:${slashId.get("roblox")}> - Fetch Roblox Player Information with just it username/id\n` +
       `> </info:${slashId.get("info")}> - Show detailed bot stats and credits that help this bot works`
   }, {

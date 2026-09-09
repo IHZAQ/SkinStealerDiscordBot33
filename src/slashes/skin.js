@@ -39,6 +39,7 @@ export default {
     )
     .setIntegrationTypes([0, 1]),
   async execute(interaction, client) {
+    await interaction.deferReply({ flags: 64 });
     const subcommand = interaction.options.getSubcommand()
     const isJava = subcommand === "java"
     const uuidForName = isJava ? java : bedrock;
@@ -60,10 +61,8 @@ export default {
         { name: '3-16 Character', value: 'Username must be between 3 and 16 characters' });
     if (!isJava) errorMessage.addFields({ name: "Geyser Bedrock", value: `For Bedrock players who have never joined any Geyser server before, click [HERE](${process.env.SERVER_URL}/mcs/GeyserTestServer/test.geysermc.org/19132). We need you to connect at least once so our database can register your account!` });
     const uuid = await uuidForName(username)
-    if (uuid === null) return await interaction.reply({ flags: 64, embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
-    if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
-
-    await interaction.deferReply(client.checkPerms(interaction))
+    if (uuid === null) return await interaction.editReply({ embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
+    if (!uuid) return await interaction.editReply({ embeds: [errorMessage] });
 
     const download = `https://mc-heads.net/download/${username}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
@@ -152,10 +151,13 @@ export default {
         iconURL: avatar
       })
       .setDescription(`**${isJava ? "UUID" : "XUID"}**: \`${isJava ? uuid.id : uuid.xuid}\``)
-
     await interaction.editReply({
+      content: "You may close this message"
+    })
+    await interaction.followUp({
       embeds: [embed],
-      components: [sel, row]
+      components: [sel, row],
+      ...client.checkPerms(interaction)
     })
   },
 

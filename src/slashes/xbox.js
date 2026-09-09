@@ -28,15 +28,16 @@ export default {
     )
     .setIntegrationTypes([0, 1]),
   async execute(interaction, client) {
+    await interaction.deferReply({ flags: 64 });
     const {
       colors,
       norme
     } = client.config
-    await interaction.deferReply(client.checkPerms(interaction))
     const gamertag = interaction.options.getString("gamertag")
     const info = await getUser(gamertag.toLowerCase())
     const errorEmbed = client.embErr("The player you are trying to find did not exist, try another gamertag")
     if (!info) return interaction.editReply({ embeds: [errorEmbed] });
+    await interaction.editReply({ content: "You may close this message" });
     let color = info.color ? info.color : colors.default;
     if (color === "107c10") color = colors.default;
     const embed = new EmbedBuilder()
@@ -75,9 +76,10 @@ export default {
         value: info.realname
       })
     }
-    await interaction.editReply({
+    await interaction.followUp({
       embeds: [embed],
-      components: [row]
+      components: [row],
+      ...client.checkPerms(interaction)
     })
   }
 }

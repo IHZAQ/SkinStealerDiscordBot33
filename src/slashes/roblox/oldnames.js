@@ -16,11 +16,13 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
   const id = await getIdFromUsername(usern)
   const error = embErr("The users you looking for does not exist. Try others")
   const noname = embErr("This users doesn't have a history of names")
-  if (!id) return await interact.reply({ embeds: [error], flags: 64 });
+  if (!id) return await interact.editReply({ embeds: [error] });
   const { username, displayName, isBanned, isPremium } = await getInfo(id)
   let list = await oldNames(id)
-  if (!list) return await interact.reply({ embeds: [noname], flags: 64 });
-  await interact.deferReply(checkPerms(interact))
+  if (!list) return await interact.editReply({ embeds: [noname] });
+  await interact.editReply({
+    content: "You may close this message"
+  });
   while (list.join(`\n`).length > 4096) list.pop();
   const thumbnail = await getThumbnail(id);
   const row = new ActionRowBuilder()
@@ -41,10 +43,11 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
     embed.setThumbnail(thumbnail)
   }
   let content = {
-    embeds: [embed]
+    embeds: [embed],
+    ...checkPerms(interact)
   }
   if (!isBanned) {
     content.components = [row]
   }
-  await interact.editReply(content)
+  await interact.followUp(content)
 }

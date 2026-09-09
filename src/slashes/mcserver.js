@@ -84,18 +84,12 @@ export default {
       const por = p(port, 25565)
       const info = await java(ip, por);
       if (!info) return await interact.editReply({
-        embeds: [errore],
-        flags: 64
+        embeds: [errore]
       });
-
+      await interact.editReply({
+        content: "You may close this message"
+      })
       let image;
-      const publish = new ActionRowBuilder()
-        .addComponents(
-          new ButtonBuilder()
-            .setCustomId(`s-mcserver`)
-            .setLabel("Publish")
-            .setStyle(ButtonStyle.Primary)
-        )
       const embed = new EmbedBuilder()
         .setTitle("Minecraft Java Server")
         .addFields({
@@ -134,18 +128,21 @@ export default {
       }
       let content = {
         embeds: [embed],
-        components: client.checkPerms(interact, true) ? [publish] : []
+        ...client.checkPerms(interact)
       }
       if (image) {
         content.files = [image]
       }
-      await interact.editReply(content)
+      await interact.followUp(content)
     }
     if (subcommand === "bedrock") {
       let por = p(port, 19132)
       const info = await bedrock(ip, por);
       if (!info) return await interact.editReply({
         embeds: [errore]
+      });
+      await interact.editReply({
+        content: "You may close this message"
       });
       let url = new ActionRowBuilder()
         .addComponents(
@@ -154,10 +151,6 @@ export default {
             .setLabel('Open in Minecraft')
             .setStyle(ButtonStyle.Link)
             .setURL(`${process.env.SERVER_URL}/mcs/${encodeURI(info.motd ? info.motd.split(`\n`)[0] : `${ip}:${por}`)}/${ip}/${por}`))
-      if (client.checkPerms(interact, true)) url.addComponents(new ButtonBuilder()
-        .setCustomId(`s-mcserver-bedrock`)
-        .setLabel("Publish")
-        .setStyle(ButtonStyle.Primary));
       const embed = new EmbedBuilder()
         .setTitle("Minecraft Bedrock Server")
         .addFields({
@@ -180,39 +173,12 @@ export default {
         .setFooter({
           text: norme.footer
         })
-      await interact.editReply({
+      await interact.followUp({
         embeds: [embed],
-        components: [url]
+        components: [url],
+        ...client.checkPerms(interact)
       })
     }
 
-  },
-  async button(interact) {
-    let embed = EmbedBuilder.from(interact.message.embeds[0])
-    const guild = interact.inGuild()
-    const authorname = guild ? `/mcserver by ${interact.user.tag}` : "/mcserver by you";
-    embed.setAuthor({
-      name: authorname,
-      iconURL: interact.user.avatarURL()
-    })
-    let content = {
-      embeds: [embed]
-    }
-    if (interact.customId.split(`-`)[2]) {
-      let component = new ActionRowBuilder()
-        .addComponents(interact.message.components[0].components[0])
-      content.components = [component]
-    }
-    if (guild) {
-      await interact.channel.send(content)
-    } else {
-      await interact.user.send(content)
-    }
-    interact.update({
-      content: "The Embed Was Published",
-      components: [],
-      embeds: [],
-      files: []
-    })
   }
 }

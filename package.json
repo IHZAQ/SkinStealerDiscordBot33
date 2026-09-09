@@ -1,6 +1,6 @@
 {
   "name": "skinstealerdiscordbot33",
-  "version": "3.4.0",
+  "version": "3.4.1",
   "description": "This is source code for Skin Stealer Bot",
   "main": "src/index.js",
   "scripts": {
@@ -17,6 +17,7 @@
   "author": "IHZAQ",
   "license": "MIT",
   "dependencies": {
+    "adm-zip": "^0.6.0",
     "axios": "^1.19.0",
     "canvas": "^3.2.3",
     "discord.js": "^14.27.0",
@@ -25,8 +26,7 @@
     "express-rate-limit": "^8.6.2",
     "mongoose": "^9.9.1",
     "qrcode": "^1.5.4",
-    "sharp": "^0.35.3",
-    "adm-zip": "^0.6.0"
+    "sharp": "^0.35.3"
   },
   "repository": {
     "type": "git",

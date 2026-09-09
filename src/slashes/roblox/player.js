@@ -15,13 +15,14 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
   const username = interact.options.getString("username")
   if (!username) return;
   let id = await getIdFromUsername(username)
-  if (!id) return await interact.reply({
-    embeds: [embErr("The users you looking for does not exist. Try others")],
-    flags: 64
+  if (!id) return await interact.editReply({
+    embeds: [embErr("The users you looking for does not exist. Try others")]
   });
-  await interact.deferReply(checkPerms(interact));
   const info = await getInfo(id);
-  if (!info) return interact.editReply({ content: `An error has occured\nPlease use report bug commands` });
+  if (!info) return await interact.editReply({ content: `An error has occured\nPlease use report bug commands` });
+  await interact.editReply({
+    content: "You may close this message"
+  });
   const badges = await emoji(id).catch((e) => { });
   const thumbnail = await getThumbnail(id)
   const date = await (async () => {
@@ -112,11 +113,12 @@ export default async (interact, EmbedBuilder, { norme, colors }, embErr, checkPe
     })
   }
   let content = {
-    embeds: [embed]
+    embeds: [embed],
+    ...checkPerms(interact)
   }
   if (row) {
     content.components = [row]
   }
   // Ends of Embed
-  await interact.editReply(content);
+  await interact.followUp(content);
 }
