@@ -7,7 +7,7 @@ import {
   StringSelectMenuBuilder
 } from "discord.js"
 import { usernamelist } from '../data/usernamer.js'
-import uuidForName from "../api/mcuuid.js"
+import { java as uuidForName } from "../api/mcuuid.js"
 import emoji from "../data/emoji.js"
 
 export default {

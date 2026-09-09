@@ -1,4 +1,4 @@
-import uuidForName from "../api/mcuuid.js"
+import { java, bedrock } from "../api/mcuuid.js"
 import {
   EmbedBuilder,
   ActionRowBuilder,
@@ -13,23 +13,41 @@ export default {
   cooldown: 6,
   category: "Minecraft Utilities",
   usage: {
-    desc: "Grab Minecraft Player skin using Minecraft API"
+    java: "Grab Minecraft Java Player Skin",
+    bedrock: "Grab Minecraft Bedrock Player Skin"
   },
   data: new SlashCommandBuilder()
     .setName("skin")
     .setDescription("Grab Minecraft Player Skin")
-    .addStringOption(option =>
-      option.setName('username')
-        .setDescription('Enter a valid Minecraft Username')
-        .setRequired(true))
+    .addSubcommand(command =>
+      command
+        .setName("java")
+        .setDescription("Grab Minecraft Java Player Skin")
+        .addStringOption(option =>
+          option.setName('username')
+            .setDescription('Enter a valid Minecraft Java Username')
+            .setRequired(true))
+    )
+    .addSubcommand(command =>
+      command
+        .setName("bedrock")
+        .setDescription("Grab Minecraft Bedrock Player Skin")
+        .addStringOption(option =>
+          option.setName('username')
+            .setDescription('Enter a valid Minecraft Bedrock Username')
+            .setRequired(true))
+    )
     .setIntegrationTypes([0, 1]),
   async execute(interaction, client) {
+    const subcommand = interaction.options.getSubcommand()
+    const isJava = subcommand === "java"
+    const uuidForName = isJava ? java : bedrock;
     const { colors, norme } = client.config
     const embedColor = colors.default;
     const errorColor = colors.error;
     const footer = norme.footer
     const username = interaction.options.getString("username")
-    
+
     let errorMessage = new EmbedBuilder()
       .setTitle("Username Error")
       .setColor(errorColor)
@@ -39,19 +57,19 @@ export default {
         { name: 'No Space', value: 'The minecraft username must be one character with no space', inline: true },
         { name: 'Must ASCII letter', value: 'It must 0-9, all upper/lowercase alphabet and underscore `_`' },
         { name: 'Player didn\'t exist', value: `A player with username ${username} does not exist` },
-        { name: '3-16 Character', value: 'Username must be between 3 and 16 characters' })
-        
+        { name: '3-16 Character', value: 'Username must be between 3 and 16 characters' });
+    if (!isJava) errorMessage.addFields({ name: "Geyser Bedrock", value: `For Bedrock players who have never joined any Geyser server before, click [HERE](${process.env.SERVER_URL}/mcs/GeyserTestServer/test.geysermc.org/19132). We need you to connect at least once so our database can register your account!` });
     const uuid = await uuidForName(username)
     if (uuid === null) return await interaction.reply({ flags: 64, embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
     if (!uuid) return await interaction.reply({ embeds: [errorMessage], flags: 64 });
-    
+
     await interaction.deferReply(client.checkPerms(interaction))
-    
+
     const download = `https://mc-heads.net/download/${username}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
     const body = `https://mc-heads.net/body/${uuid.id}`
     const head = `https://mc-heads.net/head/${uuid.id}`
-    
+
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()
@@ -60,7 +78,7 @@ export default {
           .setStyle(ButtonStyle.Link)
           .setURL(download),
       );
-      
+
     const sel = new ActionRowBuilder()
       .addComponents(
         new StringSelectMenuBuilder()
@@ -123,28 +141,28 @@ export default {
             }
           ]),
       );
-      
+
     let embed = new EmbedBuilder()
       .setColor(embedColor)
       .setFooter({ text: footer })
       .setImage(body)
       .setThumbnail(head)
       .setAuthor({
-        name: `${uuid.name}'s skin`,
+        name: `${uuid.name}'s ${isJava ? "Java" : "Bedrock"} Skin`,
         iconURL: avatar
       })
-      .setDescription(`**UUID**: \`${uuid.id}\``)
-      
+      .setDescription(`**${isJava ? "UUID" : "XUID"}**: \`${isJava ? uuid.id : uuid.xuid}\``)
+
     await interaction.editReply({
       embeds: [embed],
       components: [sel, row]
     })
   },
-  
-    async selectmenu(interaction, client) {
+
+  async selectmenu(interaction, client) {
     const { norme, colors } = client.config
     const [, userid] = interaction.customId.split("-")
-    
+
     if (interaction.user.id !== userid) {
       return await interaction.reply({
         embeds: [new EmbedBuilder()
@@ -160,7 +178,7 @@ export default {
     const embed = EmbedBuilder.from(interaction.message.embeds[0])
     let url = interaction.message.embeds[0].image.url
     const [menu, part, direction] = interaction.values[0].split("_")
-    
+
     if (menu === "skin") {
       const match = url.match(/(https:\/\/mc-heads\.net\/)[^\/]+\/([^\/]+)/);
       if (match) {
@@ -168,7 +186,7 @@ export default {
         const uuid = match[2];
         const hasNoHelm = url.endsWith("/nohelm");
         url = `${baseUrl}${part}/${uuid}`;
-        
+
         if (["head", "body"].includes(part) && direction) {
           url += `/${direction}`;
         }
@@ -177,7 +195,7 @@ export default {
         }
       }
     }
-    
+
     if (menu === "helm") {
       if (part === "yes" && url.endsWith("/nohelm")) {
         url = url.replace("/nohelm", "")
@@ -186,7 +204,7 @@ export default {
         url += "/nohelm"
       }
     }
-    
+
     embed.setImage(url)
     interaction.update({
       embeds: [embed]
