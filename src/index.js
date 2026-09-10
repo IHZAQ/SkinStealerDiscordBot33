@@ -9,6 +9,7 @@ import { config } from "dotenv"
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
 import express from "express"
+import axios from "axios"
 import { rateLimit } from "express-rate-limit"
 import fig from "../config.js"
 import eventHandler from './handler/eventHandler.js'
@@ -40,7 +41,7 @@ let client = new Client({
   }
 })
 const limiter = rateLimit({
-  windowMs: 15*60*1000,
+  windowMs: 15 * 60 * 1000,
   limit: 100,
   standardHeaders: 'draft-8',
   legacyHeaders: false,
@@ -61,6 +62,17 @@ client.app.get('/mcs/:name/:ip/:port', (req, res) => {
   }
   res.location(`minecraft://?addExternalServer=${name}|${ip}:${port}`)
   res.status(302).end();
+});
+client.app.get('/downloadSkin/:identifier/:name', async (req, res) => {
+  const { identifier, name } = req.params;
+  if (!identifier) return res.status(400).send('Missing required parameter: username or UUID');
+  const skinResponse = await axios.get(`https://mc-heads.net/skin/${identifier}.png`, {
+    responseType: "stream"
+  }).catch(() => { });
+  if (!skinResponse || skinResponse.status !== 200) return res.status(404).send('Skin not found');
+  res.setHeader('Content-Disposition', `attachment; filename="${name || identifier}.png"`);
+  res.setHeader('Content-Type', 'image/png');
+  skinResponse.data.pipe(res);
 });
 client.app.use("/hangman", express.static(paths("./img/hangman")));
 client.app.use(limiter)

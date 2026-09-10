@@ -64,7 +64,7 @@ export default {
     if (uuid === null) return await interaction.editReply({ embeds: [client.embErr("Hi, At this point, Mojang API maybe down. Please try again later")] });
     if (!uuid) return await interaction.editReply({ embeds: [errorMessage] });
 
-    const download = `https://mc-heads.net/download/${username}`
+    const download = `${process.env.SERVER_URL}/downloadSkin/${uuid.id}/${uuid.name || uuid.id}`
     const avatar = `https://mc-heads.net/avatar/${uuid.id}`
     const body = `https://mc-heads.net/body/${uuid.id}`
     const head = `https://mc-heads.net/head/${uuid.id}`
