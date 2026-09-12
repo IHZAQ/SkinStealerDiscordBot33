@@ -76,7 +76,8 @@ export default {
                         .setDescription("A year of leaderboard")
                         .addChoices(
                            { name: "2024", value: "2024" },
-                           { name: "2025", value: "2025" }
+                           { name: "2025", value: "2025" },
+                           { name: "2026", value: "2026" }
                         )
                         .setRequired(true)
                   ))
@@ -88,7 +89,10 @@ export default {
                         .setDescription("Seasons")
                         .addChoices(
                            { name: "Season 1", value: "1" },
-                           { name: "Season 2", value: "2" }
+                           { name: "Season 2", value: "2" },
+                           { name: "Season 3", value: "3" },
+                           { name: "Season 4", value: "4" },
+                           { name: "Season 5", value: "5" }
                         )
                         .setRequired(true)
                   )
