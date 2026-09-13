@@ -7,17 +7,15 @@ export default async (username) => {
     }
   }
   const api = await axios.get(`https://xbl.io/api/v2/search/${encodeURI(username)}`, config).catch(err => { })
-  if (!api || api.status !== 200) return undefined;
-  if (!api.data) return undefined;
-  if (!api.data.content || !api.data.content.people || api.data.content.people.length === 0) return undefined;
+  if (api?.status !== 200 || !api?.data?.content?.people?.length) return undefined;
   const data = api.data.content.people[0]
   const json = {
     name: data.gamertag,
     xuid: data.xuid,
     avatarURL: data.displayPicRaw,
     gamerscore: f(data.gamerScore),
-    followerCount: f(data.detail.followerCount), 
-    followingCount: f(data.detail.followingCount),
+    followerCount: f(data.detail?.followerCount || 0),
+    followingCount: f(data.detail?.followingCount || 0),
     realname: data.realName,
     color: data.preferredColor.primaryColor
   }

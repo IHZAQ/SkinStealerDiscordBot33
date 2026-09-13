@@ -160,6 +160,7 @@ async function pants(skin) {
 }
 const generate = async (url, responseType) => {
     const res = await axios.get(url, { responseType: "arraybuffer" }).catch(err => { });
+    if (!res?.data) return undefined;
     let buffer;
     if (!["png", "jpeg"].includes(responseType.split("/")[1])) {
         buffer = await sharp(res.data).toFormat('png').toBuffer();
