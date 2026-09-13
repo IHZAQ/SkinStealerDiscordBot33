@@ -11,7 +11,16 @@ import {
 } from "discord.js"
 
 const t = (s) => s.replace(/\s+/g, ' ').toLowerCase();
-
+const errorLogs = async (client, name, err, norme, colors) => {
+  let channel = await client.channels.fetch(process.env.ERROR_LOGS).catch(() => { });
+  if (!channel) return;
+  const embed = new EmbedBuilder()
+    .setTitle("Error Logs")
+    .setDescription(`An error occurred while executing the command \`${name}\`.\n\n**Error:**\n\`\`\`${err.message}\`\`\``)
+    .setColor(colors.error)
+    .setFooter({ text: norme.footer })
+  await channel.send({ embeds: [embed] });
+}
 export default {
   event: Events.InteractionCreate,
   run: async (interact, client) => {
@@ -119,8 +128,9 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
           }).catch(() => { });
           //catch an error for me
         }
-      } catch (err) {
-        if (err) console.log(err)
+      } catch (error) {
+        if (error) console.log(error);
+        await errorLogs(client, name, error, norme, colors);
       }
       return;
     }
@@ -131,6 +141,7 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
         await command.autocomplete(interact, client);
       } catch (error) {
         if (error) console.error(error);
+        await errorLogs(client, name, error, norme, colors);
       }
       return;
     }
@@ -155,7 +166,8 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
       try {
         await command.button(interact, client);
       } catch (error) {
-        if (error) console.log(error)
+        if (error) console.log(error);
+        await errorLogs(client, name, error, norme, colors);
       }
       return;
     }
@@ -165,7 +177,8 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
       try {
         await command.selectmenu(interact, client)
       } catch (error) {
-        if (error) console.log(error)
+        if (error) console.log(error);
+        await errorLogs(client, name, error, norme, colors);
       }
       return;
     }
@@ -175,7 +188,8 @@ Please join our [Discord server](https://discord.gg/3d3HBTvfaT) to review the ch
       try {
         await command.modal(interact, client)
       } catch (error) {
-        if (error) console.log(error)
+        if (error) console.log(error);
+        await errorLogs(client, name, error, norme, colors);
       }
       return;
     }

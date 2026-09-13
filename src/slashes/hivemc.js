@@ -25,7 +25,7 @@ export default {
                option.setName("username")
                   .setDescription("XBOX Gamertag here")
                   .setRequired(true))
-            .addStringOption(option => 
+            .addStringOption(option =>
                option.setName("game")
                   .setDescription("Choosen game")
                   .addChoices(addChoice)
