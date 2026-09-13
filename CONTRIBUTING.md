@@ -60,6 +60,6 @@ Please adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) in all interactions.
 
 ## Contact
 
-If you have any questions or need further assistance, please open an issue or contact us at IHZAQSTORM33@gmail.com.
+If you have any questions or need further assistance, please open an issue or contact us at [me@IHZAQ.dev](mailto:me@IHZAQ.dev)
 
 Thank you for contributing to Skin Stealer Discord Bot!
