@@ -18,7 +18,7 @@ export const getHive = async (username, typeGame) => {
       hiveuser.set(username, data)
     }
   }
-  if (!isAvailable || (typeGame && !(typeGame in data))) {
+  if (!isAvailable || (typeGame && !data?.[typeGame])) {
     let api;
     if (!type) api = await axios.get(`https://api.playhive.com/v0/game/all/main/${encodeURI(username)}`).catch(err => { });
     if (!api) isMain = false;

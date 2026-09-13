@@ -130,7 +130,7 @@ and try again </hivemc player:${client.slashId.get("hivemc")}> with game option
             .addOptions(game)
         const profileURL = new ButtonBuilder()
             .setLabel("The HiveMC Profile Page")
-            .setURL(`https://playhive.com/profile/${username}`)
+            .setURL(`https://playhive.com/profile/${encodeURI(username)}`)
             .setStyle(ButtonStyle.Link)
             .setEmoji("🐝")
         const embed = new EmbedBuilder()
