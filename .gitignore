@@ -7,3 +7,5 @@ pnpm-lock.yaml
 pnpm-workspace.yaml
 emoji.json
 config.js
+src/robots.txt
+src/sitemap.xml

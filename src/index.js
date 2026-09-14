@@ -4,7 +4,7 @@ import {
   Collection,
   GatewayIntentBits
 } from "discord.js"
-import { readdirSync } from 'fs'
+import { readdirSync, existsSync } from 'fs'
 import { config } from "dotenv"
 import { fileURLToPath } from 'url';
 import { dirname, resolve } from 'path';
@@ -55,6 +55,16 @@ client.app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/main.html`);
   res.status(200)
 });
+if (existsSync(paths("./robots.txt"))) {
+  client.app.get('/robots.txt', (req, res) => {
+    res.sendFile(`${__dirname}/robots.txt`);
+  });
+};
+if (existsSync(paths("./sitemap.xml"))) {
+  client.app.get('/sitemap.xml', (req, res) => {
+    res.sendFile(`${__dirname}/sitemap.xml`);
+  });
+};
 client.app.get('/mcs/:name/:ip/:port', (req, res) => {
   const { name, ip, port } = req.params;
   if (!name || !ip || !port) {
