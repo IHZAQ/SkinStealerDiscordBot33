@@ -14,7 +14,6 @@ export default {
     .setDescription("Show invite links for this bot")
     .setIntegrationTypes([0, 1]),
   async execute(interact, client) {
-    const { norme, colors } = client.config
     const row = new ActionRowBuilder()
       .addComponents(
         new ButtonBuilder()

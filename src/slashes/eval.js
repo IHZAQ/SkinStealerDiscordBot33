@@ -112,7 +112,7 @@ export default {
       text = text
         .replace(/`/g, "`" + String.fromCharCode(8203))
         .replace(/@/g, "@" + String.fromCharCode(8203));
-      let changed = text.substr(0, 4080)
+      let changed = text.substring(0, 4080)
       if (text !== changed) {
         changed += "..."
       }
@@ -128,7 +128,7 @@ export default {
         })
       }
     } catch (err) {
-      let changed = err.stack.substr(0, 4080)
+      let changed = err.stack.substring(0, 4080)
       if (err.stack !== changed) {
         changed += "..."
       }

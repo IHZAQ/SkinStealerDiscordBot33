@@ -14,9 +14,13 @@ const t = (s) => s.replace(/\s+/g, ' ').toLowerCase();
 const errorLogs = async (client, name, err, norme, colors) => {
   let channel = await client.channels.fetch(process.env.ERROR_LOGS).catch(() => { });
   if (!channel) return;
+  let changed = err.stack.substring(0, 4072 - name.length)
+  if (err.stack !== changed) {
+    changed += "..."
+  }
   const embed = new EmbedBuilder()
     .setTitle("Error Logs")
-    .setDescription(`An error occurred while executing the command \`${name}\`.\n\n**Error:**\n\`\`\`${err.message}\`\`\``)
+    .setDescription(`command: \`${name}\`.\n\n**Error:**\n\`\`\`${changed}\`\`\``)
     .setColor(colors.error)
     .setFooter({ text: norme.footer })
   await channel.send({ embeds: [embed] });
