@@ -75,7 +75,7 @@ export default {
           .setEmoji("⬇️")
           .setLabel('Download Skin')
           .setStyle(ButtonStyle.Link)
-          .setURL(download),
+          .setURL(encodeURI(download)),
       );
 
     const sel = new ActionRowBuilder()
@@ -207,7 +207,7 @@ export default {
       }
     }
 
-    embed.setImage(url)
+    embed.setImage(encodeURI(url))
     interaction.update({
       embeds: [embed]
     })

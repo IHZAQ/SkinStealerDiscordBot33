@@ -50,6 +50,7 @@ export default {
     await interaction.showModal(modal)
   },
   modal: async (interaction, client) => {
+    await interaction.deferReply()
     async function setupEmoji() {
       let message = ""
       const appEmojis = await interaction.client.application.emojis.fetch();
@@ -87,7 +88,6 @@ export default {
       return message;
     }
     const { norme, colors } = client.config
-    await interaction.deferReply()
     const option = interaction.fields.getTextInputValue("option").toUpperCase()
     if (!["N", "A"].includes(option)) return interaction.editReply({ content: "wtf men" });
     let args = interaction.fields.getTextInputValue("code")
